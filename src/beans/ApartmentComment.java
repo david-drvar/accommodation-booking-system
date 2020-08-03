@@ -1,37 +1,51 @@
 package beans;
 
-import beans.Apartment;
-import beans.Guest;
-
-import java.util.*;
-
 public class ApartmentComment {
    private String content;
    private int grade;
    
    private Guest guest;
    private Apartment apartment;
-   
-   
+
+   public ApartmentComment() {
+   }
+
+   public ApartmentComment(String content, int grade, Guest guest, Apartment apartment) {
+      this.content = content;
+      this.grade = grade;
+      this.guest = guest;
+      this.apartment = apartment;
+   }
+
+   public String getContent() {
+      return content;
+   }
+
+   public void setContent(String content) {
+      this.content = content;
+   }
+
+   public int getGrade() {
+      return grade;
+   }
+
+   public void setGrade(int grade) {
+      this.grade = grade;
+   }
+
+   public Guest getGuest() {
+      return guest;
+   }
+
+   public void setGuest(Guest guest) {
+      this.guest = guest;
+   }
+
    public Apartment getApartment() {
       return apartment;
    }
-   
-   public void setApartment(Apartment newApartment) {
-      if (this.apartment == null || !this.apartment.equals(newApartment))
-      {
-         if (this.apartment != null)
-         {
-            Apartment oldApartment = this.apartment;
-            this.apartment = null;
-            oldApartment.removeApartmentComment(this);
-         }
-         if (newApartment != null)
-         {
-            this.apartment = newApartment;
-            this.apartment.addApartmentComment(this);
-         }
-      }
-   }
 
+   public void setApartment(Apartment apartment) {
+      this.apartment = apartment;
+   }
 }

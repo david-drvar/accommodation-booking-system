@@ -1,190 +1,147 @@
 package beans;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Apartment {
    private ApartmentType type;
    private int roomNumber;
    private int guestNumber;
-   private Date[] rentDates;
-   private Date[] avaliableDates;
-   private java.lang.Object[] images;
+   private List<Date> rentDates;
+   private List<Date> availableDates;
+   private List<Image> images;
    private double pricePerNight;
    private Date checkIn;
    private Date checkOut;
    private Status status;
    
    private Location location;
-   private java.util.List<ApartmentComment> apartmentComment;
-   private java.util.List<Amenities> amenities;
+   private List<ApartmentComment> apartmentComment;
+   private List<Amenities> amenities;
    private Host host;
-   private java.util.List<Reservation> reservation;
-   
-   
-   public java.util.List<ApartmentComment> getApartmentComment() {
-      if (apartmentComment == null)
-         apartmentComment = new java.util.ArrayList<ApartmentComment>();
+   private List<Reservation> reservation;
+
+   public Apartment() {
+   }
+
+   public ApartmentType getType() {
+      return type;
+   }
+
+   public void setType(ApartmentType type) {
+      this.type = type;
+   }
+
+   public int getRoomNumber() {
+      return roomNumber;
+   }
+
+   public void setRoomNumber(int roomNumber) {
+      this.roomNumber = roomNumber;
+   }
+
+   public int getGuestNumber() {
+      return guestNumber;
+   }
+
+   public void setGuestNumber(int guestNumber) {
+      this.guestNumber = guestNumber;
+   }
+
+   public List<Date> getRentDates() {
+      return rentDates;
+   }
+
+   public void setRentDates(List<Date> rentDates) {
+      this.rentDates = rentDates;
+   }
+
+   public List<Date> getAvailableDates() {
+      return availableDates;
+   }
+
+   public void setAvailableDates(List<Date> availableDates) {
+      this.availableDates = availableDates;
+   }
+
+   public List<Image> getImages() {
+      return images;
+   }
+
+   public void setImages(List<Image> images) {
+      this.images = images;
+   }
+
+   public double getPricePerNight() {
+      return pricePerNight;
+   }
+
+   public void setPricePerNight(double pricePerNight) {
+      this.pricePerNight = pricePerNight;
+   }
+
+   public Date getCheckIn() {
+      return checkIn;
+   }
+
+   public void setCheckIn(Date checkIn) {
+      this.checkIn = checkIn;
+   }
+
+   public Date getCheckOut() {
+      return checkOut;
+   }
+
+   public void setCheckOut(Date checkOut) {
+      this.checkOut = checkOut;
+   }
+
+   public Status getStatus() {
+      return status;
+   }
+
+   public void setStatus(Status status) {
+      this.status = status;
+   }
+
+   public Location getLocation() {
+      return location;
+   }
+
+   public void setLocation(Location location) {
+      this.location = location;
+   }
+
+   public List<ApartmentComment> getApartmentComment() {
       return apartmentComment;
    }
-   
-   public java.util.Iterator getIteratorApartmentComment() {
-      if (apartmentComment == null)
-         apartmentComment = new java.util.ArrayList<ApartmentComment>();
-      return apartmentComment.iterator();
+
+   public void setApartmentComment(List<ApartmentComment> apartmentComment) {
+      this.apartmentComment = apartmentComment;
    }
-   
-   public void setApartmentComment(java.util.List<ApartmentComment> newApartmentComment) {
-      removeAllApartmentComment();
-      for (java.util.Iterator iter = newApartmentComment.iterator(); iter.hasNext();)
-         addApartmentComment((ApartmentComment)iter.next());
-   }
-   
-   public void addApartmentComment(ApartmentComment newApartmentComment) {
-      if (newApartmentComment == null)
-         return;
-      if (this.apartmentComment == null)
-         this.apartmentComment = new java.util.ArrayList<ApartmentComment>();
-      if (!this.apartmentComment.contains(newApartmentComment))
-      {
-         this.apartmentComment.add(newApartmentComment);
-         newApartmentComment.setApartment(this);      
-      }
-   }
-   
-   public void removeApartmentComment(ApartmentComment oldApartmentComment) {
-      if (oldApartmentComment == null)
-         return;
-      if (this.apartmentComment != null)
-         if (this.apartmentComment.contains(oldApartmentComment))
-         {
-            this.apartmentComment.remove(oldApartmentComment);
-            oldApartmentComment.setApartment((Apartment)null);
-         }
-   }
-   
-   public void removeAllApartmentComment() {
-      if (apartmentComment != null)
-      {
-         ApartmentComment oldApartmentComment;
-         for (java.util.Iterator iter = getIteratorApartmentComment(); iter.hasNext();)
-         {
-            oldApartmentComment = (ApartmentComment)iter.next();
-            iter.remove();
-            oldApartmentComment.setApartment((Apartment)null);
-         }
-      }
-   }
-   public java.util.List<Amenities> getAmenities() {
-      if (amenities == null)
-         amenities = new java.util.ArrayList<Amenities>();
+
+   public List<Amenities> getAmenities() {
       return amenities;
    }
-   
-   public java.util.Iterator getIteratorAmenities() {
-      if (amenities == null)
-         amenities = new java.util.ArrayList<Amenities>();
-      return amenities.iterator();
+
+   public void setAmenities(List<Amenities> amenities) {
+      this.amenities = amenities;
    }
-   
-   public void setAmenities(java.util.List<Amenities> newAmenities) {
-      removeAllAmenities();
-      for (java.util.Iterator iter = newAmenities.iterator(); iter.hasNext();)
-         addAmenities((Amenities)iter.next());
-   }
-   
-   public void addAmenities(Amenities newAmenities) {
-      if (newAmenities == null)
-         return;
-      if (this.amenities == null)
-         this.amenities = new java.util.ArrayList<Amenities>();
-      if (!this.amenities.contains(newAmenities))
-         this.amenities.add(newAmenities);
-   }
-   
-   public void removeAmenities(Amenities oldAmenities) {
-      if (oldAmenities == null)
-         return;
-      if (this.amenities != null)
-         if (this.amenities.contains(oldAmenities))
-            this.amenities.remove(oldAmenities);
-   }
-   
-   public void removeAllAmenities() {
-      if (amenities != null)
-         amenities.clear();
-   }
+
    public Host getHost() {
       return host;
    }
-   
-   public void setHost(Host newHost) {
-      if (this.host == null || !this.host.equals(newHost))
-      {
-         if (this.host != null)
-         {
-            Host oldHost = this.host;
-            this.host = null;
-            oldHost.removeApartment(this);
-         }
-         if (newHost != null)
-         {
-            this.host = newHost;
-            this.host.addApartment(this);
-         }
-      }
-   }
-   public java.util.List<Reservation> getReservation() {
-      if (reservation == null)
-         reservation = new java.util.ArrayList<Reservation>();
-      return reservation;
-   }
-   
-   public java.util.Iterator getIteratorReservation() {
-      if (reservation == null)
-         reservation = new java.util.ArrayList<Reservation>();
-      return reservation.iterator();
-   }
-   
-   public void setReservation(java.util.List<Reservation> newReservation) {
-      removeAllReservation();
-      for (java.util.Iterator iter = newReservation.iterator(); iter.hasNext();)
-         addReservation((Reservation)iter.next());
-   }
-   
-   public void addReservation(Reservation newReservation) {
-      if (newReservation == null)
-         return;
-      if (this.reservation == null)
-         this.reservation = new java.util.ArrayList<Reservation>();
-      if (!this.reservation.contains(newReservation))
-      {
-         this.reservation.add(newReservation);
-         newReservation.setApartment(this);      
-      }
-   }
-   
-   public void removeReservation(Reservation oldReservation) {
-      if (oldReservation == null)
-         return;
-      if (this.reservation != null)
-         if (this.reservation.contains(oldReservation))
-         {
-            this.reservation.remove(oldReservation);
-            oldReservation.setApartment((Apartment)null);
-         }
-   }
-   
-   public void removeAllReservation() {
-      if (reservation != null)
-      {
-         Reservation oldReservation;
-         for (java.util.Iterator iter = getIteratorReservation(); iter.hasNext();)
-         {
-            oldReservation = (Reservation)iter.next();
-            iter.remove();
-            oldReservation.setApartment((Apartment)null);
-         }
-      }
+
+   public void setHost(Host host) {
+      this.host = host;
    }
 
+   public List<Reservation> getReservation() {
+      return reservation;
+   }
+
+   public void setReservation(List<Reservation> reservation) {
+      this.reservation = reservation;
+   }
 }

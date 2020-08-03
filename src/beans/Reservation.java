@@ -12,47 +12,73 @@ public class Reservation {
    
    private Guest guest;
    private Apartment apartment;
-   
-   
+
+   public Reservation() {
+   }
+
+   public Reservation(Date checkInDate, int numberOfNights, double totalPrice, String note, ReservationStatus status, Guest guest, Apartment apartment) {
+      this.checkInDate = checkInDate;
+      this.numberOfNights = numberOfNights;
+      this.totalPrice = totalPrice;
+      this.note = note;
+      this.status = status;
+      this.guest = guest;
+      this.apartment = apartment;
+   }
+
+   public Date getCheckInDate() {
+      return checkInDate;
+   }
+
+   public void setCheckInDate(Date checkInDate) {
+      this.checkInDate = checkInDate;
+   }
+
+   public int getNumberOfNights() {
+      return numberOfNights;
+   }
+
+   public void setNumberOfNights(int numberOfNights) {
+      this.numberOfNights = numberOfNights;
+   }
+
+   public double getTotalPrice() {
+      return totalPrice;
+   }
+
+   public void setTotalPrice(double totalPrice) {
+      this.totalPrice = totalPrice;
+   }
+
+   public String getNote() {
+      return note;
+   }
+
+   public void setNote(String note) {
+      this.note = note;
+   }
+
+   public ReservationStatus getStatus() {
+      return status;
+   }
+
+   public void setStatus(ReservationStatus status) {
+      this.status = status;
+   }
+
    public Guest getGuest() {
       return guest;
    }
-   
-   public void setGuest(Guest newGuest) {
-      if (this.guest == null || !this.guest.equals(newGuest))
-      {
-         if (this.guest != null)
-         {
-            Guest oldGuest = this.guest;
-            this.guest = null;
-            oldGuest.removeReservation(this);
-         }
-         if (newGuest != null)
-         {
-            this.guest = newGuest;
-            this.guest.addReservation(this);
-         }
-      }
+
+   public void setGuest(Guest guest) {
+      this.guest = guest;
    }
+
    public Apartment getApartment() {
       return apartment;
    }
-   
-   public void setApartment(Apartment newApartment) {
-      if (this.apartment == null || !this.apartment.equals(newApartment))
-      {
-         if (this.apartment != null)
-         {
-            Apartment oldApartment = this.apartment;
-            this.apartment = null;
-            oldApartment.removeReservation(this);
-         }
-         if (newApartment != null)
-         {
-            this.apartment = newApartment;
-            this.apartment.addReservation(this);
-         }
-      }
-   }
 
+   public void setApartment(Apartment apartment) {
+      this.apartment = apartment;
+   }
 }
