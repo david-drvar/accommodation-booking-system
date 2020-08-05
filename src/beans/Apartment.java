@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.List;
 
 public class Apartment {
+   private long id;
    private ApartmentType type;
    private int roomNumber;
    private int guestNumber;

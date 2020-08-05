@@ -3,7 +3,7 @@ package beans;
 public class ApartmentComment {
    private String content;
    private int grade;
-   
+   private long id;
    private Guest guest;
    private Apartment apartment;
 

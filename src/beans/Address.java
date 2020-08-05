@@ -3,7 +3,7 @@ package beans;
 public class Address {
    private String street;
    private String number;
-   
+   private long id;
    private Town town;
 
    public Address() {
