@@ -1,14 +1,18 @@
 package repository;
 
-import beans.Amenities;
+import beans.Amenity;
+import repository.json.stream.IJSONStream;
 
 
-import java.io.*;
+public class AmenitiesRepository extends JSONRepository<Amenity> {
+
+    public AmenitiesRepository(IJSONStream<Amenity> stream, ISequencer sequencer) {
+        super(stream, sequencer);
+    }
 
 
-public class AmenitiesRepository {
-	
-    public void save(Amenities amenity, String path) {
+//    public void save(Amenity amenity, String path) {
+
 //        ObjectMapper mapper = new ObjectMapper();
 //
 //        File file = new File(path + "/resources/tekst.txt");
@@ -27,5 +31,5 @@ public class AmenitiesRepository {
 //			e.printStackTrace();
 //		}
 		
-    }
+    //}
 }

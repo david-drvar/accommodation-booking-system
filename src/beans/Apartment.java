@@ -19,7 +19,7 @@ public class Apartment {
    
    private Location location;
    private List<ApartmentComment> apartmentComment;
-   private List<Amenities> amenities;
+   private List<Amenity> amenities;
    private Host host;
    private List<Reservation> reservation;
 
@@ -122,11 +122,11 @@ public class Apartment {
       this.apartmentComment = apartmentComment;
    }
 
-   public List<Amenities> getAmenities() {
+   public List<Amenity> getAmenities() {
       return amenities;
    }
 
-   public void setAmenities(List<Amenities> amenities) {
+   public void setAmenities(List<Amenity> amenities) {
       this.amenities = amenities;
    }
 

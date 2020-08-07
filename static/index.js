@@ -13,12 +13,29 @@ let login = new Vue(
             requiredUsername : function(event) {
                 if(!this.user.username) {
                     this.userErr = "This field is required.";
-                    event.target.style.borderColor = 'red';
+                    document.getElementById('user').style.borderColor = 'red';
                 }
                 else {
                     this.userErr = '';
-                    event.target.style.borderColor = 'gray';
+                    document.getElementById('user').style.borderColor = '#ced4da';
                 }
+            },
+            requiredPassword : function(event) {
+                if(!this.user.password) {
+                    this.passErr = "This field is required.";
+                    document.getElementById('pass').style.borderColor = 'red';
+                }
+                else {
+                    this.passErr = '';
+                    document.getElementById('pass').style.borderColor = '#ced4da';
+                }
+            },
+            resetValidation : function() {
+                this.passErr = '';
+                this.userErr = '';
+                this.user = {username : "", password : ""};
+                document.getElementById('user').style.borderColor = '#ced4da';
+                document.getElementById('pass').style.borderColor = '#ced4da';
             },
             fetchUser : function () {
 
