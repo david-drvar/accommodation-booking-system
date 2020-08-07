@@ -1,6 +1,6 @@
 package beans;
 
-import java.util.*;
+import java.util.List;
 
 public class Guest extends User {
    private List<Reservation> reservation;

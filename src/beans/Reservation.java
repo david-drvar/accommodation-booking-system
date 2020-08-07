@@ -1,7 +1,7 @@
 
 package beans;
 
-import java.util.*;
+import java.util.Date;
 
 public class Reservation {
    private Date checkInDate;

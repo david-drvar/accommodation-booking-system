@@ -1,9 +1,9 @@
 package beans;
 
-import java.util.*;
+import java.util.List;
 
 public class Host extends User {
-   private java.util.List<Apartment> apartment;
+   private List<Apartment> apartment;
 
    public Host() {
    }

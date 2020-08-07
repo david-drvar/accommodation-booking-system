@@ -1,6 +1,6 @@
 package beans;
 
-import java.util.*;
+import java.util.List;
 
 public class State {
    private String name;

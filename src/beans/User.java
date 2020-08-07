@@ -1,7 +1,5 @@
 package beans;
 
-import java.util.*;
-
 public abstract class User {
    protected String username;
    protected String password;
