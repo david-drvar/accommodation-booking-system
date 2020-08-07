@@ -1,22 +1,117 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<link href="css/toast.css" rel="stylesheet" />
+	<title>Index</title>
 	<meta charset="utf-8"/>
-</head> 
-
+	<style>
+		.errorMsg {
+			color: red;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="bootstrap-4.5.1-dist/css/bootstrap.min.css">
+</head>
 <body>
-<div id="webShop">
-<h3>Accommodation Booking System Vue.js</h3>
-	  <router-view></router-view>
-</div>
+	<img class="container">
+		<div class="row">
+			<div class="col-lg-7"></div>
+			<div class="col-lg-2">
+				<button class="btn btn-outline-primary btn-block">Registration</button>
 
-<script src="js/vue.js"></script>
-<script src="js/vue-router.js"></script>
-<script src="js/axios.js"></script>
-<script src="js/jquery.min.js"></script>
-<script src="js/toast.js"></script>
+			</div>
+			<div class="col-lg-2">
+				<button type="button" class="btn btn-outline-primary btn-block"
+						data-toggle="modal" data-target="#loginModal">
+					Log in
+				</button>
+			</div>
+		</div>
+	</div>
 
+	<div class="modal fade" id="loginModal" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Log in</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<small class="errorMsg">{{userErr}}</small>
+						<input type="text" class="form-control" placeholder="username"
+							   data-toggle="tooltip" title="Enter your username" data-placement="right"
+							   v-on:focusout="requiredUsername"
+							   v-model="user.username">
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{passErr}}</small>
+						<input type="password" class="form-control" placeholder="password"
+							   data-toggle="tooltip" title="Enter your password" data-placement="right"
+							   v-model="user.password">
+					</div>
+					<div class="form-group form-check">
+						<label class="form-check-label">
+							<input class="form-check-input" type="checkbox"> Remember me
+						</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" v-on:click="fetchUser">Log in</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+	<div class="headerLogo">
+		<img src="logo.jpg" id="logo">
+	</div>
+	<div class="headerButtons">
+		<button class="headerButton">Registration</button>
+		<button class="headerButton">Log in</button>
+	</div>
+	<div>
+		<form>
+			<table class="searchPane">
+				<tr >
+					<td>
+						<input type="text" name="location" placeholder="Location" class="element">
+					</td>
+					<td>
+						<input type="date" name="date" placeholder="Date" class="element">
+					</td>
+					<td>
+						<input type="number" name="guestNumber" placeholder="Number of Guests" class="element">
+					</td>
+					<td class="advanced">
+						<input type="text" name="priceRange" placeholder="Price Range" class="element">
+					</td>
+					<td class="advanced">
+						<input type="text" name="roomRange" placeholder="Room Range" class="element">
+					</td>
+					<td>
+						<input type="submit" name="search" value="Go" class="element">
+					</td>
+				</tr>
+			</table>
+		</form>
+		<p>Advanced options</p>
+	</div>
+	-->
+	<script src="js/vue.js"></script>
+	<script src="js/vue-router.js"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/toast.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="bootstrap-4.5.1-dist/js/bootstrap.min.js"></script>
+	<script src="index.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
 </body>
 </html>
