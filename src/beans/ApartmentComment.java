@@ -1,6 +1,6 @@
 package beans;
 
-import repository.Identifiable;
+import repository.bounds.Identifiable;
 
 public class ApartmentComment implements Identifiable {
    private String content;

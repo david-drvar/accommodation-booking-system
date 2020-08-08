@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import repository.AmenitiesRepository;
 import repository.json.stream.JSONStream;
-//import ws.WsHandler;
 
 import java.io.File;
 import java.util.List;
@@ -14,7 +13,11 @@ import static spark.Spark.*;
 
 public class Main {
 
-    private static Gson g = new Gson();
+    //paths
+    private static final String AMENITIES_FILE_PATH = "./static/resources/amenities.json";
+
+
+    private static Gson converter = new Gson();
 
     public static void main(String[] args) throws Exception {
 
@@ -22,34 +25,42 @@ public class Main {
 
         staticFiles.externalLocation(new File("./static").getCanonicalPath());
 
-        AmenitiesRepository repo = new AmenitiesRepository(
-                new JSONStream<Amenity>("./static/resources/amenities.json", new TypeToken<List<Amenity>>(){}.getType()));
+        AmenitiesRepository amenitiesRepository = new AmenitiesRepository(
+                new JSONStream<Amenity>(AMENITIES_FILE_PATH, new TypeToken<List<Amenity>>(){}.getType()));
 
         get("/rest/demo/test", (req, res) -> {
             return "Works IntelliJ!";
         });
 
-        post("/rest/demo/save", (req, res) -> {
+        post("/amenities/save", (req, res) -> {
             String json = req.body();
-            Amenity amenity = g.fromJson(json, Amenity.class);
-            repo.save(amenity);
+            Amenity amenity = converter.fromJson(json, Amenity.class);
+            amenitiesRepository.save(amenity);
             return "OK";
         });
 
-        get("/getAll", (req, res) -> {
+        get("/amenities/getAll", (req, res) -> {
             res.type("application/json");
-            return g.toJson(repo.getAll());
+            return converter.toJson(amenitiesRepository.getAll());
         });
 
-        get("/getOne/:id", (req, res) -> {
+        get("/amenities/getOne/:id", (req, res) -> {
+            res.type("application/json");
             long id = Long.parseLong(req.params("id"));
-            return g.toJson(repo.get(id));
+            return converter.toJson(amenitiesRepository.get(id));
         });
 
-        post("/edit", (req, res)->{
+        post("amenities/edit", (req, res)->{
             String json = req.body();
-            Amenity amenity = g.fromJson(json, Amenity.class);
-            repo.edit(amenity);
+            Amenity amenity = converter.fromJson(json, Amenity.class);
+            amenitiesRepository.edit(amenity);
+            return "OK";
+        });
+
+        delete("amenities/delete", (req, res) -> {
+            String json = req.body();
+            Amenity amenity = converter.fromJson(json, Amenity.class);
+            amenitiesRepository.delete(amenity);
             return "OK";
         });
     }

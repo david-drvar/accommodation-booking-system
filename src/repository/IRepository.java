@@ -1,13 +1,13 @@
 package repository;
 
-import exceptions.EntityNotFoundException;
+import repository.bounds.Identifiable;
 
 import java.util.Collection;
 
 public interface IRepository<T extends Identifiable> {
     T save(T entity);
-    void edit(T entity) throws EntityNotFoundException;
-    T get(long id) throws EntityNotFoundException;
-    Iterable<T> getAll();
-    void delete(T entity) throws EntityNotFoundException;
+    void edit(T entity);
+    T get(long id);
+    Collection<T> getAll();
+    void delete(T entity);
 }

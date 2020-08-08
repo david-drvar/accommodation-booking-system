@@ -1,6 +1,7 @@
 package repository;
 
 import beans.Amenity;
+import repository.json.JSONRepository;
 import repository.json.stream.IJSONStream;
 
 

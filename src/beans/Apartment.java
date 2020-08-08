@@ -1,6 +1,6 @@
 package beans;
 
-import repository.Identifiable;
+import repository.bounds.Identifiable;
 
 import java.awt.*;
 import java.util.Date;

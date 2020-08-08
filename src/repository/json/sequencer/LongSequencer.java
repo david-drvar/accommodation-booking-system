@@ -1,4 +1,4 @@
-package repository;
+package repository.json.sequencer;
 
 public class LongSequencer {
     private long id;

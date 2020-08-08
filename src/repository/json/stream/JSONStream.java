@@ -4,11 +4,12 @@ import beans.Amenity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import exceptions.EntityNotFoundException;
+import javafx.print.Collation;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class JSONStream<T> implements IJSONStream<T> {
@@ -23,7 +24,7 @@ public class JSONStream<T> implements IJSONStream<T> {
     }
 
     @Override
-    public void saveAll(Iterable<T> entities) {
+    public void saveAll(Collection<T> entities) {
         try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path)))) {
             converter.toJson(entities, printWriter);
         } catch (FileNotFoundException e) {
@@ -32,7 +33,7 @@ public class JSONStream<T> implements IJSONStream<T> {
     }
 
     @Override
-    public Iterable<T> readAll() {
+    public Collection<T> readAll() {
         List<T> entities = null;
         try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
             entities = converter.fromJson(bufferedReader, type);

@@ -1,8 +1,9 @@
 package beans;
 
-import repository.Identifiable;
+import repository.bounds.Deletable;
+import repository.bounds.Identifiable;
 
-public class Amenity implements Identifiable {
+public class Amenity implements Identifiable, Deletable {
    private long id;
    private String name;
    private Boolean isActive;
@@ -31,11 +32,13 @@ public class Amenity implements Identifiable {
       return this.id;
    }
 
-   public Boolean getActive() {
-      return isActive;
+   @Override
+   public void setIsActive(Boolean isActive) {
+      this.isActive = isActive;
    }
 
-   public void setActive(Boolean active) {
-      isActive = active;
+   @Override
+   public Boolean getIsActive() {
+      return isActive;
    }
 }

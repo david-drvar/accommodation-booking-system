@@ -1,7 +1,7 @@
 
 package beans;
 
-import repository.Identifiable;
+import repository.bounds.Identifiable;
 
 import java.util.Date;
 

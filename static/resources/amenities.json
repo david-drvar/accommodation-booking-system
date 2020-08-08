@@ -1,14 +1,22 @@
 [
   {
+    "id": 3,
+    "name": "Nesto cetvrto",
+    "isActive": false
+  },
+  {
     "id": 1,
-    "name": "Nesto"
+    "name": "Nesto drugo",
+    "isActive": true
   },
   {
     "id": 2,
-    "name": "Nesto drugo"
+    "name": "Nesto trece",
+    "isActive": true
   },
   {
     "id": 3,
-    "name": "Nesto trece"
+    "name": "Nesto cetvrto",
+    "isActive": false
   }
 ]
