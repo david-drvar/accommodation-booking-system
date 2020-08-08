@@ -1,10 +1,9 @@
 package repository.json.stream;
 
-import beans.Amenity;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import javafx.print.Collation;
+
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -13,9 +12,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class JSONStream<T> implements IJSONStream<T> {
-    private String path;
-    private Gson converter;
-    private Type type;
+    private final String path;
+    private final Gson converter;
+    private final Type type;
 
     public JSONStream(String path, Type type) {
         this.path = path;

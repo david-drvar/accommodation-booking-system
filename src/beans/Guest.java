@@ -9,8 +9,12 @@ public class Guest extends User {
       super();
    }
 
-   public Guest(String username, String password, String firstName, String lastName, Sex sex, List<Reservation> reservation) {
-      super(username, password, firstName, lastName, sex);
+   public Guest(List<Reservation> reservation) {
+      this.reservation = reservation;
+   }
+
+   public Guest(String username, String password, String firstName, String lastName, Sex sex, Boolean isActive, UserType userType, List<Reservation> reservation) {
+      super(username, password, firstName, lastName, sex, isActive, userType);
       this.reservation = reservation;
    }
 

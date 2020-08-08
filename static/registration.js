@@ -1,3 +1,4 @@
+
 let register = new Vue(
     {
         el : "#registerModal",
@@ -77,8 +78,7 @@ let register = new Vue(
                 document.getElementById('sex').style.borderColor = '#ced4da';
 
             },
-            fetchUser : function () {
-
+            registerUser : function () {
             }
         }
     }

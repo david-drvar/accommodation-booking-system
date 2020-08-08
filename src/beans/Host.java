@@ -8,8 +8,12 @@ public class Host extends User {
    public Host() {
    }
 
-   public Host(String username, String password, String firstName, String lastName, Sex sex, List<Apartment> apartment) {
-      super(username, password, firstName, lastName, sex);
+   public Host(List<Apartment> apartment) {
+      this.apartment = apartment;
+   }
+
+   public Host(String username, String password, String firstName, String lastName, Sex sex, Boolean isActive, UserType userType, List<Apartment> apartment) {
+      super(username, password, firstName, lastName, sex, isActive, userType);
       this.apartment = apartment;
    }
 

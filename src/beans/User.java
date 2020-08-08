@@ -1,21 +1,40 @@
 package beans;
 
-public abstract class User {
+import repository.bounds.Deletable;
+import repository.bounds.Identifiable;
+
+public class User implements Identifiable, Deletable { //fixme doesn't work when abstract class
    protected String username;
    protected String password;
    protected String firstName;
    protected String lastName;
    protected Sex sex;
+   protected long id;
+   protected Boolean isActive;
+   protected UserType userType;
 
    public User() {
    }
 
-   public User(String username, String password, String firstName, String lastName, Sex sex) {
+   public User(String username, String password, String firstName, String lastName, Sex sex, Boolean isActive, UserType userType) {
       this.username = username;
       this.password = password;
       this.firstName = firstName;
       this.lastName = lastName;
       this.sex = sex;
+      this.isActive = isActive;
+      this.userType = userType;
+   }
+
+   public User(String username, String password, String firstName, String lastName, Sex sex, long id, Boolean isActive, UserType userType) {
+      this.username = username;
+      this.password = password;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.sex = sex;
+      this.id = id;
+      this.isActive = isActive;
+      this.userType = userType;
    }
 
    public String getUsername() {
@@ -56,5 +75,33 @@ public abstract class User {
 
    public void setSex(Sex sex) {
       this.sex = sex;
+   }
+
+   @Override
+   public void setId(long id) {
+      this.id = id;
+   }
+
+   @Override
+   public long getId() {
+      return this.id;
+   }
+
+   @Override
+   public void setIsActive(Boolean isActive) {
+      this.isActive = isActive;
+   }
+
+   @Override
+   public Boolean getIsActive() {
+      return isActive;
+   }
+
+   public UserType getUserType() {
+      return userType;
+   }
+
+   public void setUserType(UserType userType) {
+      this.userType = userType;
    }
 }

@@ -6,7 +6,7 @@ import repository.IAmenityRepository;
 import java.util.Collection;
 
 public class AmenityService implements IAmenityService{
-    private IAmenityRepository amenityRepository;
+    private final IAmenityRepository amenityRepository;
 
     public AmenityService(IAmenityRepository amenityRepository) {
         this.amenityRepository = amenityRepository;
