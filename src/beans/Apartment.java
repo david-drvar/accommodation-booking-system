@@ -1,10 +1,12 @@
 package beans;
 
+import repository.Identifiable;
+
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
-public class Apartment {
+public class Apartment implements Identifiable {
    private long id;
    private ApartmentType type;
    private int roomNumber;
@@ -22,6 +24,7 @@ public class Apartment {
    private List<Amenity> amenities;
    private Host host;
    private List<Reservation> reservation;
+   private Boolean isActive;
 
    public Apartment() {
    }
@@ -144,5 +147,23 @@ public class Apartment {
 
    public void setReservation(List<Reservation> reservation) {
       this.reservation = reservation;
+   }
+
+   public Boolean getActive() {
+      return isActive;
+   }
+
+   public void setActive(Boolean active) {
+      isActive = active;
+   }
+
+   @Override
+   public void setId(long id) {
+      this.id = id;
+   }
+
+   @Override
+   public long getId() {
+      return this.id;
    }
 }

@@ -5,6 +5,7 @@ import repository.Identifiable;
 public class Amenity implements Identifiable {
    private long id;
    private String name;
+   private Boolean isActive;
 
    public Amenity() {
    }
@@ -28,5 +29,13 @@ public class Amenity implements Identifiable {
    @Override
    public long getId() {
       return this.id;
+   }
+
+   public Boolean getActive() {
+      return isActive;
+   }
+
+   public void setActive(Boolean active) {
+      isActive = active;
    }
 }

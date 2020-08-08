@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Index</title>
+	<title>Booking</title>
 	<meta charset="utf-8"/>
 	<style>
 		.errorMsg {
@@ -12,18 +12,17 @@
 </head>
 <body>
 	<img class="container">
-		<div class="row">
-			<div class="col-lg-7"></div>
-			<div class="col-lg-2">
-				<button class="btn btn-outline-primary btn-block">Registration</button>
+	<div class="row">
+		<div class="col-lg-7"></div>
+		<div class="col-lg-2">
+			<button class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#registerModal">Registration</button>
 
-			</div>
-			<div class="col-lg-2">
-				<button type="button" class="btn btn-outline-primary btn-block"
-						data-toggle="modal" data-target="#loginModal">
-					Log in
-				</button>
-			</div>
+		</div>
+		<div class="col-lg-2">
+			<button type="button" class="btn btn-outline-primary btn-block"
+					data-toggle="modal" data-target="#loginModal">
+				Log in
+			</button>
 		</div>
 	</div>
 
@@ -62,6 +61,69 @@
 					<button type="button" class="btn btn-primary"
 							v-on:click="fetchUser"
 							v-bind:disabled="user.username == '' || user.password == ''">Log in</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"
+							v-on:click="resetValidation">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="registerModal" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Register</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+							v-on:click="resetValidation">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<small class="errorMsg">{{firstNameErr}}</small>
+						<input id="firstName" type="text" class="form-control" placeholder="first name"
+							   data-toggle="tooltip" title="Enter your first name" data-placement="right"
+							   v-on:focusout="reguiredFirstName" v-on:keydown="reguiredFirstName"
+							   v-model="user.firstName">
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{lastNameErr}}</small>
+						<input id="lastName" type="text" class="form-control" placeholder="last name"
+							   data-toggle="tooltip" title="Enter your last name" data-placement="right"
+							   v-on:focusout="requiredLastName" v-on:keydown="requiredLastName"
+							   v-model="user.lastName">
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{sexErr}}</small>
+						<select id="sex" type="text" class="form-control"
+							   v-on:focusout="requiredSex" v-on:keydown="requiredSex"
+							   v-model="user.sex">
+							<option value="" disabled selected>select sex</option>
+							<option value="male">male</option>
+							<option value="female">female</option>
+							<option value="other">other</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{userErr}}</small>
+						<input id="usernameRegister" type="text" class="form-control" placeholder="username"
+							   data-toggle="tooltip" title="Enter your username" data-placement="right"
+							   v-on:focusout="requiredUsername" v-on:keydown="requiredUsername"
+							   v-model="user.username">
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{passErr}}</small>
+						<input id="passwordRegister" type="password" class="form-control" placeholder="password"
+							   data-toggle="tooltip" title="Enter your password" data-placement="right"
+							   v-on:focusout="requiredPassword" v-on:keydown="requiredPassword"
+							   v-model="user.password">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+							v-on:click="fetchUser"
+							v-bind:disabled="user.username === '' || user.password === '' || user.firstName ==='' || user.lastName === '' || user.sex === '' ">Register</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"
 							v-on:click="resetValidation">Close</button>
 				</div>
@@ -112,6 +174,7 @@
 	<script src="js/popper.min.js"></script>
 	<script src="bootstrap-4.5.1-dist/js/bootstrap.min.js"></script>
 	<script src="index.js"></script>
+	<script src="registration.js"></script>
 
 	<script>
 		$(document).ready(function(){
