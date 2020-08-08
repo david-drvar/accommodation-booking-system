@@ -89,6 +89,16 @@ public class Main {
             return converter.toJson(userService.get(id));
         });
 
+        post("/users/save", (req, res) -> {
+            String json = req.body();
+            User user = converter.fromJson(json, User.class);
+            if (user.getUserType() == UserType.ADMIN) {
+                Admin admin = converter.fromJson(json, Admin.class);
+                userService.save(admin);
+            }
+            return "OK";
+        });
+
         post("users/edit", (req, res)->{
             String json = req.body();
             User user = converter.fromJson(json, User.class);

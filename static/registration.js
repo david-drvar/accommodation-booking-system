@@ -79,6 +79,18 @@ let register = new Vue(
 
             },
             registerUser : function () {
+                this.user.userType = "ADMIN";
+                axios.post(`http://localhost:8088/users/save`, {
+                    firstName : this.user.firstName,
+                    lastName : this.user.lastName,
+                    sex : this.user.sex,
+                    userType : this.user.userType,
+                    username : this.user.username,
+                    password : this.user.password,
+                    isActive : true
+                }).then(response =>
+                    $('#loginModal').modal('hide')  //fixme
+                );
             }
         }
     }

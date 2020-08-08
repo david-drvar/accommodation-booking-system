@@ -8,5 +8,54 @@
     "id": 2,
     "isActive": true,
     "userType": "ADMIN"
+  },
+  {
+    "username": "mica",
+    "password": "mika",
+    "firstName": "mirela",
+    "lastName": "stojanovic",
+    "id": 3,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "dar",
+    "password": "rad",
+    "firstName": "mile",
+    "lastName": "kitic",
+    "sex": "MALE",
+    "id": 4,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "ee",
+    "password": "peee",
+    "firstName": "mica",
+    "lastName": "trofrtaljka",
+    "sex": "OTHER",
+    "id": 5,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qwe",
+    "password": "qweq",
+    "firstName": "eeqw",
+    "lastName": "qweqwe",
+    "sex": "MALE",
+    "id": 6,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qweqwweq",
+    "password": "qweqweqwe",
+    "firstName": "eqweqweqw",
+    "lastName": "qweqwe",
+    "sex": "FEMALE",
+    "id": 7,
+    "isActive": true,
+    "userType": "ADMIN"
   }
 ]
