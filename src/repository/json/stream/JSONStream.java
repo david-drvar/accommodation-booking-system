@@ -1,26 +1,31 @@
 package repository.json.stream;
 
+import beans.Amenity;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import exceptions.EntityNotFoundException;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class JSONStream<T> implements IJSONStream<T> {
     private String path;
     private Gson converter;
+    private Type type;
 
-    public JSONStream(String path) {
+    public JSONStream(String path, Type type) {
         this.path = path;
-        this.converter = new Gson();
+        this.converter = new GsonBuilder().setPrettyPrinting().create();
+        this.type = type;
     }
 
     @Override
     public void saveAll(Iterable<T> entities) {
         try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path)))) {
-            entities.forEach(entity -> printWriter.println(converter.toJson(entity)));
+            converter.toJson(entities, printWriter);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -28,11 +33,9 @@ public class JSONStream<T> implements IJSONStream<T> {
 
     @Override
     public Iterable<T> readAll() {
-        Iterable<T> entities = null;
+        List<T> entities = null;
         try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path)))) {
-            entities = converter.fromJson(bufferedReader, new TypeToken<List<T>>(){}.getType());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            entities = converter.fromJson(bufferedReader, type);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,10 +44,10 @@ public class JSONStream<T> implements IJSONStream<T> {
 
     @Override
     public void appendToFile(T entity) {
-        try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path, true)))) {
-            printWriter.println(converter.toJson(entity));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        ArrayList<T> entities = (ArrayList<T>) readAll();
+        if(entities == null)
+            entities = new ArrayList<>();
+        entities.add(entity);
+        saveAll(entities);
     }
 }

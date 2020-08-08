@@ -1,2 +1,14 @@
-{"id":1,"name":"Nesto trece"}
-{"id":2,"name":"Nesto peto"}
+[
+  {
+    "id": 1,
+    "name": "Nesto"
+  },
+  {
+    "id": 2,
+    "name": "Nesto drugo"
+  },
+  {
+    "id": 3,
+    "name": "Nesto trece"
+  }
+]

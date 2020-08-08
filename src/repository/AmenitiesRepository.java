@@ -6,8 +6,8 @@ import repository.json.stream.IJSONStream;
 
 public class AmenitiesRepository extends JSONRepository<Amenity> {
 
-    public AmenitiesRepository(IJSONStream<Amenity> stream, ISequencer sequencer) {
-        super(stream, sequencer);
+    public AmenitiesRepository(IJSONStream<Amenity> stream) {
+        super(stream);
     }
 
 
