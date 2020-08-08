@@ -19,8 +19,6 @@ public class Main {
 
         port(8088);
 
-        //webSocket("/ws", WsHandler.class);
-
         staticFiles.externalLocation(new File("./static").getCanonicalPath());
 
         AmenitiesRepository repo = new AmenitiesRepository(
