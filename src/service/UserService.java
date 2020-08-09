@@ -37,4 +37,18 @@ public class UserService implements IUserService{
     public void delete(User entity) {
         userRepository.delete(entity);
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUsername(username);
+    }
+
+    @Override
+    public User login(String username, String password) {
+        User user = getUserByUsername(username);
+        if(user == null) return null;
+        if(!user.getPassword().equals(password))
+            return null;
+        return user;
+    }
 }

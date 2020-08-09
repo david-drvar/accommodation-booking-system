@@ -38,7 +38,9 @@ let login = new Vue(
                 document.getElementById('pass').style.borderColor = '#ced4da';
             },
             fetchUser : function () {
-
+                axios
+                    .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
+                    .then(response => alert(response));
             }
         }
     }

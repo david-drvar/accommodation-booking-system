@@ -11,4 +11,12 @@ public class UserRepository extends JSONRepository<User> implements IUserReposit
     public UserRepository(IJSONStream<User> stream) {
         super(stream);
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return getAll().stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+    }
 }

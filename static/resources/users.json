@@ -57,5 +57,16 @@
     "id": 7,
     "isActive": true,
     "userType": "ADMIN"
+  },
+  {
+    "username": "host",
+    "password": "host",
+    "firstName": "eqweqweqw",
+    "lastName": "qweqwe",
+    "sex": "FEMALE",
+    "id": 7,
+    "isActive": true,
+    "userType": "HOST",
+    "apartment" : []
   }
 ]
