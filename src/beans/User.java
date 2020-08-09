@@ -3,7 +3,7 @@ package beans;
 import repository.bounds.Deletable;
 import repository.bounds.Identifiable;
 
-public class User implements Identifiable, Deletable { //fixme doesn't work when abstract class
+public class User implements Identifiable, Deletable { 
    protected String username;
    protected String password;
    protected String firstName;

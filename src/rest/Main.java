@@ -1,9 +1,6 @@
 package rest;
 
-import beans.Admin;
-import beans.Amenity;
-import beans.User;
-import beans.UserType;
+import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import repository.AmenityRepository;
@@ -128,6 +125,14 @@ public class Main {
             }
             //userService.delete(user);
             return "OK";
+        });
+
+        post("/login", (req, res) -> {
+            res.type("application/json");
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+            User user = userService.login(username, password);
+            return converter.toJson(user);
         });
     }
 
