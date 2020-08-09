@@ -83,21 +83,21 @@
 					<div class="form-group">
 						<small class="errorMsg">{{firstNameErr}}</small>
 						<input id="firstName" type="text" class="form-control" placeholder="first name"
-							   data-toggle="tooltip" title="Enter your first name" data-placement="right"
-							   v-on:focusout="reguiredFirstName" v-on:keydown="reguiredFirstName"
+							   data-toggle="tooltip" title="Enter first name" data-placement="right"
+							   v-on:focusout="reguiredFirstName" v-on:keyup="reguiredFirstName"
 							   v-model="user.firstName">
 					</div>
 					<div class="form-group">
 						<small class="errorMsg">{{lastNameErr}}</small>
 						<input id="lastName" type="text" class="form-control" placeholder="last name"
-							   data-toggle="tooltip" title="Enter your last name" data-placement="right"
-							   v-on:focusout="requiredLastName" v-on:keydown="requiredLastName"
+							   data-toggle="tooltip" title="Enter last name" data-placement="right"
+							   v-on:focusout="requiredLastName"  v-on:keyup="requiredLastName"
 							   v-model="user.lastName">
 					</div>
 					<div class="form-group">
 						<small class="errorMsg">{{sexErr}}</small>
 						<select id="sex" type="text" class="form-control"
-							   v-on:focusout="requiredSex" v-on:keydown="requiredSex"
+							   v-on:focusout="requiredSex"  v-on:keyup="requiredSex"
 							   v-model="user.sex">
 							<option value="" disabled selected>select sex</option>
 							<option value="MALE">male</option>
@@ -108,22 +108,30 @@
 					<div class="form-group">
 						<small class="errorMsg">{{userErr}}</small>
 						<input id="usernameRegister" type="text" class="form-control" placeholder="username"
-							   data-toggle="tooltip" title="Enter your username" data-placement="right"
-							   v-on:focusout="requiredUsername" v-on:keydown="requiredUsername"
+							   data-toggle="tooltip" title="Enter username" data-placement="right"
+							   v-on:focusout="checkUniqueUsername" v-on:keyup="requiredUsername"
 							   v-model="user.username">
 					</div>
 					<div class="form-group">
 						<small class="errorMsg">{{passErr}}</small>
 						<input id="passwordRegister" type="password" class="form-control" placeholder="password"
-							   data-toggle="tooltip" title="Enter your password" data-placement="right"
-							   v-on:focusout="requiredPassword" v-on:keydown="requiredPassword"
+							   data-toggle="tooltip" title="Enter password" data-placement="right"
+							   v-on:focusout="requiredPassword"  v-on:keyup="requiredPassword"
 							   v-model="user.password">
+					</div>
+					<div class="form-group">
+						<small class="errorMsg">{{repeatPassErr}}</small>
+						<input id="repeatPasswordRegister" type="password" class="form-control" placeholder="repeat password"
+							   data-toggle="tooltip" title="Repeat password" data-placement="right"
+							   v-on:focusout="requiredRepeatPassword"  v-on:keyup="requiredRepeatPassword"
+							   v-model="user.repeatPassword"
+							   >
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary"
 							v-on:click="registerUser"
-							v-bind:disabled="user.username === '' || user.password === '' || user.firstName ==='' || user.lastName === '' || user.sex === '' ">Register</button>
+							v-bind:disabled="user.username === '' || user.password === '' || user.firstName ==='' || user.lastName === '' || user.sex === '' || user.repeatPassword!== user.password || userErr!==''">Register</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"
 							v-on:click="resetValidation">Close</button>
 				</div>

@@ -57,5 +57,135 @@
     "id": 7,
     "isActive": true,
     "userType": "ADMIN"
+  },
+  {
+    "username": "asdsadd",
+    "password": "edd",
+    "firstName": "damir",
+    "lastName": "jovanovic",
+    "sex": "MALE",
+    "id": 8,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "asdsa",
+    "password": "qweqwe",
+    "firstName": "dd",
+    "lastName": "Drvar",
+    "sex": "MALE",
+    "id": 9,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qwe",
+    "password": "qwe",
+    "firstName": "proba toast",
+    "lastName": "asd",
+    "sex": "FEMALE",
+    "id": 10,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "ewq",
+    "password": "qweqwe",
+    "firstName": "qweee",
+    "lastName": "eee",
+    "sex": "OTHER",
+    "id": 11,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qwe",
+    "password": "qwe",
+    "firstName": "qweqwe",
+    "lastName": "qweqwe",
+    "sex": "FEMALE",
+    "id": 12,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qweqwe",
+    "password": "qweqwe",
+    "firstName": "qweqweqwe",
+    "lastName": "qwe",
+    "sex": "MALE",
+    "id": 13,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "eee",
+    "password": "eee",
+    "firstName": "eeee",
+    "lastName": "eee",
+    "sex": "MALE",
+    "id": 14,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "eee",
+    "password": "eee",
+    "firstName": "eeee",
+    "lastName": "eee",
+    "sex": "FEMALE",
+    "id": 15,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "qweqw",
+    "password": "qweqwe",
+    "firstName": "qweqwe",
+    "lastName": "qweqw",
+    "sex": "MALE",
+    "id": 16,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "ww",
+    "password": "ww",
+    "firstName": "qww",
+    "lastName": "www",
+    "sex": "MALE",
+    "id": 17,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "wew",
+    "password": "wew",
+    "firstName": "ewe",
+    "lastName": "wewe",
+    "sex": "MALE",
+    "id": 18,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "asd",
+    "password": "asd",
+    "firstName": "sdaads",
+    "lastName": "asdasd",
+    "sex": "MALE",
+    "id": 19,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "asd",
+    "password": "asd",
+    "firstName": "asd",
+    "lastName": "asd",
+    "sex": "MALE",
+    "id": 20,
+    "isActive": true,
+    "userType": "ADMIN"
   }
 ]

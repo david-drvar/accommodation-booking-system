@@ -37,4 +37,13 @@ public class UserService implements IUserService{
     public void delete(User entity) {
         userRepository.delete(entity);
     }
+
+    @Override
+    public Boolean checkUsernameUnique(String username) {
+        for(User user : this.getAll()) {
+            if (user.getUsername().equals(username))
+                return false;
+        }
+        return true;
+    }
 }
