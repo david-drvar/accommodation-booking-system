@@ -8,13 +8,15 @@ let register = new Vue(
             passErr : "",
             firstNameErr : "",
             lastNameErr : "",
-            sexErr : ""
+            sexErr : "",
+            repeatPassErr : "",
         },
         mounted() {
-            this.user = {username : "", password : "", firstName : "", lastName : "", sex : ""};
+            this.user = {username : "", password : "", firstName : "", lastName : "", sex : "", repeatPassword : ""};
         },
         methods: {
             requiredUsername : function(event) {
+                this.checkUniqueUsername();  //fixme
                 if(!this.user.username) {
                     this.userErr = "This field is required.";
                     document.getElementById('usernameRegister').style.borderColor = 'red';
@@ -22,6 +24,27 @@ let register = new Vue(
                 else {
                     this.userErr = '';
                     document.getElementById('usernameRegister').style.borderColor = '#ced4da';
+                }
+            },
+            checkUniqueUsername : function(event) {
+                if(!this.user.username) {
+                    this.userErr = "This field is required.";
+                    document.getElementById('usernameRegister').style.borderColor = 'red';
+                }
+                else {
+                    axios.post(`http://localhost:8088/users/checkUsername`, {
+                        username : this.user.username
+                    }).then(response => {
+                            if (response.data === "ERROR") {
+                                this.userErr = "Username already exists.";
+                                document.getElementById('usernameRegister').style.borderColor = 'red';
+                            }
+                            else {
+                                this.userErr = '';
+                                document.getElementById('usernameRegister').style.borderColor = '#ced4da';
+                            }
+                        }
+                    );
                 }
             },
             requiredPassword : function(event) {
@@ -64,19 +87,30 @@ let register = new Vue(
                     document.getElementById('sex').style.borderColor = '#ced4da';
                 }
             },
+            requiredRepeatPassword : function(event) {
+                if(this.user.repeatPassword!==this.user.password) {
+                    this.repeatPassErr = "Passwords are not matching.";
+                    document.getElementById('repeatPasswordRegister').style.borderColor = 'red';
+                }
+                else {
+                    this.repeatPassErr = '';
+                    document.getElementById('repeatPasswordRegister').style.borderColor = '#ced4da';
+                }
+            },
             resetValidation : function() {
                 this.passErr = '';
                 this.userErr = '';
                 this.firstNameErr = '';
                 this.lastNameErr = '';
                 this.sexErr = '';
-                this.user = {username : "", password : "", firstName: "", lastName : "", sex : ""};
+                this.repeatPassErr = '';
+                this.user = {username : "", password : "", firstName: "", lastName : "", sex : "", repeatPassword: ""};
                 document.getElementById('usernameRegister').style.borderColor = '#ced4da';
+                document.getElementById('repeatPasswordRegister').style.borderColor = '#ced4da';
                 document.getElementById('passwordRegister').style.borderColor = '#ced4da';
                 document.getElementById('firstName').style.borderColor = '#ced4da';
                 document.getElementById('lastName').style.borderColor = '#ced4da';
                 document.getElementById('sex').style.borderColor = '#ced4da';
-
             },
             registerUser : function () {
                 this.user.userType = "ADMIN";
@@ -88,9 +122,7 @@ let register = new Vue(
                     username : this.user.username,
                     password : this.user.password,
                     isActive : true
-                }).then(response =>
-                    $('#loginModal').modal('hide')  //fixme
-                );
+                });
             }
         }
     }

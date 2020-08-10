@@ -97,6 +97,15 @@ public class Main {
             return "OK";
         });
 
+        post("/users/checkUsername", (req, res) -> {
+            String json = req.body();
+            User user = converter.fromJson(json, User.class);
+            if (userService.checkUsernameUnique(user.getUsername())) {
+                return "OK";
+            }
+            return "ERROR";
+        });
+
         post("users/edit", (req, res)->{
             String json = req.body();
             User user = converter.fromJson(json, User.class);

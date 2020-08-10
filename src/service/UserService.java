@@ -39,6 +39,15 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public Boolean checkUsernameUnique(String username) {
+        for(User user : this.getAll()) {
+            if (user.getUsername().equals(username))
+                return false;
+        }
+        return true;
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
