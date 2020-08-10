@@ -1,9 +1,9 @@
 package repository.json.stream;
 
 
+import adapter.RuntimeTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -16,9 +16,20 @@ public class JSONStream<T> implements IJSONStream<T> {
     private final Gson converter;
     private final Type type;
 
+    public JSONStream(String path, Type type, RuntimeTypeAdapterFactory<T> adapter) {
+        this.path = path;
+        this.converter = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapterFactory(adapter)
+                .create();
+        this.type = type;
+    }
+
     public JSONStream(String path, Type type) {
         this.path = path;
-        this.converter = new GsonBuilder().setPrettyPrinting().create();
+        this.converter = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
         this.type = type;
     }
 

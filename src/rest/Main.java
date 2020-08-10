@@ -1,5 +1,6 @@
 package rest;
 
+import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -133,7 +134,10 @@ public class Main {
         amenityService = new AmenityService(amenityRepository);
 
         IUserRepository userRepository = new UserRepository(
-                new JSONStream<User>(USERS_FILE_PATH, new TypeToken<List<User>>(){}.getType()));
+                new JSONStream<User>(USERS_FILE_PATH, new TypeToken<List<User>>(){}.getType(), RuntimeTypeAdapterFactory.of(User.class, "userType")
+                        .registerSubtype(Guest.class, "GUEST")
+                        .registerSubtype(Admin.class, "ADMIN")
+                        .registerSubtype(Host.class, "HOST")));
         userService = new UserService(userRepository);
     }
 }
