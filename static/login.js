@@ -40,7 +40,12 @@ let login = new Vue(
             fetchUser : function () {
                 axios
                     .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
-                    .then(response => alert(response));
+                    .then(response => {
+                        let a = response.data;
+                        //let c = JSON.parse(response.);
+                        let b = 5;
+                        alert(a.username);
+                    })
             }
         }
     }

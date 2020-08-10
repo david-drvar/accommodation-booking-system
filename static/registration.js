@@ -44,9 +44,6 @@ let register = new Vue(
                                 document.getElementById('usernameRegister').style.borderColor = '#ced4da';
                             }
                         }
-                        // $('#loginModal').modal('hide')  //fixme
-                        // toast("Registration successful!")
-                        //alert("Registration successful!")
                     );
                 }
             },
@@ -125,12 +122,7 @@ let register = new Vue(
                     username : this.user.username,
                     password : this.user.password,
                     isActive : true
-                }).then(response =>
-                    // $('#loginModal').modal('hide')  //fixme
-                    // toast("Registration successful!")
-                    //alert("Registration successful!")
-                    this.seen = true
-                );
+                });
             }
         }
     }

@@ -196,7 +196,36 @@
     "sex": "FEMALE",
     "id": 7,
     "isActive": true,
-    "userType": "HOST",
-    "apartment" : []
+    "userType": "HOST"
+  },
+  {
+    "username": "asdd",
+    "password": "asd",
+    "firstName": "proba posle merge-a",
+    "lastName": "lkj",
+    "sex": "MALE",
+    "id": 21,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "asddd",
+    "password": "asd",
+    "firstName": "proba toast",
+    "lastName": "lkjlk",
+    "sex": "MALE",
+    "id": 22,
+    "isActive": true,
+    "userType": "ADMIN"
+  },
+  {
+    "username": "aaaaa",
+    "password": "asd",
+    "firstName": "rollback",
+    "lastName": "kjhk",
+    "sex": "MALE",
+    "id": 23,
+    "isActive": true,
+    "userType": "ADMIN"
   }
 ]
