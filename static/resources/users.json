@@ -196,7 +196,8 @@
     "sex": "FEMALE",
     "id": 7,
     "isActive": true,
-    "userType": "HOST"
+    "userType": "HOST",
+    "apartment" : []
   },
   {
     "username": "asdd",
