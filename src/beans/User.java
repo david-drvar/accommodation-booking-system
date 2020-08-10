@@ -3,7 +3,7 @@ package beans;
 import repository.bounds.Deletable;
 import repository.bounds.Identifiable;
 
-public class User implements Identifiable, Deletable { 
+public class User implements Identifiable, Deletable {
    protected String username;
    protected String password;
    protected String firstName;

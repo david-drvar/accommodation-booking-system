@@ -227,7 +227,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         if (maintainType) {
             labelJsonElement = jsonElement.getAsJsonObject().get(typeFieldName);
         } else {
-            labelJsonElement = jsonElement.getAsJsonObject().remove(typeFieldName);
+            labelJsonElement = jsonElement.getAsJsonObject().get(typeFieldName);
         }
         
         if (labelJsonElement == null) {

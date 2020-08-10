@@ -1,4 +1,3 @@
-
 let register = new Vue(
     {
         el : "#registerModal",
