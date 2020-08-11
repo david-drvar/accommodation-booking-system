@@ -4,15 +4,9 @@ import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import repository.AmenityRepository;
-import repository.IAmenityRepository;
-import repository.IUserRepository;
-import repository.UserRepository;
+import repository.*;
 import repository.json.stream.JSONStream;
-import service.AmenityService;
-import service.IAmenityService;
-import service.IUserService;
-import service.UserService;
+import service.*;
 
 import java.io.File;
 import java.util.List;
@@ -24,11 +18,13 @@ public class Main {
     //paths
     private static final String AMENITIES_FILE_PATH = "./static/resources/amenities.json";
     private static final String USERS_FILE_PATH = "./static/resources/users.json";
+    private static final String STATES_FILE_PATH = "./static/resources/states.json";
 
     private static final Gson converter = new Gson();
 
     private static IAmenityService amenityService;
     private static IUserService userService;
+    private static IStateService stateService;
 
     public static void main(String[] args) throws Exception {
 
@@ -135,6 +131,11 @@ public class Main {
             User user = userService.login(username, password);
             return converter.toJson(user);
         });
+
+        get("/state/getAll", (req, res) -> {
+            res.type("application/json");
+            return converter.toJson(stateService.getAll());
+        });
     }
 
     private static void configure() {
@@ -148,5 +149,9 @@ public class Main {
                         .registerSubtype(Admin.class, "ADMIN")
                         .registerSubtype(Host.class, "HOST")));
         userService = new UserService(userRepository);
+
+        IStateRepository stateRepository = new StateRepository(
+                new JSONStream<State>(STATES_FILE_PATH, new TypeToken<List<State>>(){}.getType()));
+        stateService = new StateService(stateRepository);
     }
 }
