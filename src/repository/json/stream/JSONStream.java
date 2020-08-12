@@ -21,6 +21,7 @@ public class JSONStream<T> implements IJSONStream<T> {
         this.converter = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapterFactory(adapter)
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
         this.type = type;
     }
@@ -29,6 +30,7 @@ public class JSONStream<T> implements IJSONStream<T> {
         this.path = path;
         this.converter = new GsonBuilder()
                 .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
         this.type = type;
     }

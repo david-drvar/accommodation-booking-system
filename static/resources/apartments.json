@@ -1,0 +1,85 @@
+[
+  {
+    "id" : 1,
+    "type" : "FULL",
+    "roomNumber" : 4,
+    "guestNumber" : 3,
+    "rentDates" : [],
+    "availableDates" : [],
+    "images" : [],
+    "pricePerNight" : 1500.00,
+    "checkIn" : "2013-01-04T10:50:26+0000",
+    "checkOut" : "2013-01-04T10:50:26+0000",
+    "status" : "ACTIVE",
+    "location" : {
+      "longitude" : 2132434,
+      "latitude" : 124344,
+      "address" : {
+        "street" : "Bate Brkica",
+        "number" : "1A",
+        "town" : {
+          "name" : "Novi Sad",
+          "postalNumber" : 21000
+        }
+      }
+    },
+    "apartmentComments" : [
+      {
+        "content" : "Jako lepo",
+        "grade" : 10,
+        "isActive" : true,
+        "guest" : {
+          "username" : "asd",
+          "password" : "asd",
+          "firstName" : "Angel",
+          "lastName" : "Broadway",
+          "sex" : "OTHER",
+          "id" : 2,
+          "isActive" : true,
+          "userType" : "GUEST",
+          "reservations" : []
+        }
+      }
+    ],
+    "amenities" : [
+      {
+        "id" : 1,
+        "name" : "Toster",
+        "isActive" : true
+      }
+    ],
+    "host" : {
+      "username" : "mira",
+      "password" : "mira",
+      "firstName" : "Peter",
+      "lastName" : "Richter",
+      "sex" : "OTHER",
+      "id" : 3,
+      "isActive" : true,
+      "userType" : "HOST",
+      "apartments" : []
+    },
+    "reservations" : [
+      {
+        "checkInDate": "2013-01-04T10:50:26+0000",
+        "numberOfNights" : 3,
+        "totalPrice" : 34545,
+        "note" : "/",
+        "status" : "APPROVED",
+        "guest" : {
+          "username" : "Mirela",
+          "password" : "asd",
+          "firstName" : "Mirela",
+          "lastName" : "Mikic",
+          "sex" : "FEMALE",
+          "id" : 5,
+          "isActive" : true,
+          "userType" : "GUEST",
+          "reservations" : []
+        },
+        "apartment" : {}
+      }
+    ],
+    "isActive" : true
+  }
+]

@@ -19,12 +19,15 @@ public class Main {
     private static final String AMENITIES_FILE_PATH = "./static/resources/amenities.json";
     private static final String USERS_FILE_PATH = "./static/resources/users.json";
     private static final String STATES_FILE_PATH = "./static/resources/states.json";
+    private static final String APARTMENTS_FILE_PATH = "./static/resources/apartments.json";
+
 
     private static final Gson converter = new Gson();
 
     private static IAmenityService amenityService;
     private static IUserService userService;
     private static IStateService stateService;
+    private static IApartmentService apartmentService;
 
     public static void main(String[] args) throws Exception {
 
@@ -142,6 +145,11 @@ public class Main {
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(stateService.get(id));
         });
+
+        get("/apartment/getAll", (req, res) -> {
+            res.type("application/json");
+            return converter.toJson(apartmentService.getAll());
+        });
     }
 
     private static void configure() {
@@ -159,5 +167,9 @@ public class Main {
         IStateRepository stateRepository = new StateRepository(
                 new JSONStream<State>(STATES_FILE_PATH, new TypeToken<List<State>>(){}.getType()));
         stateService = new StateService(stateRepository);
+
+        IApartmentRepository apartmentRepository = new ApartmentRepository(
+                new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
+        apartmentService = new ApartmentService(apartmentRepository);
     }
 }

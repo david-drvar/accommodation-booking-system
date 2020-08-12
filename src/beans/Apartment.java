@@ -1,12 +1,13 @@
 package beans;
 
+import repository.bounds.Deletable;
 import repository.bounds.Identifiable;
 
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
-public class Apartment implements Identifiable {
+public class Apartment implements Identifiable, Deletable {
    private long id;
    private ApartmentType type;
    private int roomNumber;
@@ -20,10 +21,10 @@ public class Apartment implements Identifiable {
    private Status status;
    
    private Location location;
-   private List<ApartmentComment> apartmentComment;
+   private List<ApartmentComment> apartmentComments;
    private List<Amenity> amenities;
    private Host host;
-   private List<Reservation> reservation;
+   private List<Reservation> reservations;
    private Boolean isActive;
 
    public Apartment() {
@@ -117,12 +118,12 @@ public class Apartment implements Identifiable {
       this.location = location;
    }
 
-   public List<ApartmentComment> getApartmentComment() {
-      return apartmentComment;
+   public List<ApartmentComment> getApartmentComments() {
+      return apartmentComments;
    }
 
-   public void setApartmentComment(List<ApartmentComment> apartmentComment) {
-      this.apartmentComment = apartmentComment;
+   public void setApartmentComments(List<ApartmentComment> apartmentComments) {
+      this.apartmentComments = apartmentComments;
    }
 
    public List<Amenity> getAmenities() {
@@ -141,20 +142,12 @@ public class Apartment implements Identifiable {
       this.host = host;
    }
 
-   public List<Reservation> getReservation() {
-      return reservation;
+   public List<Reservation> getReservations() {
+      return reservations;
    }
 
-   public void setReservation(List<Reservation> reservation) {
-      this.reservation = reservation;
-   }
-
-   public Boolean getActive() {
-      return isActive;
-   }
-
-   public void setActive(Boolean active) {
-      isActive = active;
+   public void setReservations(List<Reservation> reservations) {
+      this.reservations = reservations;
    }
 
    @Override
@@ -165,5 +158,15 @@ public class Apartment implements Identifiable {
    @Override
    public long getId() {
       return this.id;
+   }
+
+   @Override
+   public void setIsActive(Boolean isActive) {
+      this.isActive = isActive;
+   }
+
+   @Override
+   public Boolean getIsActive() {
+      return this.isActive;
    }
 }

@@ -1,24 +1,18 @@
 package beans;
 
-import repository.bounds.Identifiable;
-
-public class ApartmentComment implements Identifiable {
+public class ApartmentComment {
    private String content;
    private int grade;
-   private long id;
    private Guest guest;
-   private Apartment apartment;
    private Boolean isActive;
 
    public ApartmentComment() {
    }
 
-   public ApartmentComment(String content, int grade, long id, Guest guest, Apartment apartment, Boolean isActive) {
+   public ApartmentComment(String content, int grade, Guest guest, Boolean isActive) {
       this.content = content;
       this.grade = grade;
-      this.id = id;
       this.guest = guest;
-      this.apartment = apartment;
       this.isActive = isActive;
    }
 
@@ -46,14 +40,6 @@ public class ApartmentComment implements Identifiable {
       this.guest = guest;
    }
 
-   public Apartment getApartment() {
-      return apartment;
-   }
-
-   public void setApartment(Apartment apartment) {
-      this.apartment = apartment;
-   }
-
    public Boolean getActive() {
       return isActive;
    }
@@ -62,13 +48,4 @@ public class ApartmentComment implements Identifiable {
       isActive = active;
    }
 
-   @Override
-   public void setId(long id) {
-      this.id = id;
-   }
-
-   @Override
-   public long getId() {
-      return this.id;
-   }
 }
