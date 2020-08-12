@@ -153,11 +153,17 @@
                    data-toggle="tooltip" title="When is your returning date?" data-placement="top">
             <input type="text" class="form-control" placeholder="location"
                    data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top">
+            <select class="form-control" v-on:change="pullTowns">
+                <option value="" disabled selected>select state</option>
+                <option v-for="state in states" v-bind:value="state.id">
+                    {{state.name}}
+                </option>
+            </select>
             <select class="form-control">
-                <option value="" disabled selected>select country</option>
-                <option value="MALE">Serbia</option>
-                <option value="FEMALE">Germany</option>
-                <option value="OTHER">The Netherlands</option>
+                <option value="" disabled selected>select town</option>
+                <option v-for="town in towns" v-bind:value="town.name">
+                    {{town.name}}
+                </option>
             </select>
             <input type="number" min="0" class="form-control" placeholder="no of guests"
                    data-toggle="tooltip" title="How many of you is coming?" data-placement="top">

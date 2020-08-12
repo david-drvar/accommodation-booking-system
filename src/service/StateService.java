@@ -25,7 +25,7 @@ public class StateService implements IStateService {
 
     @Override
     public State get(long id) {
-        return null;
+        return stateRepository.get(id);
     }
 
     @Override

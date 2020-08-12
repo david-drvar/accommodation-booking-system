@@ -136,6 +136,12 @@ public class Main {
             res.type("application/json");
             return converter.toJson(stateService.getAll());
         });
+
+        get("/state/getOne/:id", (req, res) -> {
+            res.type("application/json");
+            long id = Long.parseLong(req.params("id"));
+            return converter.toJson(stateService.get(id));
+        });
     }
 
     private static void configure() {
