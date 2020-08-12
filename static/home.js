@@ -1,7 +1,7 @@
 Vue.component("home-page", {
     template: `
 <div>
-<p>asdasd</p>
+<p>RUTER AA</p>
 </div>		  
 `,
     name: "home-page"

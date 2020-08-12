@@ -4,11 +4,16 @@ import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import repository.*;
 import repository.json.stream.JSONStream;
 import service.*;
 
 import java.io.File;
+import java.security.Key;
+import java.util.Date;
 import java.util.List;
 
 import static spark.Spark.*;
@@ -21,6 +26,7 @@ public class Main {
     private static final String STATES_FILE_PATH = "./static/resources/states.json";
     private static final String APARTMENTS_FILE_PATH = "./static/resources/apartments.json";
 
+    static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private static final Gson converter = new Gson();
 
@@ -132,7 +138,16 @@ public class Main {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
             User user = userService.login(username, password);
-            return converter.toJson(user);
+            if (user != null) {
+                String jws = Jwts.builder().setSubject("{ \"id\" : " + user.getId() + ", \"userType\" : \"" + user.getUserType() + "\" }").setExpiration(new Date(new Date().getTime() + 1000*100000L)).setIssuedAt(new Date()).signWith(key).compact();
+                res.body(jws);
+                System.out.println("Returned JWT: " + jws);
+                return jws;
+            }
+            else {
+                res.status(404);
+                return res;
+            }
         });
 
         get("/state/getAll", (req, res) -> {

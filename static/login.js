@@ -1,4 +1,5 @@
 
+
 let login = new Vue(
     {
         el : "#loginModal",
@@ -42,11 +43,13 @@ let login = new Vue(
                 axios
                     .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
                     .then(response => {
-                        let a = response.data;
-                        //let c = JSON.parse(response.);
-                        let b = 5;
-                        alert(a.username);
-                    })
+                        window.sessionStorage.setItem('jwt', response.data);
+                        const a = jwt_decode(response.data);
+                        const ad = JSON.parse(a.sub);
+                        const id = ad.id;
+                        const userType = ad.userType;
+                        alert(id + "  " + userType);
+                    });
             }
         }
     }
