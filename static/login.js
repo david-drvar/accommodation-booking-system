@@ -44,11 +44,7 @@ let login = new Vue(
                     .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
                     .then(response => {
                         window.sessionStorage.setItem('jwt', response.data);
-                        const a = jwt_decode(response.data);
-                        const ad = JSON.parse(a.sub);
-                        const id = ad.id;
-                        const userType = ad.userType;
-                        alert(id + "  " + userType);
+                        window.location.href = "/";
                     });
             }
         }

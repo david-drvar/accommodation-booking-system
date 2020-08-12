@@ -14,14 +14,15 @@ const app = new Vue({
     el: '#app',
     data : function () {
         return {
-            userType : "BROWSE"
+            userType : "BROWSE",
+            id : 0
         }
     },
     mounted() {
         const jwt = window.sessionStorage.getItem('jwt');
-        const a = jwt_decode(jwt);
-        const ad = JSON.parse(a.sub);
-        const id = ad.id;
-        this.userType = ad.userType;
+        const decoded = jwt_decode(jwt);
+        const parsed = JSON.parse(decoded.sub);
+        this.id = parsed.id;
+        this.userType = parsed.userType;
     }
 });
