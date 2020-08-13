@@ -1,22 +1,47 @@
 [
   {
-    "id": 3,
-    "name": "Nesto cetvrto",
+    "id": 1,
+    "name": "Toaster",
     "isActive": false
   },
   {
-    "id": 1,
-    "name": "Nesto drugo",
-    "isActive": true
+    "id": 2,
+    "name": "Kitchen",
+    "isActive": false
   },
   {
-    "id": 2,
-    "name" : "Nesto trece",
+    "id": 3,
+    "name": "AC",
     "isActive": true
   },
   {
     "id": 4,
-    "name": "Nesto cetvrto",
-    "isActive": false
+    "name": "Jacuzzi",
+    "isActive": true
+  },
+  {
+    "id": 5,
+    "name": "Shampoo",
+    "isActive": true
+  },
+  {
+    "id": 6,
+    "name": "Private entrance",
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "name": "Balcony",
+    "isActive": true
+  },
+  {
+    "id": 8,
+    "name": "Gym",
+    "isActive": true
+  },
+  {
+    "id": 9,
+    "name": "Swimming pool",
+    "isActive": true
   }
 ]
