@@ -6,6 +6,11 @@ let logout = new Vue(
                 sessionStorage.removeItem('jwt');
                 window.location.href = "/";
             },
+            isLoggedIn : function () {
+                const jwt = window.sessionStorage.getItem('jwt');
+                return jwt !== null;
+
+            }
         }
     }
 );

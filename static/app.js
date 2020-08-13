@@ -26,9 +26,11 @@ const app = new Vue({
     },
     mounted() {
         const jwt = window.sessionStorage.getItem('jwt');
-        const decoded = jwt_decode(jwt);
-        const parsed = JSON.parse(decoded.sub);
-        this.id = parsed.id;
-        this.userType = parsed.userType;
+        if (jwt!== null) {
+            const decoded = jwt_decode(jwt);
+            const parsed = JSON.parse(decoded.sub);
+            this.id = parsed.id;
+            this.userType = parsed.userType;
+        }
     }
 });

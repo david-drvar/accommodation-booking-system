@@ -1,6 +1,4 @@
-
-
-let login = new Vue(
+new Vue(
     {
         el : "#loginModal",
         data : {
@@ -46,6 +44,11 @@ let login = new Vue(
                         window.sessionStorage.setItem('jwt', response.data);
                         window.location.href = "/";
                     });
+            },
+            isLoggedIn : function () {
+                const jwt = window.sessionStorage.getItem('jwt');
+                return jwt !== null;
+
             }
         }
     }

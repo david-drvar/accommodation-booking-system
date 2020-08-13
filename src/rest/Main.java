@@ -4,6 +4,8 @@ import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -55,8 +57,20 @@ public class Main {
         });
 
         get("/amenities/getAll", (req, res) -> {
-            res.type("application/json");
-            return converter.toJson(amenityService.getAll());
+            String auth = req.headers("Authorization");
+            System.out.println("Authorization: " + auth);
+            if ((auth != null) && (auth.contains("Bearer "))) {
+                String jwt = auth.substring(auth.indexOf("Bearer ") + 7);
+                try {
+                    Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
+                    return converter.toJson(amenityService.getAll());
+                    //return "User " + claims.getBody().getSubject() + " logged in.";
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            res.status(403);
+            return "No user logged in.";
         });
 
         get("/amenities/getOne/:id", (req, res) -> {

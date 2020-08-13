@@ -11,8 +11,14 @@ Vue.component("amenities", {
         }
     },
     mounted() {
+        const token = sessionStorage.getItem('jwt');
+
         axios
-            .get('/amenities/getAll')
+            .get('/amenities/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(response => (this.amenities = response.data))
 
         const jwt = window.sessionStorage.getItem('jwt');
