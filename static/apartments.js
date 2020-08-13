@@ -1,7 +1,7 @@
-Vue.component("random", {
+Vue.component("apartments", {
     template : `
 <div>
-    <p>random</p>
+    <p>apartments</p>
 </div>
     `
 })

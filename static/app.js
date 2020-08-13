@@ -1,11 +1,17 @@
 const Home = {template : '<home-page></home-page>'}
-const Random = {template: '<random></random>'}
+const Apartments = {template: '<apartments></apartments>'}
+const Users = {template: '<users></users>'}
+const Amenities = {template: '<amenities></amenities>'}
+
 
 const router = new VueRouter({
     mode: 'hash',
     routes: [
         { path: '/', component: Home},
-        { path: '/random', component: Random},
+        { path: '/apartments', component: Apartments},
+        { path: '/users', component: Users},
+        { path: '/amenities', component: Amenities},
+
     ]
 });
 

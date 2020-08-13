@@ -15,16 +15,16 @@
   <div id="app">
         <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'ADMIN'}">
             <li class="nav-item">
-                <a class="nav-link" href="#">Users</a>
+                <a class="nav-link" href="#/users">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Apartments</a>
+                <a class="nav-link" href="#/apartments">Apartments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Reservations</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Amenities</a>
+                <a class="nav-link" href="#/amenities">Amenities</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Apartment comments</a>
@@ -51,9 +51,6 @@
               <a class="nav-link" href="#">Amenities</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Apartment comments</a>
-          </li>
-          <li class="nav-item">
               <a class="nav-link" href="#">Account</a>
           </li>
           <li class="nav-item">
@@ -78,7 +75,7 @@
 
       <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'BROWSE'}">
           <li class="nav-item">
-              <a class="nav-link" href="#">Apartments</a>
+              <a class="nav-link" href="#">Search apartments</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="#">Register</a>
@@ -103,6 +100,11 @@
 				Log in
 			</button>
 		</div>
+        <div class="col-lg-2" id="logout">
+            <button type="button" class="btn btn-outline-primary btn-block" v-on:click="logout" data-target="#logout">
+                Logout
+            </button>
+        </div>
 	</div>
 	<div class="modal fade" id="loginModal" role="dialog">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -349,8 +351,10 @@
 <script src="registration.js" ></script>
 <script src="home.js"></script>
 <script src="search.js"></script>
-<script src="studentsTable.js" ></script>
+<script src="users.js" ></script>
 <script src="apartments.js"></script>
+<script src="logout.js"></script>
+<script src="amenities.js"></script>
 <script src="app.js"></script>
 
 <script>
