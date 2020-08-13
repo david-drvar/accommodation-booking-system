@@ -1,7 +1,8 @@
-package service;
+package service.impl;
 
 import beans.Apartment;
 import repository.IApartmentRepository;
+import service.IApartmentService;
 
 import java.util.Collection;
 

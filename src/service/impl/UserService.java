@@ -1,11 +1,12 @@
-package service;
+package service.impl;
 
 import beans.User;
 import repository.IUserRepository;
+import service.IUserService;
 
 import java.util.Collection;
 
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
 

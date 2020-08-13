@@ -1,11 +1,12 @@
-package service;
+package service.impl;
 
 import beans.Amenity;
 import repository.IAmenityRepository;
+import service.IAmenityService;
 
 import java.util.Collection;
 
-public class AmenityService implements IAmenityService{
+public class AmenityService implements IAmenityService {
     private final IAmenityRepository amenityRepository;
 
     public AmenityService(IAmenityRepository amenityRepository) {

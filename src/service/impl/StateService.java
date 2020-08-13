@@ -1,7 +1,8 @@
-package service;
+package service.impl;
 
 import beans.State;
 import repository.IStateRepository;
+import service.IStateService;
 
 import java.util.Collection;
 

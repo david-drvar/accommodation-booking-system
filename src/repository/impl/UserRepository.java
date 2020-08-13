@@ -1,6 +1,7 @@
-package repository;
+package repository.impl;
 
 import beans.User;
+import repository.IUserRepository;
 import repository.json.JSONRepository;
 import repository.json.stream.IJSONStream;
 

@@ -10,8 +10,16 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import repository.*;
+import repository.impl.AmenityRepository;
+import repository.impl.ApartmentRepository;
+import repository.impl.StateRepository;
+import repository.impl.UserRepository;
 import repository.json.stream.JSONStream;
 import service.*;
+import service.impl.AmenityService;
+import service.impl.ApartmentService;
+import service.impl.StateService;
+import service.impl.UserService;
 
 import java.io.File;
 import java.security.Key;
