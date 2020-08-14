@@ -113,7 +113,7 @@ let register = new Vue(
             },
             registerUser : function () {
                 this.user.userType = "GUEST";
-                axios.post(`http://localhost:8088/users/save`, {
+                axios.post(`http://localhost:8088/register`, {
                     firstName : this.user.firstName,
                     lastName : this.user.lastName,
                     sex : this.user.sex,
@@ -121,6 +121,9 @@ let register = new Vue(
                     username : this.user.username,
                     password : this.user.password,
                     isActive : true
+                }).then(response => {
+                    window.sessionStorage.setItem('jwt', response.data);
+                    window.location.href = "/";
                 });
             }
         }

@@ -34,5 +34,12 @@ const app = new Vue({
             this.id = parsed.id;
             this.userType = parsed.userType;
         }
+    },
+    methods : {
+        logout : function() {
+            sessionStorage.removeItem('jwt');
+            window.location.href = "/";
+        },
     }
+
 });

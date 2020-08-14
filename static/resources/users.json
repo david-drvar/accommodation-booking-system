@@ -267,5 +267,65 @@
     "id": 26,
     "isActive": true,
     "userType": "HOST"
+  },
+  {
+    "username": "asdasd",
+    "password": "d",
+    "firstName": "sa nav bara",
+    "lastName": "kljasd",
+    "sex": "OTHER",
+    "id": 27,
+    "isActive": true,
+    "userType": "GUEST"
+  },
+  {
+    "username": "ddd",
+    "password": "e",
+    "firstName": "asddas",
+    "lastName": "d",
+    "sex": "MALE",
+    "id": 28,
+    "isActive": true,
+    "userType": "GUEST"
+  },
+  {
+    "username": "ded",
+    "password": "ee",
+    "firstName": "oluja",
+    "lastName": "dae",
+    "sex": "MALE",
+    "id": 29,
+    "isActive": true,
+    "userType": "GUEST"
+  },
+  {
+    "username": "eqwe",
+    "password": "qq",
+    "firstName": "novi register",
+    "lastName": "nasd",
+    "sex": "MALE",
+    "id": 30,
+    "isActive": true,
+    "userType": "GUEST"
+  },
+  {
+    "username": "eeq",
+    "password": "ee",
+    "firstName": "sesija",
+    "lastName": "lkqq",
+    "sex": "MALE",
+    "id": 31,
+    "isActive": true,
+    "userType": "GUEST"
+  },
+  {
+    "username": "qweeee",
+    "password": "ee",
+    "firstName": "radii",
+    "lastName": "lkjlk",
+    "sex": "MALE",
+    "id": 32,
+    "isActive": true,
+    "userType": "GUEST"
   }
 ]

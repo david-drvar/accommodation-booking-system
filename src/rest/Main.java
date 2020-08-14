@@ -102,7 +102,6 @@ public class Main {
         });
 
 
-
         get("/users/getAll", (req, res) -> {
             res.type("application/json");
             return converter.toJson(userService.getAll());
@@ -169,6 +168,34 @@ public class Main {
             String password = req.queryParams("password");
             User user = userService.login(username, password);
             if (user != null) {
+                String jws = Jwts.builder().setSubject("{ \"id\" : " + user.getId() + ", \"userType\" : \"" + user.getUserType() + "\" }").setExpiration(new Date(new Date().getTime() + 1000*100000L)).setIssuedAt(new Date()).signWith(key).compact();
+                res.body(jws);
+                System.out.println("Returned JWT: " + jws);
+                return jws;
+            }
+            else {
+                res.status(404);
+                return res;
+            }
+        });
+
+        post("/register", (req, res) -> {
+            res.type("application/json");
+            String json = req.body();
+            User user = converter.fromJson(json, User.class);
+            if (user != null) {
+                if (user.getUserType() == UserType.ADMIN) {
+                    Admin admin = converter.fromJson(json, Admin.class);
+                    userService.save(admin);
+                }
+                else if (user.getUserType() == UserType.HOST) {
+                    Host host = converter.fromJson(json, Host.class);
+                    userService.save(host);
+                }
+                else if (user.getUserType() == UserType.GUEST) {
+                    Guest guest = converter.fromJson(json, Guest.class);
+                    userService.save(guest);
+                }
                 String jws = Jwts.builder().setSubject("{ \"id\" : " + user.getId() + ", \"userType\" : \"" + user.getUserType() + "\" }").setExpiration(new Date(new Date().getTime() + 1000*100000L)).setIssuedAt(new Date()).signWith(key).compact();
                 res.body(jws);
                 System.out.println("Returned JWT: " + jws);

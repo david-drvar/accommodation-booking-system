@@ -66,23 +66,24 @@ Vue.component("users", {
     `,
     methods : {
         searchUser : function () {
-            this.users = this.users.filter(user => {
-                if (this.userTypeSearch && this.usernameSearch && this.sexSearch)
-                    return user.sex === this.sexSearch && user.userType === this.userTypeSearch && user.username === this.usernameSearch;
-                else if (this.usernameSearch && this.userTypeSearch)
-                    return user.userType === this.userTypeSearch && user.username === this.usernameSearch;
-                else if (this.usernameSearch && this.sexSearch)
-                    return user.sex === this.sexSearch && user.username === this.usernameSearch;
-                else if (this.sexSearch && this.userTypeSearch)
-                    return user.sex === this.sexSearch && user.userType === this.userTypeSearch;
-                else if (this.sexSearch)
-                    return user.sex === this.sexSearch;
-                else if (this.userTypeSearch)
-                    return user.userType === this.userTypeSearch;
-                else if (this.usernameSearch)
-                    return user.username === this.usernameSearch;
-            }
-           );
+            if (this.usernameSearch || this.sexSearch || this.userTypeSearch)
+                this.users = this.users.filter(user => {
+                    if (this.userTypeSearch && this.usernameSearch && this.sexSearch)
+                        return user.sex === this.sexSearch && user.userType === this.userTypeSearch && user.username === this.usernameSearch;
+                    else if (this.usernameSearch && this.userTypeSearch)
+                        return user.userType === this.userTypeSearch && user.username === this.usernameSearch;
+                    else if (this.usernameSearch && this.sexSearch)
+                        return user.sex === this.sexSearch && user.username === this.usernameSearch;
+                    else if (this.sexSearch && this.userTypeSearch)
+                        return user.sex === this.sexSearch && user.userType === this.userTypeSearch;
+                    else if (this.sexSearch)
+                        return user.sex === this.sexSearch;
+                    else if (this.userTypeSearch)
+                        return user.userType === this.userTypeSearch;
+                    else if (this.usernameSearch)
+                        return user.username === this.usernameSearch;
+                }
+               );
         },
         resetSearch : function () {
             this.usernameSearch = '';
