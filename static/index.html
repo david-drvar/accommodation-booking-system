@@ -14,8 +14,18 @@
 
   <div id="app">
         <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'ADMIN'}">
-            <li class="nav-item">
-                <a class="nav-link" href="#/users">Users</a>
+            <li>
+                <a class="navbar-brand" href="#/">
+                    <img src="pics/kim-kardashian.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                    Booking
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#/users">All users</a>
+                    <a class="dropdown-item" href="#/register-host">Register host</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#/apartments">Apartments</a>
@@ -355,6 +365,7 @@
 <script src="apartments.js"></script>
 <script src="logout.js"></script>
 <script src="amenities.js"></script>
+<script src="registerHost.js"></script>
 <script src="app.js"></script>
 
 <script>

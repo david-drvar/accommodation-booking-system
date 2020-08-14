@@ -112,7 +112,7 @@ let register = new Vue(
                 document.getElementById('sex').style.borderColor = '#ced4da';
             },
             registerUser : function () {
-                this.user.userType = "ADMIN";
+                this.user.userType = "GUEST";
                 axios.post(`http://localhost:8088/users/save`, {
                     firstName : this.user.firstName,
                     lastName : this.user.lastName,

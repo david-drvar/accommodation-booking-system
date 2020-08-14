@@ -189,7 +189,6 @@
     "userType": "ADMIN"
   },
   {
-    "apartment": [],
     "username": "host",
     "password": "host",
     "firstName": "eqweqweqw",
@@ -230,7 +229,6 @@
     "userType": "ADMIN"
   },
   {
-    "reservation": [],
     "username": "awewq",
     "password": "gson",
     "firstName": "gson",
@@ -249,5 +247,25 @@
     "id": 24,
     "isActive": true,
     "userType": "ADMIN"
+  },
+  {
+    "username": "ase",
+    "password": "ase",
+    "firstName": "hostic name",
+    "lastName": "hostic surname",
+    "sex": "FEMALE",
+    "id": 25,
+    "isActive": true,
+    "userType": "HOST"
+  },
+  {
+    "username": "qweee",
+    "password": "qweee",
+    "firstName": "reset form",
+    "lastName": "lasd",
+    "sex": "FEMALE",
+    "id": 26,
+    "isActive": true,
+    "userType": "HOST"
   }
 ]

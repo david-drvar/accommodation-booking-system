@@ -121,6 +121,14 @@ public class Main {
                 Admin admin = converter.fromJson(json, Admin.class);
                 userService.save(admin);
             }
+            else if (user.getUserType() == UserType.HOST) {
+                Host host = converter.fromJson(json, Host.class);
+                userService.save(host);
+            }
+            else if (user.getUserType() == UserType.GUEST) {
+                Guest guest = converter.fromJson(json, Guest.class);
+                userService.save(guest);
+            }
             return "OK";
         });
 
