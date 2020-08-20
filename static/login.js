@@ -2,12 +2,9 @@ new Vue(
     {
         el : "#loginModal",
         data : {
-            user : null,
+            user : {username : "", password : ""},
             userErr : "",
             passErr : ""
-        },
-        mounted() {
-            this.user = {username : "", password : ""};
         },
         methods: {
             requiredUsername : function(event) {

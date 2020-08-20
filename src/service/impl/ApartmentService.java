@@ -16,17 +16,17 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public Apartment save(Apartment entity) {
-        return null;
+        return apartmentRepository.save(entity);
     }
 
     @Override
     public void edit(Apartment entity) {
-
+        apartmentRepository.edit(entity);
     }
 
     @Override
     public Apartment get(long id) {
-        return null;
+        return apartmentRepository.get(id);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public void delete(Apartment entity) {
-
+        apartmentRepository.delete(entity);
     }
 }

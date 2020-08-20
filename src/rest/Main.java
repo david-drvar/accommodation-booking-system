@@ -113,7 +113,7 @@ public class Main {
             return converter.toJson(userService.get(id));
         });
 
-        post("/users/save", (req, res) -> {
+        post("/users/save", (req, res) -> { //TODO David: Koja je razlika izmedju save i register
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (user.getUserType() == UserType.ADMIN) {
@@ -221,6 +221,13 @@ public class Main {
         get("/apartment/getAll", (req, res) -> {
             res.type("application/json");
             return converter.toJson(apartmentService.getAll());
+        });
+
+        post("/apartment/save", (req, res) -> {
+            String payload = req.body();
+            Apartment apartment = converter.fromJson(payload, Apartment.class);
+            res.type("application/json");
+            return converter.toJson(apartmentService.save(apartment));
         });
     }
 
