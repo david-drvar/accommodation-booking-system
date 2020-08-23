@@ -1,4 +1,31 @@
 Vue.component("apartments", {
+    data: function() {
+        return ({
+            page : 0,
+            amenities : []
+        })
+    },
+    mounted() {
+        const token = sessionStorage.getItem('jwt');
+        axios
+            .get('/amenities/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
+            .then(res => {
+                this.amenities = res.data;
+            });
+    },
+    methods : {
+        nextPage : function () {
+            this.page = 1;
+        },
+
+        previousPage : function () {
+            this.page = 0;
+        }
+    },
     template : `
     <div>
         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#newApartment">New</button>
@@ -11,9 +38,10 @@ Vue.component("apartments", {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <div>
-                    <div>
+              <div class="modal-body">  
+                <br>
+                <div v-if="page==0">
+                        <h6>General information</h6>
                       <div class="form-row">
                         <div class="col-md-12">
                           <select class="form-control">
@@ -52,7 +80,6 @@ Vue.component("apartments", {
                           <input type="text" class="form-control" placeholder="Street">
                         </div>
                       </div>
-    <!--                  TODO Datumi za izdavanje &ndash;&gt;-->
                       <br/>
                       <div class="form-row">
                         <div class="input-group col-md-12">
@@ -74,16 +101,27 @@ Vue.component("apartments", {
                           <input type="time" class="form-control" placeholder="Time to check out">
                         </div>
                       </div>
-                      <br/>
-                      <div class="form-row">
-                        <div class="col-md-12">
-                          <input type="file" class="form-control" name="Pics" multiple>
-                        </div>
-                      </div>
+                </div>
+                <div v-if="page==1">
+                    <h6>Inventory</h6>
+                    <div>
+                        <button class="btn btn-outline-secondary col-md-4" 
+                        data-toggle="button" aria-pressed="false"
+                        v-for="a in amenities">
+                            {{a.name}}
+                        </button>
+                    </div>
+                    <br/>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
+                        <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>
+                    </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" v-if="page == 1" v-on:click="previousPage">Back</button>
+                <button type="button" class="btn btn-primary" v-if="page == 0" v-on:click="nextPage">Next</button>
+                <button type="button" class="btn btn-primary" v-if="page == 1">Save</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>

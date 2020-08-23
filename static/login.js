@@ -4,7 +4,8 @@ new Vue(
         data : {
             user : {username : "", password : ""},
             userErr : "",
-            passErr : ""
+            passErr : "",
+            loginErr : false
         },
         methods: {
             requiredUsername : function(event) {
@@ -30,6 +31,7 @@ new Vue(
             resetValidation : function() {
                 this.passErr = '';
                 this.userErr = '';
+                this.loginErr = false;
                 this.user = {username : "", password : ""};
                 document.getElementById('user').style.borderColor = '#ced4da';
                 document.getElementById('pass').style.borderColor = '#ced4da';
@@ -38,8 +40,11 @@ new Vue(
                 axios
                     .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
                     .then(response => {
-                        window.sessionStorage.setItem('jwt', response.data);
-                        window.location.href = "/";
+                            window.sessionStorage.setItem('jwt', response.data);
+                            window.location.href = "/";
+                    })
+                    .catch(err => {
+                        this.loginErr = true;
                     });
             },
             isLoggedIn : function () {
