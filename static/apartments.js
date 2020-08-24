@@ -2,11 +2,32 @@ Vue.component("apartments", {
     data: function() {
         return ({
             page : 0,
-            amenities : []
+            amenities : [],
+            apartment : {
+                'id' : '0',
+                'type' : 'Type',
+                'roomNumber' : null,
+                'guestNumber' : null,
+                'rentDates' : [],
+                'availableDates' : [],
+                'images' : [],
+                'pricePerNight' : null,
+                'checkIn' : null,
+                'checkOut' : null,
+                'status' : 'INACTIVE',
+                'location' : null,
+                'apartmentComments' : [],
+                'amenities' : [],
+                'host' : null,
+                'reservations' : [],
+                'isActive' : true
+            }
         })
     },
     mounted() {
         const token = sessionStorage.getItem('jwt');
+        const parsed = JSON.parse(jwt_decode(token).sub);
+
         axios
             .get('/amenities/getAll', {
                 headers : {
@@ -16,6 +37,9 @@ Vue.component("apartments", {
             .then(res => {
                 this.amenities = res.data;
             });
+        axios
+            .get('/users/getOne/' + parsed.id)
+            .then(res => this.apartment.host = res.data);
     },
     methods : {
         nextPage : function () {
@@ -24,6 +48,24 @@ Vue.component("apartments", {
 
         previousPage : function () {
             this.page = 0;
+        },
+
+        saveApartment : function () {
+            //this.apartment.images = document.getElementById('inputGroupFile01').files;
+            // for(let el of this.apartment.images)
+            //     alert(el);
+            alert(this.apartment);
+            axios
+                .post('apartment/save', this.apartment);
+        },
+
+        addAmenity : function (event, amenity) {
+            let list = this.apartment.amenities;
+            let index = list.indexOf(amenity);
+            if (index === -1)
+                list.push(amenity);
+            else
+                list.splice(list.indexOf(amenity), 1);
         }
     },
     template : `
@@ -33,7 +75,9 @@ Vue.component("apartments", {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New apartment</h5>
+                <h5 class="modal-title" id="exampleModalLabel">New apartment
+                <span class="text-secondary" v-if="page==0">GENERAL</span> 
+                <span class="text-secondary" v-if="page==1">INVENTORY</span></h5> 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -41,35 +85,37 @@ Vue.component("apartments", {
               <div class="modal-body">  
                 <br>
                 <div v-if="page==0">
-                        <h6>General information</h6>
                       <div class="form-row">
                         <div class="col-md-12">
-                          <select class="form-control">
-                            <option selected>Type</option>
-                            <option>...</option>
+                          <select class="form-control" v-model="apartment.type">
+                            <option selected disabled>Type</option>
+                            <option>ROOM</option>
+                            <option>FULL</option>
                           </select>
                         </div>
                       </div>
                       <br/>
                       <div class="form-row">
                         <div class="col-md-6">
-                          <input type="number" class="form-control" placeholder="number of rooms" min="0">
+                          <input type="number" class="form-control" placeholder="number of rooms" min="0"
+                          v-model="apartment.roomNumber">
                         </div>
                         <div class="col-md-6">
-                          <input type="number" class="form-control" placeholder="number of guests" min="0">
+                          <input type="number" class="form-control" placeholder="number of guests" min="0"
+                          v-model="apartment.guestNumber">
                         </div>
                       </div>
                       <br/>
                       <div class="form-row">
                         <div class="col-md-6">
                           <select class="form-control">
-                            <option selected>State</option>
+                            <option selected disabled>State</option>
                             <option>...</option>
                           </select>
                         </div>
                         <div class="col-md-6">
                           <select class="form-control">
-                            <option selected>Town</option>
+                            <option selected disabled>Town</option>
                             <option>...</option>
                           </select>
                         </div>
@@ -86,7 +132,8 @@ Vue.component("apartments", {
                           <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
                            </div>
-                          <input type="number" class="form-control" placeholder="Price per night" min="0">
+                          <input type="number" class="form-control" placeholder="Price per night" min="0"
+                          v-model="apartment.pricePerNight">
                           <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                           </div>
@@ -95,19 +142,21 @@ Vue.component("apartments", {
                       <br/>
                       <div class="form-row">
                         <div class="col-md-6">
-                          <input type="time" class="form-control" placeholder="Time to check in">
+                          <input type="time" class="form-control" placeholder="Time to check in"
+                          v-model="apartment.checkIn">
                         </div>
                         <div class="col-md-6">
-                          <input type="time" class="form-control" placeholder="Time to check out">
+                          <input type="time" class="form-control" placeholder="Time to check out"
+                          v-model="apartment.checkOut">
                         </div>
                       </div>
                 </div>
                 <div v-if="page==1">
-                    <h6>Inventory</h6>
                     <div>
                         <button class="btn btn-outline-secondary col-md-4" 
                         data-toggle="button" aria-pressed="false"
-                        v-for="a in amenities">
+                        v-for="a in amenities"
+                        v-on:click="addAmenity($event, a)">
                             {{a.name}}
                         </button>
                     </div>
@@ -121,7 +170,8 @@ Vue.component("apartments", {
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" v-if="page == 1" v-on:click="previousPage">Back</button>
                 <button type="button" class="btn btn-primary" v-if="page == 0" v-on:click="nextPage">Next</button>
-                <button type="button" class="btn btn-primary" v-if="page == 1">Save</button>
+                <button type="button" class="btn btn-primary" v-if="page == 1"
+                v-on:click="saveApartment">Save</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>

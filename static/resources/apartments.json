@@ -1,85 +1,301 @@
 [
   {
-    "id" : 1,
-    "type" : "FULL",
-    "roomNumber" : 4,
-    "guestNumber" : 3,
-    "rentDates" : [],
-    "availableDates" : [],
-    "images" : [],
-    "pricePerNight" : 1500.00,
-    "checkIn" : "2013-01-04T10:50:26+0000",
-    "checkOut" : "2013-01-04T10:50:26+0000",
-    "status" : "ACTIVE",
-    "location" : {
-      "longitude" : 2132434,
-      "latitude" : 124344,
-      "address" : {
-        "street" : "Bate Brkica",
-        "number" : "1A",
-        "town" : {
-          "name" : "Novi Sad",
-          "postalNumber" : 21000
+    "id": 1,
+    "type": "FULL",
+    "roomNumber": 4,
+    "guestNumber": 3,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 1500.0,
+    "checkIn": "2013-01-04T11:50:26+0100",
+    "checkOut": "2013-01-04T11:50:26+0100",
+    "status": "ACTIVE",
+    "location": {
+      "longitude": 2132434.0,
+      "latitude": 124344.0,
+      "address": {
+        "street": "Bate Brkica",
+        "number": "1A",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": 21000
         }
       }
     },
-    "apartmentComments" : [
+    "apartmentComments": [
       {
-        "content" : "Jako lepo",
-        "grade" : 10,
-        "isActive" : true,
-        "guest" : {
-          "username" : "asd",
-          "password" : "asd",
-          "firstName" : "Angel",
-          "lastName" : "Broadway",
-          "sex" : "OTHER",
-          "id" : 2,
-          "isActive" : true,
-          "userType" : "GUEST",
-          "reservations" : []
-        }
-      }
-    ],
-    "amenities" : [
-      {
-        "id" : 1,
-        "name" : "Toster",
-        "isActive" : true
-      }
-    ],
-    "host" : {
-      "username" : "mira",
-      "password" : "mira",
-      "firstName" : "Peter",
-      "lastName" : "Richter",
-      "sex" : "OTHER",
-      "id" : 3,
-      "isActive" : true,
-      "userType" : "HOST",
-      "apartments" : []
-    },
-    "reservations" : [
-      {
-        "checkInDate": "2013-01-04T10:50:26+0000",
-        "numberOfNights" : 3,
-        "totalPrice" : 34545,
-        "note" : "/",
-        "status" : "APPROVED",
-        "guest" : {
-          "username" : "Mirela",
-          "password" : "asd",
-          "firstName" : "Mirela",
-          "lastName" : "Mikic",
-          "sex" : "FEMALE",
-          "id" : 5,
-          "isActive" : true,
-          "userType" : "GUEST",
-          "reservations" : []
+        "content": "Jako lepo",
+        "grade": 10,
+        "guest": {
+          "reservations": [],
+          "username": "asd",
+          "password": "asd",
+          "firstName": "Angel",
+          "lastName": "Broadway",
+          "sex": "OTHER",
+          "id": 2,
+          "isActive": true,
+          "userType": "GUEST"
         },
-        "apartment" : {}
+        "isActive": true
       }
     ],
-    "isActive" : true
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Toster",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "apartments": [],
+      "username": "mira",
+      "password": "mira",
+      "firstName": "Peter",
+      "lastName": "Richter",
+      "sex": "OTHER",
+      "id": 3,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [
+      {
+        "checkInDate": "2013-01-04T11:50:26+0100",
+        "numberOfNights": 3,
+        "totalPrice": 34545.0,
+        "note": "/",
+        "status": "APPROVED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "Mirela",
+          "password": "asd",
+          "firstName": "Mirela",
+          "lastName": "Mikic",
+          "sex": "FEMALE",
+          "id": 5,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 0,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
+    "isActive": true
+  },
+  {
+    "id": 2,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "type": "ROOM",
+    "roomNumber": 3,
+    "guestNumber": 3,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 3.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 4,
+    "type": "ROOM",
+    "roomNumber": 10,
+    "guestNumber": 10,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 11.0,
+    "checkIn": "22:12",
+    "checkOut": "22:12",
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 5,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      },
+      {
+        "id": 5,
+        "name": "Shampoo",
+        "isActive": true
+      }
+    ],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 6,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 9,
+        "name": "Swimming pool",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 8,
+        "name": "Gym",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 9,
+        "name": "Swimming pool",
+        "isActive": true
+      },
+      {
+        "id": 5,
+        "name": "Shampoo",
+        "isActive": true
+      },
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      },
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      },
+      {
+        "id": 5,
+        "name": "Shampoo",
+        "isActive": true
+      },
+      {
+        "id": 6,
+        "name": "Private entrance",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 6,
+        "name": "Private entrance",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      }
+    ],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 7,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 8,
+        "name": "Gym",
+        "isActive": true
+      }
+    ],
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 8,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "qweqwweq",
+      "password": "qweqweqwe",
+      "firstName": "eqweqweqw",
+      "lastName": "qweqwe",
+      "sex": "FEMALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "ADMIN"
+    },
+    "reservations": [],
+    "isActive": true
   }
 ]
