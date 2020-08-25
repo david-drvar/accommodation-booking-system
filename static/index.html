@@ -40,7 +40,7 @@
                 <a class="nav-link" href="#">Apartment comments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Account</a>
+                <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#profileModal">Account</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Search apartments</a>
@@ -72,7 +72,7 @@
               <a class="nav-link" href="#">Amenities</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Account</a>
+              <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#profileModal">Account</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="#">Search apartments</a>
@@ -98,7 +98,7 @@
               <a class="nav-link" href="#">Reservations</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Account</a>
+              <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#profileModal">Account</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="#">Search apartments</a>
@@ -270,6 +270,148 @@
 	</div>
 </div>
 
+  <div class="modal fade" id="profileModal" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Your Account <span class="badge badge-primary">{{user.userType}}</span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                          v-on:click="cancelEditing">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div>
+                  <div class="container-fluid" v-if="!edit">
+                      <div class="row">
+                          <div class="col-lg-6">First name</div>
+                          <div class="col-lg-6">{{user.firstName}}</div>
+                      </div>
+                      <br/>
+                      <div class="row">
+                          <div class="col-lg-6">Last name</div>
+                          <div class="col-lg-6">{{user.lastName}}</div>
+                      </div>
+                      <br/>
+                      <div class="row">
+                          <div class="col-lg-6">Sex</div>
+                          <div class="col-lg-6">{{user.sex}}</div>
+                      </div>
+                  </div>
+                  <div class="container-fluid" v-if="edit">
+                      <div class="row justify-content-end" v-if="firstNameErr">
+                          <div class="col-lg-8">
+                              <small class="errorMsg">First name can only contain characters.</small>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4">First name</div>
+                          <div class="col-lg-8">
+                              <input type="text" class="form-control" v-model="user.firstName"
+                              v-on:keyup="validateFirstName">
+                          </div>
+                      </div>
+                      <br/>
+                      <div class="row justify-content-end" v-if="lastNameErr">
+                          <div class="col-lg-8">
+                              <small class="errorMsg">Last name can only contain characters.</small>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4">Last name</div>
+                          <div class="col-lg-8">
+                              <input type="text" class="form-control" v-model="user.lastName"
+                                     v-on:keyup="validateLastName">
+                          </div>
+                      </div>
+                      <br/>
+                      <div class="row">
+                          <div class="col-lg-4">Sex</div>
+                          <div class="col-lg-8">
+                              <select class="form-control" v-model="user.sex">
+                                  <option>MALE</option>
+                                  <option>FEMALE</option>
+                                  <option>OTHER</option>
+                              </select>
+                          </div>
+                      </div>
+                      <br/>
+                      <div class="row">
+                          <button class="btn btn-outline-primary col-lg-6" type="button" data-toggle="collapse" data-target="#passChange" aria-expanded="false"
+                          v-on:click="passChangeActive = !passChangeActive">
+                              Password settings
+                          </button>
+                      </div>
+                      <br/>
+                      <div class="collapse row" id="passChange">
+                          <div class="card card-body border-primary">
+                              <div class="row" v-if="currentPassErr">
+                                  <div class="col-lg-8">
+                                      <small class="errorMsg">Incorrect current password.</small>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <input type="text" class="form-control" placeholder="Current password"
+                                  v-model="user.password"
+                                  v-on:focusout="currentPasswordCheck">
+                              </div>
+                              <br/>
+                              <div class="row" v-if="newPassErr">
+                                  <div class="col-lg-8">
+                                      <small class="errorMsg">Password cannot be empty.</small>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <input type="text" class="form-control" placeholder="New password"
+                                         v-model="newPass"
+                                         v-on:keyup="newPasswordCheck">
+                              </div>
+                              <br/>
+                              <div class="row" v-if="matchingPassErr">
+                                  <div class="col-lg-8">
+                                      <small class="errorMsg">Password doesn't match the previous.</small>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <input type="text" class="form-control" placeholder="Confirm password"
+                                  v-model="repeatPass"
+                                  v-on:focusout="matchingPasswordCheck" v-on:keyup="hiddenMatchingPasswordCheck">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+          </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary"
+                          v-if="!edit" v-on:click="editMode">Edit</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal"
+                          v-if="edit" v-bind:disabled="firstNameErr || lastNameErr || (passChangeActive &&
+                          (currentPassErr || newPassErr || matchingPassErr || hiddenMatchingPassErr
+                          || newPass == null || repeatPass == null || user.password == null))"
+                          v-on:click="editUser">Save</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                          v-on:click="cancelEditing">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;" >
+      <div class="toast" style="position: absolute; top: 0; right: 0;" id="editSuccess">
+          <div class="toast-header">
+              <img src="..." class="rounded mr-2" alt="...">
+              <strong class="mr-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="toast-body">
+              Hello, world! This is a toast message.
+          </div>
+      </div>
+  </div>
 <!--<br/>-->
 <!--<br/>-->
 <!--<div class="bg-primary" id="search">-->
@@ -406,6 +548,7 @@
 <script src="logout.js"></script>
 <script src="amenities.js"></script>
 <script src="registerHost.js"></script>
+<script src="profile.js"></script>
 <script src="app.js"></script>
 
 <script>

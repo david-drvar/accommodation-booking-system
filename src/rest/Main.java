@@ -147,7 +147,14 @@ public class Main {
                 Admin admin = converter.fromJson(json, Admin.class);
                 userService.edit(admin);
             }
-            //userService.edit(user);
+            else if (user.getUserType() == UserType.HOST) {
+                Host admin = converter.fromJson(json, Host.class);
+                userService.edit(admin);
+            }
+            else if (user.getUserType() == UserType.GUEST) {
+                Guest admin = converter.fromJson(json, Guest.class);
+                userService.edit(admin);
+            }
             return "OK";
         });
 

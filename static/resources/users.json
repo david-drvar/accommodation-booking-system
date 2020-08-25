@@ -181,9 +181,9 @@
   {
     "username": "host",
     "password": "host",
-    "firstName": "eqweqweqw",
-    "lastName": "qweqwe",
-    "sex": "FEMALE",
+    "firstName": "Petar",
+    "lastName": "Markovic",
+    "sex": "MALE",
     "id": 7,
     "isActive": true,
     "userType": "HOST"

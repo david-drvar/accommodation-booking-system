@@ -4,7 +4,6 @@ const Users = {template: '<users></users>'}
 const Amenities = {template: '<amenities></amenities>'}
 const RegisterHost = {template: '<register-host></register-host>'}
 
-
 const router = new VueRouter({
     mode: 'hash',
     routes: [
@@ -13,7 +12,6 @@ const router = new VueRouter({
         { path: '/users', component: Users},
         { path: '/amenities', component: Amenities},
         { path: '/register-host', component: RegisterHost},
-
     ]
 });
 
