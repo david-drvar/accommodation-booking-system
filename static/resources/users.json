@@ -180,7 +180,7 @@
   },
   {
     "username": "host",
-    "password": "host",
+    "password": "hostic",
     "firstName": "Petar",
     "lastName": "Markovic",
     "sex": "MALE",
@@ -221,7 +221,7 @@
   {
     "username": "wer",
     "password": "wer",
-    "firstName": "wer",
+    "firstName": "weree",
     "lastName": "wer",
     "sex": "FEMALE",
     "id": 24,
@@ -307,5 +307,15 @@
     "id": 32,
     "isActive": true,
     "userType": "GUEST"
+  },
+  {
+    "username": "asddddde",
+    "password": "asddddde",
+    "firstName": "novi hostasdad",
+    "lastName": "kjsalddas",
+    "sex": "FEMALE",
+    "id": 33,
+    "isActive": true,
+    "userType": "HOST"
   }
 ]

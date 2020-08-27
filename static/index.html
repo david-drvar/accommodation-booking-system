@@ -8,6 +8,14 @@
 			color: #ce5858;
 		}
 	</style>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgc06_91-XPMZMnOGQ-IYHVFSyzjQkjfc&callback=initAutocomplete&libraries=places&v=weekly"
+            defer
+    ></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+
 	<link rel="stylesheet" type="text/css" href="bootstrap-4.5.1-dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -344,7 +352,7 @@
                       </div>
                       <br/>
                       <div class="collapse row" id="passChange">
-                          <div class="card card-body border-primary">
+                          <div class="card-body border-primary">
                               <div class="row" v-if="currentPassErr">
                                   <div class="col-lg-8">
                                       <small class="errorMsg">Incorrect current password.</small>
@@ -527,6 +535,14 @@
 <!--    </tbody>-->
 <!--</table>-->
 
+  <input
+          id="pac-input"
+          class="controls"
+          type="text"
+          placeholder="Search Box"
+  />
+  <div id="map"></div>
+
 
 
 <script src="js/vue.js"></script>
@@ -550,6 +566,7 @@
 <script src="registerHost.js"></script>
 <script src="profile.js"></script>
 <script src="app.js"></script>
+<script src="map.js"></script>
 
 <script>
 	$(document).ready(function(){
