@@ -21,7 +21,8 @@ Vue.component("apartments", {
                 'host' : null,
                 'reservations' : [],
                 'isActive' : true
-            }
+            },
+            apartments : []
         })
     },
     mounted() {
@@ -40,6 +41,8 @@ Vue.component("apartments", {
         axios
             .get('/users/getOne/' + parsed.id)
             .then(res => this.apartment.host = res.data);
+
+        axios.get('/apartment/getAll').then(response => this.apartments = response.data);
     },
     methods : {
         nextPage : function () {
@@ -66,6 +69,9 @@ Vue.component("apartments", {
                 list.push(amenity);
             else
                 list.splice(list.indexOf(amenity), 1);
+        },
+        selectApartment : function (id) {
+            window.location.href = "#/apartment/" + id;
         }
     },
     template : `
@@ -177,6 +183,18 @@ Vue.component("apartments", {
             </div>
           </div>
         </div>
-    </div>    
+        
+        <div class="card-group pl-2 pr-2 pb-5 overflow-auto" style="width: 18rem;" v-for="apartment in this.apartments">
+            <div class="card" v-on:click="selectApartment(apartment.id)">
+                <img class="card-img-top" src="pics/kim-kardashian.jpg" alt="Card image cap">
+                <div class="card-body text-primary">
+                    <h5 class="card-title">{{apartment.roomNumber}}</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+        </div>
+
+
+        </div>    
     `
 })

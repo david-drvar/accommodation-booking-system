@@ -17,7 +17,7 @@ function initAutocomplete() {
     // Bias the SearchBox results towards current map's viewport.
     map.addListener("bounds_changed", () => {
         searchBox.setBounds(map.getBounds());
-    });
+    })
     let markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
@@ -39,6 +39,8 @@ function initAutocomplete() {
                 console.log("Returned place contains no geometry");
                 return;
             }
+            console.log(place.formatted_address + "  " +  place.geometry.location.lat() + "  " + place.geometry.location.lng());
+            console.log(place);
             const icon = {
                 url: place.icon,
                 size: new google.maps.Size(71, 71),

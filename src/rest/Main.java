@@ -230,6 +230,12 @@ public class Main {
             return converter.toJson(apartmentService.getAll());
         });
 
+        get("/apartment/getOne/:id", (req, res) -> {
+            res.type("application/json");
+            long id = Long.parseLong(req.params("id"));
+            return converter.toJson(apartmentService.get(id));
+        });
+
         post("/apartment/save", (req, res) -> {
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
