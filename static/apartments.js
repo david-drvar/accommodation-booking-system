@@ -22,7 +22,20 @@ Vue.component("apartments", {
                 'reservations' : [],
                 'isActive' : true
             },
-            apartments : []
+            apartments : [],
+            sort : null,
+            filter : {
+                fromDate : null,
+                toDate : null,
+                destination : "",
+                guests : 0,
+                maxPrice : 0,
+                minPrice : 0,
+                minRooms : 0,
+                maxRooms : 0
+            },
+            moreFilters : false
+
         })
     },
     mounted() {
@@ -72,11 +85,106 @@ Vue.component("apartments", {
         },
         selectApartment : function (id) {
             window.location.href = "#/apartment/" + id;
-        }
+        },
+        sortApartments : function () {
+            if (this.sort === "ASCENDING") {
+                this.apartments = this.apartments.sort(function (a,b) {
+                    return a.pricePerNight - b.pricePerNight
+                });
+            }
+            else {
+                this.apartments = this.apartments.sort(function (a,b) {
+                    return b.pricePerNight - a.pricePerNight;
+                });
+            }
+        },
+        showMoreFilters : function () {
+            this.moreFilters = true;
+        },
+        showLessFilters : function () {
+            this.moreFilters = false;
+        },
+        priceFilter : function (price) {
+            console.log(price);
+            return price >= this.filter.minPrice && price <= this.filter.maxPrice;
+        },
+        roomFilter : function (roomNumber) {
+            //alert('roomFilter');
+            if (this.filter.maxRooms === 0 && this.filter.minRooms > 0)
+                return roomNumber >= this.filter.minRooms;
+            return roomNumber >= this.filter.minRooms && roomNumber <= this.filter.maxRooms;
+        },
+        searchApartments : async function () {
+            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            this.apartments = this.apartments.filter((apartment) => {
+                let a = apartment.pricePerNight;
+                //console.log(a);
+                return this.priceFilter(a)=== true;
+                }
+            );
+        },
+
     },
     template : `
     <div>
+        <br/>
         <button class="btn btn-outline-primary" data-toggle="modal" data-target="#newApartment">New</button>
+        <div id="search">
+            <div class="p-4 bg-light">
+                <div class="input-group">
+                    <input type="date" class="form-control"
+                           data-toggle="tooltip" title="When is your arrival date?" data-placement="top">
+                    <input type="date" class="form-control"
+                           data-toggle="tooltip" title="When is your returning date?" data-placement="top">
+                    <input type="text" class="form-control" placeholder="location"
+                           data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top">
+                    <input type="number" min="0" class="form-control" placeholder="no of guests" v-model="filter.guests"
+                           data-toggle="tooltip" title="How many of you are coming?" data-placement="top">
+                    <button class="btn btn-outline-info"
+                            data-toggle="tooltip" title="Show more filters" data-placement="top"
+                            v-bind:class="{invisible : moreFilters}" v-on:click="showMoreFilters">More</button>
+                    <button class="btn btn-primary"
+                            v-bind:class="{invisible : moreFilters}" v-on:click="searchApartments">Search</button>
+                </div>
+                <div class="input-group" v-bind:class="{collapse : !moreFilters}">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" min="0" class="form-control" placeholder="max price" v-model="filter.maxPrice"
+                           data-toggle="tooltip" title="What is a maximal price you're willing to pay?" data-placement="bottom">
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" min="0" class="form-control" placeholder="min price" v-model="filter.minPrice"
+                           data-toggle="tooltip" title="What is a minimal price you're willing to pay?" data-placement="bottom">
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                    <input type="number" min="0" class="form-control" placeholder="max rooms" v-model="filter.maxRooms"
+                           data-toggle="tooltip" title="How many rooms do you need at the most?" data-placement="bottom">
+                    <input type="number" min="0" class="form-control" placeholder="min rooms" v-model="filter.minRooms"
+                           data-toggle="tooltip" title="How many rooms do you need at the least?" data-placement="bottom">
+                    <button class="btn btn-outline-info"
+                            data-toggle="tooltip" title="Show less filters" data-placement="top"
+                            v-on:click="showLessFilters">&nbspLess&nbsp</button>
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <div>
+            <select class="form-control" type="text"  class="form-control" v-on:change="sortApartments" v-model="sort">
+                <option value="" disabled selected>sort by</option>
+                <option value="DESCENDING">by price - descending</option>
+                <option value="ASCENDING">by price - ascending</option>
+            </select>
+        </div>
+        <br/>
+
         <div class="modal fade" id="newApartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -184,12 +292,20 @@ Vue.component("apartments", {
           </div>
         </div>
         
-        <div class="card-group pl-2 pr-2 pb-5 overflow-auto" style="width: 18rem;" v-for="apartment in this.apartments">
-            <div class="card" v-on:click="selectApartment(apartment.id)">
+        <div class="col-md-4" v-for="apartment in this.apartments" >
+            <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
                 <img class="card-img-top" src="pics/kim-kardashian.jpg" alt="Card image cap">
                 <div class="card-body text-primary">
-                    <h5 class="card-title">{{apartment.roomNumber}}</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <h5 class="card-title">Apartment name</h5>
+                    <p class="card-text">
+                        {{"type : " + apartment.type}}
+                        <br/>
+                        {{"room number : " + apartment.roomNumber}}
+                        <br/>
+                        {{"guest number : " + apartment.guestNumber}}
+                        <br/>
+                        {{"price per night : " + apartment.pricePerNight}}
+                    </p>
                 </div>
             </div>
         </div>

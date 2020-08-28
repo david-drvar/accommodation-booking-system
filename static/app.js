@@ -38,7 +38,7 @@ const app = new Vue({
     },
     methods : {
         logout : function() {
-            alert(this.location);
+            //alert(this.location);
             sessionStorage.removeItem('jwt');
             window.location.href = "/";
         },

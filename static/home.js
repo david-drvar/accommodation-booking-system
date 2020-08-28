@@ -1,12 +1,3 @@
-// Vue.component("home-page", {
-//     template: `
-// <div>
-// <p>RUTER AA</p>
-// </div>
-// `,
-//     name: "home-page"
-// });
-
 Vue.component('home-page', {
     data: function() {
         return ({
@@ -41,7 +32,6 @@ Vue.component('home-page', {
             this.moreFilters = false;
         },
         pullTowns : function (event) {
-            //alert(event.target.value);
             axios.get(`/state/getOne/` + event.target.value, {
             }).then(response => {
                     this.towns = response.data.towns;

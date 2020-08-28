@@ -2,7 +2,8 @@ Vue.component("selected-apartment", {
     data: function() {
         return ({
             id : this.$route.params.id,
-            apartment : null
+            apartment : null,
+            userType : "BROWSE"
         })
     },
     mounted() {
@@ -10,6 +11,13 @@ Vue.component("selected-apartment", {
             .then(response => {
                 this.apartment = response.data;
             });
+
+        const jwt = window.sessionStorage.getItem('jwt');
+        if (jwt!== null) {
+            const decoded = jwt_decode(jwt);
+            const parsed = JSON.parse(decoded.sub);
+            this.userType = parsed.userType;
+        }
     },
     methods : {
     },
@@ -89,6 +97,14 @@ Vue.component("selected-apartment", {
                             <tbody>
                             <tr>
                                 <td>
+                                    Type
+                                </td>
+                                <td>
+                                    {{this.apartment.type}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Room number
                                 </td>
                                 <td>
@@ -110,6 +126,10 @@ Vue.component("selected-apartment", {
                                 <td>
                                     {{this.apartment.pricePerNight}}
                                 </td>
+                            </tr>
+                            <tr v-if="this.userType !== 'BROWSE'">
+                                <td>Apartment status</td>
+                                <td>{{this.apartment.status}}</td>
                             </tr>
                             </tbody>
                         </table>

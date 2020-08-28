@@ -33,7 +33,7 @@ Vue.component("amenities", {
     },
     template: `
       <div v-if="this.userType === 'ADMIN'">
-          <br/><br/>
+          <br/>
           <div class="row">
               <div class="col-lg-15"></div>
               <div class="col-lg-2">
@@ -56,7 +56,7 @@ Vue.component("amenities", {
                 </button>
               </div>
           </div>
-        
+          <br/>
           <table class="table table-hover">
               <thead>
               <tr>
