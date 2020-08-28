@@ -209,7 +209,22 @@ Vue.component("apartments", {
                       v-model="apartment.checkOut">
                     </div>
                   </div>
+                  <br/>
+                  <div>
+                    <button class="btn btn-outline-secondary col-md-4" 
+                    data-toggle="button" aria-pressed="false"
+                    v-for="a in amenities"
+                    v-on:click="addAmenity($event, a)">
+                        {{a.name}}
+                    </button>
+                  </div>
+                    <br/>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
+                        <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>
+                    </div>
                 </div>
+          
                 <div class="col-lg-6">
                         <div id="map"></div>
                 </div>

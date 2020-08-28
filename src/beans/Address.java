@@ -3,15 +3,10 @@ package beans;
 public class Address {
    private String street;
    private String number;
+   private String state;
    private Town town;
 
    public Address() {
-   }
-
-   public Address(String street, String number, Town town) {
-      this.street = street;
-      this.number = number;
-      this.town = town;
    }
 
    public String getStreet() {
@@ -36,5 +31,13 @@ public class Address {
 
    public void setTown(Town town) {
       this.town = town;
+   }
+
+   public String getState() {
+      return state;
+   }
+
+   public void setState(String state) {
+      this.state = state;
    }
 }
