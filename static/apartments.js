@@ -32,8 +32,9 @@ Vue.component("apartments", {
                 maxPrice : "",
                 minPrice : "",
                 minRooms : "",
-                maxRooms : ""
+                maxRooms : "",
             },
+            location : "",
             moreFilters : false
 
         })
@@ -56,6 +57,23 @@ Vue.component("apartments", {
             .then(res => this.apartment.host = res.data);
 
         axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+    },
+    created() {
+        var searchInput = 'my-input';
+
+        $(document).ready(function () {
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode'],
+                /*componentRestrictions: {
+                 country: "USA"
+                }*/
+            });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                this.location = autocomplete.getPlace();
+            });
+        });
     },
     methods : {
         nextPage : function () {
@@ -154,8 +172,20 @@ Vue.component("apartments", {
                            data-toggle="tooltip" title="When is your arrival date?" data-placement="top">
                     <input type="date" class="form-control"
                            data-toggle="tooltip" title="When is your returning date?" data-placement="top">
-                    <input type="text" class="form-control" placeholder="location"
-                           data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top">
+                    
+<!--                    <input type="text" class="form-control" placeholder="location"-->
+<!--                           data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top">-->
+
+                    <input
+                            id="my-input"
+                            class="form-control"
+                            type="text"
+                            placeholder="location"
+                            data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top"
+                            v-model="location"
+                    />
+                    
+                    
                     <input type="number" min="0" class="form-control" placeholder="no of guests" v-model="filter.guests"
                            data-toggle="tooltip" title="How many of you are coming?" data-placement="top">
                     <button class="btn btn-outline-info"
@@ -201,6 +231,7 @@ Vue.component("apartments", {
                 <option value="ASCENDING">by price - ascending</option>
             </select>
         </div>
+
         <br/>
 
         <div class="modal fade" id="newApartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -327,8 +358,6 @@ Vue.component("apartments", {
                 </div>
             </div>
         </div>
-
-
         </div>    
     `
 })
