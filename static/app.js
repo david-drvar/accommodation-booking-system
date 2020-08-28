@@ -3,6 +3,7 @@ const Apartments = {template: '<apartments></apartments>'}
 const Users = {template: '<users></users>'}
 const Amenities = {template: '<amenities></amenities>'}
 const RegisterHost = {template: '<register-host></register-host>'}
+const SelectedApartment = {template : '<selected-apartment></selected-apartment>'}
 
 const router = new VueRouter({
     mode: 'hash',
@@ -12,6 +13,7 @@ const router = new VueRouter({
         { path: '/users', component: Users},
         { path: '/amenities', component: Amenities},
         { path: '/register-host', component: RegisterHost},
+        { path: '/apartment/:id', component: SelectedApartment }
     ]
 });
 
@@ -21,7 +23,8 @@ const app = new Vue({
     data : function () {
         return {
             userType : "BROWSE",
-            id : 0
+            id : 0,
+            location : ""
         }
     },
     mounted() {
@@ -35,6 +38,7 @@ const app = new Vue({
     },
     methods : {
         logout : function() {
+            //alert(this.location);
             sessionStorage.removeItem('jwt');
             window.location.href = "/";
         },

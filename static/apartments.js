@@ -21,7 +21,21 @@ Vue.component("apartments", {
                 'host' : null,
                 'reservations' : [],
                 'isActive' : true
-            }
+            },
+            apartments : [],
+            sort : null,
+            filter : {
+                fromDate : null,
+                toDate : null,
+                destination : "",
+                guests : "",
+                maxPrice : "",
+                minPrice : "",
+                minRooms : "",
+                maxRooms : ""
+            },
+            moreFilters : false
+
         })
     },
     mounted() {
@@ -40,6 +54,8 @@ Vue.component("apartments", {
         axios
             .get('/users/getOne/' + parsed.id)
             .then(res => this.apartment.host = res.data);
+
+        axios.get('/apartment/getAll').then(response => this.apartments = response.data);
     },
     methods : {
         nextPage : function () {
@@ -66,7 +82,66 @@ Vue.component("apartments", {
                 list.push(amenity);
             else
                 list.splice(list.indexOf(amenity), 1);
-        }
+        },
+        selectApartment : function (id) {
+            window.location.href = "#/apartment/" + id;
+        },
+        sortApartments : function () {
+            if (this.sort === "ASCENDING") {
+                this.apartments = this.apartments.sort(function (a,b) {
+                    return a.pricePerNight - b.pricePerNight
+                });
+            }
+            else {
+                this.apartments = this.apartments.sort(function (a,b) {
+                    return b.pricePerNight - a.pricePerNight;
+                });
+            }
+        },
+        showMoreFilters : function () {
+            this.moreFilters = true;
+        },
+        showLessFilters : function () {
+            this.moreFilters = false;
+        },
+        priceFilter : function (price) {
+            const max = parseInt(this.filter.maxPrice);
+            const min = parseInt(this.filter.minPrice);
+            if (isNaN(max) && isNaN(min))
+                return true;
+            else if (isNaN(max) && !isNaN(min))
+                return price >= min;
+            else if (!isNaN(max) && isNaN(min))
+                return price <= max;
+            else
+                return price >= min && price <= max;
+        },
+        roomFilter : function (roomNumber) {
+            const max = parseInt(this.filter.maxRooms);
+            const min = parseInt(this.filter.minRooms);
+            if (isNaN(max) && isNaN(min))
+                return true;
+            else if (isNaN(max) && !isNaN(min))
+                return roomNumber >= min;
+            else if (!isNaN(max) && isNaN(min))
+                return roomNumber <= max;
+            else
+                return roomNumber >= min && roomNumber <= max;
+        },
+        guestFilter : function (guestNumber) {
+            const guests = parseInt(this.filter.guests);
+            if (isNaN(guests))
+                return true;
+            return guestNumber === guests;
+        },
+        searchApartments : async function () {
+            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            this.apartments = this.apartments.filter((apartment) => {
+                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
+                }
+            );
+        },
+
     },
     template : `
         <div class="container-fluid">
@@ -140,6 +215,7 @@ Vue.component("apartments", {
                 </div>
             </div>
         </div>
+
 <!--    <div>-->
 <!--        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#newApartment">New</button>-->
 <!--        <div class="modal fade" id="newApartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->

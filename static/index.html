@@ -24,7 +24,7 @@
         <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'ADMIN'}">
             <li>
                 <a class="navbar-brand" href="#/">
-                    <img src="pics/kim-kardashian.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                    <img src="pics/logo_transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     Booking
                 </a>
             </li>
@@ -63,7 +63,7 @@
       <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'HOST'}">
           <li>
               <a class="navbar-brand" href="#/">
-                  <img src="pics/kim-kardashian.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                  <img src="pics/logo_transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
                   Booking
               </a>
           </li>
@@ -95,7 +95,7 @@
       <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'GUEST'}">
           <li>
               <a class="navbar-brand" href="#/">
-                  <img src="pics/kim-kardashian.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                  <img src="pics/logo_transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
                   Booking
               </a>
           </li>
@@ -121,7 +121,7 @@
       <ul class="nav nav-tabs" v-bind:class="{collapse: userType !== 'BROWSE'}">
           <li>
               <a class="navbar-brand" href="#/">
-                  <img src="pics/kim-kardashian.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                  <img src="pics/logo_transparent.png" width="30" height="30" class="d-inline-block align-top" alt="">
                   Booking
               </a>
           </li>
@@ -140,7 +140,18 @@
           </li>
       </ul>
       <router-view></router-view>
+
+      <input
+              id="pac-input"
+              class="controls"
+              type="text"
+              placeholder="Search Box"
+              v-model="location"
+      />
+
   </div>
+
+    <div id="map"></div>
 
     <div>
 <!--        <br/><br/>-->
@@ -546,6 +557,7 @@
 
 
 
+
 <script src="js/vue.js"></script>
 <script src="js/vue-router.js"></script>
 <script src="js/axios.js"></script>
@@ -555,7 +567,7 @@
 <script src="bootstrap-4.5.1-dist/js/bootstrap.min.js"></script>
 <script src="js/jwt-decode.min.js"></script>
 
-
+<script src="map.js"></script>
 <script src="login.js" ></script>
 <script src="registration.js" ></script>
 <script src="home.js"></script>
@@ -566,8 +578,9 @@
 <script src="amenities.js"></script>
 <script src="registerHost.js"></script>
 <script src="profile.js"></script>
+<script src="selectedApartment.js"></script>
 <script src="app.js"></script>
-<script src="map.js"></script>
+
 
 <script>
 	$(document).ready(function(){
