@@ -28,11 +28,11 @@ Vue.component("apartments", {
                 fromDate : null,
                 toDate : null,
                 destination : "",
-                guests : 0,
-                maxPrice : 0,
-                minPrice : 0,
-                minRooms : 0,
-                maxRooms : 0
+                guests : "",
+                maxPrice : "",
+                minPrice : "",
+                minRooms : "",
+                maxRooms : ""
             },
             moreFilters : false
 
@@ -105,21 +105,39 @@ Vue.component("apartments", {
             this.moreFilters = false;
         },
         priceFilter : function (price) {
-            console.log(price);
-            return price >= this.filter.minPrice && price <= this.filter.maxPrice;
+            const max = parseInt(this.filter.maxPrice);
+            const min = parseInt(this.filter.minPrice);
+            if (isNaN(max) && isNaN(min))
+                return true;
+            else if (isNaN(max) && !isNaN(min))
+                return price >= min;
+            else if (!isNaN(max) && isNaN(min))
+                return price <= max;
+            else
+                return price >= min && price <= max;
         },
         roomFilter : function (roomNumber) {
-            //alert('roomFilter');
-            if (this.filter.maxRooms === 0 && this.filter.minRooms > 0)
-                return roomNumber >= this.filter.minRooms;
-            return roomNumber >= this.filter.minRooms && roomNumber <= this.filter.maxRooms;
+            const max = parseInt(this.filter.maxRooms);
+            const min = parseInt(this.filter.minRooms);
+            if (isNaN(max) && isNaN(min))
+                return true;
+            else if (isNaN(max) && !isNaN(min))
+                return roomNumber >= min;
+            else if (!isNaN(max) && isNaN(min))
+                return roomNumber <= max;
+            else
+                return roomNumber >= min && roomNumber <= max;
+        },
+        guestFilter : function (guestNumber) {
+            const guests = parseInt(this.filter.guests);
+            if (isNaN(guests))
+                return true;
+            return guestNumber === guests;
         },
         searchApartments : async function () {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
             this.apartments = this.apartments.filter((apartment) => {
-                let a = apartment.pricePerNight;
-                //console.log(a);
-                return this.priceFilter(a)=== true;
+                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
                 }
             );
         },
@@ -170,7 +188,7 @@ Vue.component("apartments", {
                     <button class="btn btn-outline-info"
                             data-toggle="tooltip" title="Show less filters" data-placement="top"
                             v-on:click="showLessFilters">&nbspLess&nbsp</button>
-                    <button class="btn btn-primary">Search</button>
+                    <button class="btn btn-primary" v-on:click="searchApartments">Search</button>
                 </div>
             </div>
             <br/>
@@ -291,7 +309,7 @@ Vue.component("apartments", {
             </div>
           </div>
         </div>
-        
+
         <div class="col-md-4" v-for="apartment in this.apartments" >
             <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
                 <img class="card-img-top" src="pics/kim-kardashian.jpg" alt="Card image cap">
