@@ -3,7 +3,15 @@ Vue.component("selected-apartment", {
         return ({
             id : this.$route.params.id,
             apartment : null,
-            userType : "BROWSE"
+            userType : "BROWSE",
+            submitEnabled : false,
+            detailsCardEnabled : false,
+            dateErr : "",
+            numberOfNightErr : "",
+            date : "",
+            numberOfNights : "",
+            note : "",
+            availabilityLabel : ''
         })
     },
     mounted() {
@@ -20,6 +28,77 @@ Vue.component("selected-apartment", {
         }
     },
     methods : {
+        requiredNumberOfNights : function(event) {
+            if(!this.numberOfNights) {
+                this.numberOfNightErr = "This field is required.";
+                document.getElementById('number-of-nights').style.borderColor = 'red';
+            }
+            else {
+                this.numberOfNightErr = '';
+                document.getElementById('number-of-nights').style.borderColor = '#ced4da';
+            }
+        },
+        requiredDate : function(event) {
+            if(!this.date) {
+                this.dateErr = "This field is required.";
+                document.getElementById('date-start').style.borderColor = 'red';
+            }
+            else {
+                this.dateErr = '';
+                document.getElementById('date-start').style.borderColor = '#ced4da';
+            }
+        },
+        disableSubmit : function() {
+          this.submitEnabled = false;
+        },
+        checkAvailability : function () {
+            const jwt = window.sessionStorage.getItem('jwt');
+            let id;
+            if (jwt!== null) {
+                const decoded = jwt_decode(jwt);
+                const parsed = JSON.parse(decoded.sub);
+                id = parsed.id;
+            }
+            axios.post('/apartment/new-reservation/checkAvailability', {
+                apartmentId : this.apartment.id,
+                checkInDate : this.date,
+                numberOfNights : parseInt(this.numberOfNights),
+                totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
+                note : this.note,
+                guestId : id
+            }).then(response => {
+                this.detailsCardEnabled = true;
+                this.submitEnabled = true;
+                this.availabilityLabel = 'Available for selected dates!';
+            })
+                .catch(response => {
+                this.availabilityLabel = 'Not available for selected dates!';
+                this.detailsCardEnabled = true;
+                this.submitEnabled = false;
+            });
+
+
+        },
+        submitReservation : function () {
+            const jwt = window.sessionStorage.getItem('jwt');
+            let id;
+            if (jwt!== null) {
+                const decoded = jwt_decode(jwt);
+                const parsed = JSON.parse(decoded.sub);
+                id = parsed.id;
+            }
+            axios.post('/apartment/new-reservation/save', {
+                apartmentId : this.apartment.id,
+                checkInDate : this.date,
+                numberOfNights : parseInt(this.numberOfNights),
+                totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
+                note : this.note,
+                guestId : id
+            }).catch(response => {
+                this.availabilityLabel = 'Not available for selected dates!';
+                this.submitEnabled = false;
+            });
+        }
     },
     template : `
         <div>
@@ -170,20 +249,42 @@ Vue.component("selected-apartment", {
                                 Reserve
                             </h2>
                             <div class="form-group">
-                                <small class="errorMsg"></small>
-                                <input type="date" class="form-control"
-                                       data-toggle="tooltip" title="Enter reservation start date" data-placement="right">
+                                <small class="errorMsg">{{dateErr}}</small>
+                                <input type="date" class="form-control" id="date-start"
+                                       data-toggle="tooltip" title="Enter reservation start date" data-placement="right"
+                                       v-on:focusout="requiredDate" v-on:select="requiredDate" v-on:keydown="requiredDate" v-on:focus="disableSubmit"
+                                       v-model="date"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <small class="errorMsg">{{ numberOfNightErr }}</small>
+                                <input type="number" class="form-control" placeholder="number of nights" id="number-of-nights"
+                                       data-toggle="tooltip" title="Enter number of nights" data-placement="right" min="0" max="30"
+                                       v-on:focusout="requiredNumberOfNights" v-on:keyup="requiredNumberOfNights" v-model="numberOfNights" v-on:focus="disableSubmit"
+                                >
                             </div>
                             <div class="form-group">
                                 <small class="errorMsg"></small>
-                                <input type="number" class="form-control"
-                                       data-toggle="tooltip" title="Enter number of nights" data-placement="right" min="0" max="30">
+                                <textarea name="personalMessage" class="form-control" placeholder="Personal message to your host" v-model="note"></textarea>
                             </div>
-                            <div class="form-group">
-                                <small class="errorMsg"></small>
-                                <textarea name="personalMessage" class="form-control" placeholder="Personal message to your host"></textarea>
+
+                            <div class="card" :hidden="this.detailsCardEnabled === false">
+                                <h5 class="card-header">
+                                    Details
+                                </h5>
+                                <div class="card-body" >
+                                    <label>{{ this.availabilityLabel}}</label><br/>
+                                    <label>Date start : {{new Date(this.date)}}</label><br/>
+                                    <label>Date end : {{new Date(new Date(this.date).getTime() + (parseInt(this.numberOfNights)-1)*24*60*60*1000)}}</label><br/>
+                                    <label>Check in : {{this.apartment.checkIn}}</label><br/>
+                                    <label>Check out : {{this.apartment.checkOut}}</label><br/>
+                                    <label>Price : {{this.apartment.pricePerNight * parseInt(this.numberOfNights)}}</label><br/>
+                                </div>
                             </div>
-                            <button type="button" class="btn btn-primary">Submit
+                            
+                            <br/>
+                            <button type="button" class="btn btn-warning" v-on:click="checkAvailability" :disabled="date === '' || numberOfNights===''">Check availability</button>
+                            <button type="button" class="btn btn-primary" :disabled="this.submitEnabled === false" v-on:click="submitReservation">Submit
                             </button>
                             
                         </div>

@@ -84,6 +84,31 @@
           "guestNumber": 0,
           "pricePerNight": 0.0
         }
+      },
+      {
+        "checkInDate": "2020-10-08T00:00:00+0200",
+        "numberOfNights": 3,
+        "totalPrice": 4500.0,
+        "note": "sads",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "asdasd",
+          "password": "d",
+          "firstName": "sa nav bara",
+          "lastName": "kljasd",
+          "sex": "OTHER",
+          "id": 27,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
       }
     ],
     "isActive": true
@@ -300,7 +325,7 @@
   },
   {
     "id": 9,
-    "type": "ROOM",
+    "type": "FULL",
     "roomNumber": 3,
     "guestNumber": 9,
     "rentDates": [],
@@ -351,14 +376,15 @@
   },
   {
     "id": 10,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [
-      null
-    ],
+    "type": "ROOM",
+    "roomNumber": 2,
+    "guestNumber": 1,
+    "rentDates": [],
     "availableDates": [],
     "images": [],
-    "pricePerNight": 0.0,
+    "pricePerNight": 2500.0,
+    "checkIn": "12:49",
+    "checkOut": "11:49",
     "status": "INACTIVE",
     "location": {
       "longitude": 0.0,
@@ -369,90 +395,47 @@
         "state": "",
         "town": {
           "name": "",
-          "postalNumber": 0
+          "postalNumber": 21000
         }
       }
     },
     "apartmentComments": [],
     "amenities": [],
     "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
+      "username": "wer",
+      "password": "wer",
+      "firstName": "weree",
+      "lastName": "wer",
+      "sex": "FEMALE",
+      "id": 24,
       "isActive": true,
-      "userType": "HOST"
+      "userType": "ADMIN"
     },
     "reservations": [],
     "isActive": true
   },
   {
     "id": 11,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [
-      null
-    ],
+    "type": "FULL",
+    "roomNumber": 4,
+    "guestNumber": 1,
+    "rentDates": [],
     "availableDates": [],
     "images": [],
-    "pricePerNight": 0.0,
+    "pricePerNight": 26000.0,
+    "checkIn": "11:52",
+    "checkOut": "10:50",
     "status": "INACTIVE",
     "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
+      "longitude": 151.081731,
+      "latitude": -33.790362,
       "address": {
         "street": "",
         "number": "0",
-        "state": "",
+        "state": "Australia",
         "town": {
-          "name": "",
-          "postalNumber": 0
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 12,
-    "type": "FULL",
-    "name": "Ofelija",
-    "description": "Talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely never been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it.",
-    "roomNumber": 5,
-    "guestNumber": 5,
-    "rentDates": [
-      null
-    ],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 6.0,
-    "checkIn": "16:16",
-    "checkOut": "16:16",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 19.8005701,
-      "latitude": 45.2557623,
-      "address": {
-        "street": "Seljačkih buna",
-        "number": "5",
-        "state": "Serbia",
-        "town": {
-          "name": "Novi Sad",
-          "postalNumber": 21000
+          "name": "Eastwood",
+          "postalNumber": 89222
         }
       }
     },

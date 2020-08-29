@@ -5,6 +5,7 @@ import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import dto.ReservationDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -245,6 +246,30 @@ public class Main {
             res.type("application/json");
             return converter.toJson(apartmentService.save(apartment));
         });
+
+        post("/apartment/new-reservation/checkAvailability", (req, res) -> {
+            String payload = req.body();
+            ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
+            res.type("application/json");
+            if (apartmentService.checkDates(reservationDTO)) {
+                res.status(200);
+                return "Ok";
+            }
+            res.status(400);
+            return "Ok";
+        });
+
+        post("/apartment/new-reservation/save", (req, res) -> {
+            String payload = req.body();
+            ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
+            res.type("application/json");
+            if (apartmentService.reserve(reservationDTO)) {
+                res.status(200);
+                return "Ok";
+            }
+            res.status(400);
+            return "Ok";
+        });
     }
 
     private static void configure() {
@@ -265,6 +290,6 @@ public class Main {
 
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
-        apartmentService = new ApartmentService(apartmentRepository);
+        apartmentService = new ApartmentService(apartmentRepository, userRepository);
     }
 }
