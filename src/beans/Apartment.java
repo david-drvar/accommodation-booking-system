@@ -30,6 +30,10 @@ public class Apartment implements Identifiable, Deletable {
    public Apartment() {
    }
 
+   public Apartment(long id) {
+      this.id = id;
+   }
+
    public ApartmentType getType() {
       return type;
    }

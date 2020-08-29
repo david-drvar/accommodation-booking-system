@@ -348,5 +348,234 @@
     },
     "reservations": [],
     "isActive": true
+  },
+  {
+    "id": 10,
+    "type": "ROOM",
+    "roomNumber": 2,
+    "guestNumber": 1,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 2500.0,
+    "checkIn": "12:49",
+    "checkOut": "11:49",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 21000
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "wer",
+      "password": "wer",
+      "firstName": "weree",
+      "lastName": "wer",
+      "sex": "FEMALE",
+      "id": 24,
+      "isActive": true,
+      "userType": "ADMIN"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 11,
+    "type": "ROOM",
+    "roomNumber": 4,
+    "guestNumber": 1,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 26000.0,
+    "checkIn": "11:52",
+    "checkOut": "10:50",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 151.081731,
+      "latitude": -33.790362,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "Australia",
+        "town": {
+          "name": "Eastwood",
+          "postalNumber": 89222
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [
+      {
+        "checkInDate": "2020-08-30T00:00:00+0200",
+        "numberOfNights": 3,
+        "totalPrice": 78000.0,
+        "note": "prvi reservation",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "awewq",
+          "password": "gson",
+          "firstName": "gson",
+          "lastName": "kjhk",
+          "sex": "MALE",
+          "id": 23,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-10-23T00:00:00+0200",
+        "numberOfNights": 3,
+        "totalPrice": 78000.0,
+        "note": "xcvcxv",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "awewq",
+          "password": "gson",
+          "firstName": "gson",
+          "lastName": "kjhk",
+          "sex": "MALE",
+          "id": 23,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-11-19T00:00:00+0100",
+        "numberOfNights": 3,
+        "totalPrice": 78000.0,
+        "note": "11 apartment e password",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "username": "ddd",
+          "password": "e",
+          "firstName": "asddas",
+          "lastName": "d",
+          "sex": "MALE",
+          "id": 28,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-11-19T00:00:00+0100",
+        "numberOfNights": 3,
+        "totalPrice": 78000.0,
+        "note": "11 apartment e password",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "username": "ddd",
+          "password": "e",
+          "firstName": "asddas",
+          "lastName": "d",
+          "sex": "MALE",
+          "id": 28,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-11-19T00:00:00+0100",
+        "numberOfNights": 3,
+        "totalPrice": 78000.0,
+        "note": "11 apartment e password",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "ddd",
+          "password": "e",
+          "firstName": "asddas",
+          "lastName": "d",
+          "sex": "MALE",
+          "id": 28,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-10-07T00:00:00+0200",
+        "numberOfNights": 4,
+        "totalPrice": 104000.0,
+        "note": "ded ee",
+        "status": "CREATED",
+        "id": 0,
+        "guest": {
+          "reservations": [],
+          "username": "ded",
+          "password": "ee",
+          "firstName": "oluja",
+          "lastName": "dae",
+          "sex": "MALE",
+          "id": 29,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
+    "isActive": true
   }
 ]

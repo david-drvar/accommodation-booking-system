@@ -19,6 +19,10 @@ public class Reservation implements Identifiable {
    public Reservation() {
    }
 
+   public Reservation(Apartment apartment) {
+      this.apartment = apartment;
+   }
+
    public Reservation(Date checkInDate, int numberOfNights, double totalPrice, String note, ReservationStatus status, Guest guest, Apartment apartment) {
       this.checkInDate = checkInDate;
       this.numberOfNights = numberOfNights;

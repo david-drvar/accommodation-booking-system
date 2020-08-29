@@ -4,6 +4,7 @@ import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import dto.ReservationDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -242,6 +243,14 @@ public class Main {
             res.type("application/json");
             return converter.toJson(apartmentService.save(apartment));
         });
+
+        post("/apartment/new-reservation/save", (req, res) -> {
+            String payload = req.body();
+            ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
+            res.type("application/json");
+            apartmentService.reserve(reservationDTO);
+            return "Ok";
+        });
     }
 
     private static void configure() {
@@ -262,6 +271,6 @@ public class Main {
 
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
-        apartmentService = new ApartmentService(apartmentRepository);
+        apartmentService = new ApartmentService(apartmentRepository, userRepository);
     }
 }
