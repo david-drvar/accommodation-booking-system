@@ -10,9 +10,11 @@ import java.util.List;
 public class Apartment implements Identifiable, Deletable {
    private long id;
    private ApartmentType type;
+   private String name;
+   private String description;
    private int roomNumber;
    private int guestNumber;
-   private List<Date> rentDates;
+   private List<Interval> rentDates;
    private List<Date> availableDates;
    private List<Image> images;
    private double pricePerNight;
@@ -54,11 +56,11 @@ public class Apartment implements Identifiable, Deletable {
       this.guestNumber = guestNumber;
    }
 
-   public List<Date> getRentDates() {
+   public List<Interval> getRentDates() {
       return rentDates;
    }
 
-   public void setRentDates(List<Date> rentDates) {
+   public void setRentDates(List<Interval> rentDates) {
       this.rentDates = rentDates;
    }
 
@@ -148,6 +150,22 @@ public class Apartment implements Identifiable, Deletable {
 
    public void setReservations(List<Reservation> reservations) {
       this.reservations = reservations;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
    }
 
    @Override

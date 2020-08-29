@@ -3,6 +3,7 @@ package rest;
 import adapter.RuntimeTypeAdapterFactory;
 import beans.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -38,7 +39,9 @@ public class Main {
 
     static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    private static final Gson converter = new Gson();
+    private static final Gson converter = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .create();
 
     private static IAmenityService amenityService;
     private static IUserService userService;

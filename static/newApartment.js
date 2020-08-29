@@ -4,6 +4,8 @@ Vue.component("new-apartment", {
             amenities : [],
             apartment : {
                 'id' : '0',
+                'name' : null,
+                'description' : null,
                 'type' : 'Type',
                 'roomNumber' : null,
                 'guestNumber' : null,
@@ -23,7 +25,7 @@ Vue.component("new-apartment", {
                       'state' : '',
                       'town' : {
                           'name' : '',
-                          'postalNumber' : 0
+                          'postalNumber' : null
                       }
                   }
                 },
@@ -57,7 +59,10 @@ Vue.component("new-apartment", {
             //this.apartment.images = document.getElementById('inputGroupFile01').files;
             // for(let el of this.apartment.images)
             //     alert(el);
+            console.log(this.rangeAvailable);
+            console.log(typeof(this.rangeAvailable));
             this.fetchLocation();
+            this.parseDate();
             axios
                 .post('apartment/save', this.apartment);
         },
@@ -84,17 +89,28 @@ Vue.component("new-apartment", {
             this.apartment.location.address.town.name = locationJSON.town;
             console.log(this.apartment);
 
+        },
+
+        parseDate : function () {
+            let range = localStorage.getItem('dateRange');
+            localStorage.removeItem('dateRange');
+            this.apartment.rentDates = [JSON.parse(range)];
         }
     },
     template : `
         <div class="container-fluid">
+       
             <div class="row">
                 <div class="col-lg-6">
                 <br>
                 <h1 class="text-primary">New Apartment</h1>
-                <div class="form-row">
-                    <div class="col-md-12">
-                      <select class="form-control mt-4" v-model="apartment.type">
+                <div class="form-row mt-4">
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" placeholder="Name"
+                      v-model="apartment.name">
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" v-model="apartment.type">
                         <option selected disabled>Type</option>
                         <option>ROOM</option>
                         <option>FULL</option>
@@ -132,7 +148,11 @@ Vue.component("new-apartment", {
                   </div>
                   <br/>
                   <div class="form-row">
-                    <div class="input-group col-md-12">
+                    <div class="col-md-6">
+                      <input type="text" readonly class="form-control" placeholder="Available dates" 
+                      name="daterange" autocomplete="off">
+                    </div>
+                    <div class="input-group col-md-6">
                       <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                        </div>
@@ -164,6 +184,11 @@ Vue.component("new-apartment", {
                         </button>
                     </div>
                     <br/>
+                    <div>
+                        <textarea class="form-control col-md-12" rows="5" 
+                        v-model="apartment.description"></textarea>
+                    </div>
+                    <br>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
                         <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>

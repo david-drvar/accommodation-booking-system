@@ -348,5 +348,360 @@
     },
     "reservations": [],
     "isActive": true
+  },
+  {
+    "id": 10,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [
+      null
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 0
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 11,
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [
+      null
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 0
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 12,
+    "type": "FULL",
+    "name": "Ofelija",
+    "description": "Talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely never been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it.",
+    "roomNumber": 5,
+    "guestNumber": 5,
+    "rentDates": [
+      null
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 6.0,
+    "checkIn": "16:16",
+    "checkOut": "16:16",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 19.8005701,
+      "latitude": 45.2557623,
+      "address": {
+        "street": "Seljačkih buna",
+        "number": "5",
+        "state": "Serbia",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": 21000
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 13,
+    "type": "ROOM",
+    "name": "Ofelija",
+    "description": "lepo",
+    "roomNumber": 4,
+    "guestNumber": 5,
+    "rentDates": [
+      {
+        "startDate": "2019-12-30T00:00:00+0100",
+        "endDate": "2019-12-30T00:00:00+0100"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 4.0,
+    "checkIn": "17:13",
+    "checkOut": "22:09",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 21000
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 6,
+        "name": "Private entrance",
+        "isActive": true
+      },
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 14,
+    "type": "ROOM",
+    "name": "Ilija",
+    "description": "divno",
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [
+      {
+        "startDate": "2019-12-30T00:00:00+0100",
+        "endDate": "2019-12-30T00:00:00+0100"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 0
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 5,
+        "name": "Shampoo",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 15,
+    "type": "ROOM",
+    "name": "sdf",
+    "description": "joj",
+    "roomNumber": 3,
+    "guestNumber": 3,
+    "rentDates": [
+      {
+        "startDate": "2020-09-02T00:00:00+0200",
+        "endDate": "2020-09-25T00:00:00+0200"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 4.0,
+    "checkIn": "21:18",
+    "checkOut": "17:23",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 7777
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 16,
+    "type": "ROOM",
+    "name": "6546",
+    "description": "slajkh",
+    "roomNumber": 0,
+    "guestNumber": 0,
+    "rentDates": [
+      {
+        "startDate": "2020-09-01T00:00:00+0200",
+        "endDate": "2020-09-24T00:00:00+0200"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 0.0,
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "",
+        "town": {
+          "name": "",
+          "postalNumber": 0
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      },
+      {
+        "id": 8,
+        "name": "Gym",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
   }
 ]

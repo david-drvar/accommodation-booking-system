@@ -8,14 +8,13 @@
 			color: #ce5858;
 		}
 	</style>
-
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgc06_91-XPMZMnOGQ-IYHVFSyzjQkjfc&callback=initMap&libraries=places&v=weekly"
             defer
     ></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
-
+    <link rel="stylesheet" type="text/css" href="daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap-4.5.1-dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -413,8 +412,10 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/toast.js"></script>
 <script src="js/popper.min.js"></script>
+<script src="js/moment.min.js"></script>
 <script src="bootstrap-4.5.1-dist/js/bootstrap.min.js"></script>
 <script src="js/jwt-decode.min.js"></script>
+<script src="daterangepicker.js"></script>
 
 <script src="map.js"></script>
 <script src="login.js" ></script>
@@ -435,7 +436,24 @@
 <script>
 	$(document).ready(function(){
 		$('[data-toggle="tooltip"]').tooltip();
-	});
+    });
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left',
+            autoUpdateInput: false,
+            autoApply : true,
+            locale : {
+                format : 'DD/MM/YYYY'
+            }
+        }, function(start, end, label) {
+            let range = {
+                'startDate' : start.format('YYYY-MM-DD'),
+                'endDate' : end.format('YYYY-MM-DD')
+            }
+            localStorage.setItem('dateRange', JSON.stringify(range));
+            $('input[name="daterange"]').val(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        });
+    });
 </script>
 </body>
 </html>
