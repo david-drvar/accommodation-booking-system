@@ -209,6 +209,7 @@
     "userType": "ADMIN"
   },
   {
+    "reservations": [],
     "username": "awewq",
     "password": "gson",
     "firstName": "gson",
@@ -249,6 +250,19 @@
     "userType": "HOST"
   },
   {
+    "reservations": [
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "username": "asdasd",
     "password": "d",
     "firstName": "sa nav bara",
@@ -259,6 +273,19 @@
     "userType": "GUEST"
   },
   {
+    "reservations": [
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "username": "ddd",
     "password": "e",
     "firstName": "asddas",
@@ -269,6 +296,30 @@
     "userType": "GUEST"
   },
   {
+    "reservations": [
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "username": "ded",
     "password": "ee",
     "firstName": "oluja",
@@ -279,6 +330,7 @@
     "userType": "GUEST"
   },
   {
+    "reservations": [],
     "username": "eqwe",
     "password": "qq",
     "firstName": "novi register",
@@ -289,6 +341,7 @@
     "userType": "GUEST"
   },
   {
+    "reservations": [],
     "username": "eeq",
     "password": "ee",
     "firstName": "sesija",
@@ -299,6 +352,7 @@
     "userType": "GUEST"
   },
   {
+    "reservations": [],
     "username": "qweeee",
     "password": "ee",
     "firstName": "radii",

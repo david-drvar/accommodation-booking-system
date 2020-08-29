@@ -16,6 +16,10 @@ public class User implements Identifiable, Deletable {
    public User() {
    }
 
+   public User(long id) {
+      this.id = id;
+   }
+
    public User(String username, String password, String firstName, String lastName, Sex sex, Boolean isActive, UserType userType) {
       this.username = username;
       this.password = password;
