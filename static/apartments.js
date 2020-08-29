@@ -35,7 +35,10 @@ Vue.component("apartments", {
                 maxRooms : ""
             },
             location : "",
-            moreFilters : false
+            moreFilters : false,
+            filterAmenities : false,
+            selectedAmenities : [],
+            apartmentType : ''
 
         })
     },
@@ -70,8 +73,9 @@ Vue.component("apartments", {
                 }*/
             });
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                this.location = autocomplete.getPlace();
+            google.maps.event.addListener(autocomplete, 'place_changed',function () {
+                this.location = autocomplete.getPlace().formatted_address;
+                localStorage.setItem('location', this.location);
             });
         });
     },
@@ -83,7 +87,6 @@ Vue.component("apartments", {
         previousPage : function () {
             this.page = 0;
         },
-
         saveApartment : function () {
             //this.apartment.images = document.getElementById('inputGroupFile01').files;
             // for(let el of this.apartment.images)
@@ -94,7 +97,7 @@ Vue.component("apartments", {
         },
 
         addAmenity : function (event, amenity) {
-            let list = this.apartment.amenities;
+            let list = this.selectedAmenities;
             let index = list.indexOf(amenity);
             if (index === -1)
                 list.push(amenity);
@@ -121,6 +124,9 @@ Vue.component("apartments", {
         },
         showLessFilters : function () {
             this.moreFilters = false;
+        },
+        toggleAmenities : function () {
+            this.filterAmenities = !this.filterAmenities;
         },
         priceFilter : function (price) {
             const max = parseInt(this.filter.maxPrice);
@@ -162,15 +168,44 @@ Vue.component("apartments", {
             );
         },
         filterApartmentsByType : async function (type) {
-            if (type === 'All') {
-                await this.searchApartments();
-            } else if (type === 'Room') {
-                await this.searchApartments();
-                this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
-            } else if (type === 'Full') {
-                await this.searchApartments();
-                this.apartments = this.apartments.filter (apartment => apartment.type === "FULL");
-            }
+            // if (type === 'All') {
+            //     await this.searchApartments();
+            // } else if (type === 'Room') {
+            //     await this.searchApartments();
+            //     this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
+            // } else if (type === 'Full') {
+            //     await this.searchApartments();
+            //     this.apartments = this.apartments.filter (apartment => apartment.type === "FULL");
+            // }
+            this.apartmentType = type;
+        },
+        applyFiltersAmenities : async function () {
+            await this.searchApartments();
+            this.apartments = this.apartments.filter(apartment => {
+                var ret_amenity = false;
+                var ret_type = false;
+                apartment.amenities.forEach(amenity => {
+                    this.selectedAmenities.forEach(selectedAmenity => {
+                        if (selectedAmenity.name===amenity.name)
+                            ret_amenity = true;
+                    });
+
+                });
+                if (this.selectedAmenities.length === 0)
+                    ret_amenity = true;
+                if (apartment.type === this.apartmentType || this.apartmentType === 'ALL')
+                    ret_type = true;
+
+                return ret_type && ret_amenity;
+            });
+            // if (this.apartmentType === 'All') {
+            // } else if (this.apartmentType === 'Room') {
+            //
+            //     this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
+            // } else if (this.apartmentType === 'Full') {
+            //
+            //     this.apartments = this.apartments.filter(apartment => apartment.type === "FULL");
+            // }
         }
 
     },
@@ -191,7 +226,6 @@ Vue.component("apartments", {
                                 type="text"
                                 placeholder="location"
                                 data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top"
-                                v-model="location"
                         />
 
 
@@ -241,9 +275,20 @@ Vue.component("apartments", {
                 </select>
             </div>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('All')">All</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('Room')">Room</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('Full')">Full</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ALL')">All</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ROOM')">Room</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')">Full</button>
+                <button class="btn btn-outline-info"
+                        v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities">Filter Amenities</button>
+                <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities">Apply</button>
+            </div>
+            <div v-bind:class="{collapse : !filterAmenities}">
+                <button class="btn btn-outline-secondary col-md-4"
+                        data-toggle="button" aria-pressed="false"
+                        v-for="a in amenities"
+                        v-on:click="addAmenity($event, a)">
+                    {{a.name}}
+                </button>
             </div>
 
             <br/>
