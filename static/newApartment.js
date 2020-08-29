@@ -1,6 +1,14 @@
 Vue.component("new-apartment", {
     data: function() {
         return ({
+            saveDisabled : true,
+            nameErr : false,
+            typeErr : false,
+            roomErr : false,
+            guestErr : false,
+            priceErr : false,
+            checkinErr : false,
+            checkoutErr : false,
             amenities : [],
             apartment : {
                 'id' : '0',
@@ -9,7 +17,7 @@ Vue.component("new-apartment", {
                 'type' : 'Type',
                 'roomNumber' : null,
                 'guestNumber' : null,
-                'rentDates' : [],
+                'rentDates' : null,
                 'availableDates' : [],
                 'images' : [],
                 'pricePerNight' : null,
@@ -38,6 +46,15 @@ Vue.component("new-apartment", {
         })
     },
     mounted() {
+        if(localStorage.getItem('newApartmentReloaded')) {
+            localStorage.removeItem('newApartmentReloaded');
+            localStorage.removeItem('dateRange');
+        }
+        else {
+            localStorage.setItem('newApartmentReloaded', '1');
+            location.reload();
+        }
+
         const token = sessionStorage.getItem('jwt');
         const parsed = JSON.parse(jwt_decode(token).sub);
 
@@ -59,8 +76,6 @@ Vue.component("new-apartment", {
             //this.apartment.images = document.getElementById('inputGroupFile01').files;
             // for(let el of this.apartment.images)
             //     alert(el);
-            console.log(this.rangeAvailable);
-            console.log(typeof(this.rangeAvailable));
             this.fetchLocation();
             this.parseDate();
             axios
@@ -95,6 +110,54 @@ Vue.component("new-apartment", {
             let range = localStorage.getItem('dateRange');
             localStorage.removeItem('dateRange');
             this.apartment.rentDates = [JSON.parse(range)];
+        },
+
+        nameValidation : function () {
+            if(this.apartment.name == null) {
+                this.nameErr = true;
+            }
+            else if(this.apartment.name.trim() === '') {
+                this.nameErr = true;
+            }
+            else
+                this.nameErr = false;
+        },
+
+        typeValidation : function () {
+            if(this.apartment.type === 'Type') {
+                this.typeErr = true;
+            }
+            else this.typeErr = false;
+        },
+
+        guestValidation : function () {
+            let regExp = new RegExp('^[0-9]+$');
+            this.guestErr = !regExp.test(this.apartment.guestNumber);
+        },
+
+        roomValidation : function () {
+            let regExp = new RegExp('^[0-9]+$');
+            this.roomErr = !regExp.test(this.apartment.roomNumber);
+        },
+
+        priceValidation : function () {
+            let regExp = new RegExp('^[0-9]+$');
+            this.priceErr = !regExp.test(this.apartment.pricePerNight);
+        },
+
+        checkinValidation : function () {
+            this.checkinErr = this.apartment.checkIn == null;
+        },
+
+        checkoutValidation : function () {
+            this.checkoutErr = this.apartment.checkOut == null;
+        },
+
+        saveValidation : function () {
+            return (this.apartment.name == null || this.apartment.type === 'Type' ||
+                this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
+                this.apartment.checkIn == null || this.apartment.checkOut == null ||
+                this.nameErr || this.roomErr || this.guestErr || this.priceErr);
         }
     },
     template : `
@@ -104,13 +167,17 @@ Vue.component("new-apartment", {
                 <div class="col-lg-6">
                 <br>
                 <h1 class="text-primary">New Apartment</h1>
-                <div class="form-row mt-4">
+                    <div class="form-row mt-4">
+                    <div class="col-md-8"><small class="errorMsg" v-if="nameErr">Apartment name is required.</small></div>
+                    <div class="col-md-4"><small class="errorMsg" v-if="typeErr">Type is required.</small></div>
+                    </div>
+                    <div class="form-row">
                     <div class="col-md-8">
                       <input type="text" class="form-control" placeholder="Name"
-                      v-model="apartment.name">
+                      v-model="apartment.name" v-on:keyup="nameValidation" v-on:focusout="nameValidation">
                     </div>
                     <div class="col-md-4">
-                      <select class="form-control" v-model="apartment.type">
+                      <select class="form-control" v-model="apartment.type" v-on:focusout="typeValidation">
                         <option selected disabled>Type</option>
                         <option>ROOM</option>
                         <option>FULL</option>
@@ -119,13 +186,17 @@ Vue.component("new-apartment", {
                   </div>
                   <br/>
                   <div class="form-row">
+                    <div class="col-md-6"><small class="errorMsg" v-if="roomErr">Number of rooms is positive number.</small></div>
+                    <div class="col-md-6"><small class="errorMsg" v-if="guestErr">Number of guests is positive number.</small></div>
+                    </div>
+                  <div class="form-row">
                     <div class="col-md-6">
                       <input type="number" class="form-control" placeholder="number of rooms" min="0"
-                      v-model="apartment.roomNumber">
+                      v-model="apartment.roomNumber" @keyup="roomValidation" @focusout="roomValidation">
                     </div>
                     <div class="col-md-6">
                       <input type="number" class="form-control" placeholder="number of guests" min="0"
-                      v-model="apartment.guestNumber">
+                      v-model="apartment.guestNumber" @keyup="guestValidation" @focusout="guestValidation">
                     </div>
                   </div>
                   <br/>
@@ -148,6 +219,10 @@ Vue.component("new-apartment", {
                   </div>
                   <br/>
                   <div class="form-row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"><small class="errorMsg" v-if="priceErr">Price is positive number.</small></div>
+                    </div>
+                  <div class="form-row">
                     <div class="col-md-6">
                       <input type="text" readonly class="form-control" placeholder="Available dates" 
                       name="daterange" autocomplete="off">
@@ -157,7 +232,7 @@ Vue.component("new-apartment", {
                         <span class="input-group-text">$</span>
                        </div>
                       <input type="number" class="form-control" placeholder="Price per night" min="0"
-                      v-model="apartment.pricePerNight">
+                      v-model="apartment.pricePerNight" @keyup="priceValidation" @focusout="priceValidation">
                       <div class="input-group-append">
                         <span class="input-group-text">.00</span>
                       </div>
@@ -165,13 +240,19 @@ Vue.component("new-apartment", {
                   </div>
                   <br/>
                   <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md-6"><small class="errorMsg" v-if="checkinErr">Checkin time is required.</small></div>
+                    <div class="col-md-6"><small class="errorMsg" v-if="checkoutErr">Checkout time is required.</small></div>
+                    </div>
+                  <div class="form-row">
+                    <div class="col-md-6 input-group">
                       <input type="time" class="form-control" placeholder="Time to check in"
-                      v-model="apartment.checkIn">
+                      data-toggle="tooltip" title="Time to check in" data-placement="top"
+                      v-model="apartment.checkIn" @focusout="checkinValidation">
                     </div>
                     <div class="col-md-6">
                       <input type="time" class="form-control" placeholder="Time to check out"
-                      v-model="apartment.checkOut">
+                      data-toggle="tooltip" title="Time to check out" data-placement="top"
+                      v-model="apartment.checkOut" @focusout="checkoutValidation">
                     </div>
                   </div>
                   <br/>
@@ -185,7 +266,7 @@ Vue.component("new-apartment", {
                     </div>
                     <br/>
                     <div>
-                        <textarea class="form-control col-md-12" rows="5" 
+                        <textarea class="form-control col-md-12" rows="5" placeholder="Description"
                         v-model="apartment.description"></textarea>
                     </div>
                     <br>
@@ -195,7 +276,13 @@ Vue.component("new-apartment", {
                     </div>
                     <br/>
                     <div class="col-lg-2">
-                        <button class="btn btn-success" v-on:click="saveApartment">Save</button>
+                        <button class="btn btn-success" v-on:click="saveApartment" 
+                        v-bind:disabled="
+                            this.apartment.name == null || this.apartment.type === 'Type' ||
+                            this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
+                            this.apartment.checkIn == null || this.apartment.checkOut == null ||
+                            this.nameErr || this.roomErr || this.guestErr || this.priceErr
+                        ">Save</button>
                     </div>
                 </div>
                 <div class="col-lg-6">
