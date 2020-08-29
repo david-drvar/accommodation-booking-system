@@ -250,7 +250,19 @@
     "userType": "HOST"
   },
   {
-    "reservations": [],
+    "reservations": [
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "username": "asdasd",
     "password": "d",
     "firstName": "sa nav bara",
@@ -285,6 +297,17 @@
   },
   {
     "reservations": [
+      {
+        "numberOfNights": 1,
+        "totalPrice": 0.0,
+        "id": 0,
+        "apartment": {
+          "id": 11,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
       {
         "numberOfNights": 1,
         "totalPrice": 0.0,

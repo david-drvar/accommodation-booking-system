@@ -154,11 +154,24 @@ Vue.component("apartments", {
         },
         searchApartments : async function () {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            this.location = localStorage.getItem('location');
+            //alert(this.location);
             this.apartments = this.apartments.filter((apartment) => {
                 return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
                 }
             );
         },
+        filterApartmentsByType : async function (type) {
+            if (type === 'All') {
+                await this.searchApartments();
+            } else if (type === 'Room') {
+                await this.searchApartments();
+                this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
+            } else if (type === 'Full') {
+                await this.searchApartments();
+                this.apartments = this.apartments.filter (apartment => apartment.type === "FULL");
+            }
+        }
 
     },
     template : `
@@ -226,6 +239,11 @@ Vue.component("apartments", {
                     <option value="DESCENDING">by price - descending</option>
                     <option value="ASCENDING">by price - ascending</option>
                 </select>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('All')">All</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('Room')">Room</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('Full')">Full</button>
             </div>
 
             <br/>

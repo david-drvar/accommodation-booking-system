@@ -10,7 +10,8 @@ Vue.component("selected-apartment", {
             numberOfNightErr : "",
             date : "",
             numberOfNights : "",
-            note : ""
+            note : "",
+            availabilityLabel : ''
         })
     },
     mounted() {
@@ -47,17 +48,37 @@ Vue.component("selected-apartment", {
                 document.getElementById('date-start').style.borderColor = '#ced4da';
             }
         },
-        checkAvailability : function () {
-            this.detailsCardEnabled = true;
-            this.submitEnabled = true;
+        disableSubmit : function() {
+          this.submitEnabled = false;
         },
-// ● Apartman koji je rezervisan
-// ● Početni datum rezervacije
-// ● Broj noćenja (inicijalno 1 noćenje)
-// ● Ukupna cena
-// ● Poruka pri rezervaciji
-// ● Gost
-// ● Status (Kreirana, Odbijena, Odustanak, Prihvaćena, Završena)
+        checkAvailability : function () {
+            const jwt = window.sessionStorage.getItem('jwt');
+            let id;
+            if (jwt!== null) {
+                const decoded = jwt_decode(jwt);
+                const parsed = JSON.parse(decoded.sub);
+                id = parsed.id;
+            }
+            axios.post('/apartment/new-reservation/checkAvailability', {
+                apartmentId : this.apartment.id,
+                checkInDate : this.date,
+                numberOfNights : parseInt(this.numberOfNights),
+                totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
+                note : this.note,
+                guestId : id
+            }).then(response => {
+                this.detailsCardEnabled = true;
+                this.submitEnabled = true;
+                this.availabilityLabel = 'Available for selected dates!';
+            })
+                .catch(response => {
+                this.availabilityLabel = 'Not available for selected dates!';
+                this.detailsCardEnabled = true;
+                this.submitEnabled = false;
+            });
+
+
+        },
         submitReservation : function () {
             const jwt = window.sessionStorage.getItem('jwt');
             let id;
@@ -73,6 +94,9 @@ Vue.component("selected-apartment", {
                 totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
                 note : this.note,
                 guestId : id
+            }).catch(response => {
+                this.availabilityLabel = 'Not available for selected dates!';
+                this.submitEnabled = false;
             });
         }
     },
@@ -228,7 +252,7 @@ Vue.component("selected-apartment", {
                                 <small class="errorMsg">{{dateErr}}</small>
                                 <input type="date" class="form-control" id="date-start"
                                        data-toggle="tooltip" title="Enter reservation start date" data-placement="right"
-                                       v-on:focusout="requiredDate" v-on:select="requiredDate" v-on:keydown="requiredDate"
+                                       v-on:focusout="requiredDate" v-on:select="requiredDate" v-on:keydown="requiredDate" v-on:focus="disableSubmit"
                                        v-model="date"
                                 >
                             </div>
@@ -236,7 +260,7 @@ Vue.component("selected-apartment", {
                                 <small class="errorMsg">{{ numberOfNightErr }}</small>
                                 <input type="number" class="form-control" placeholder="number of nights" id="number-of-nights"
                                        data-toggle="tooltip" title="Enter number of nights" data-placement="right" min="0" max="30"
-                                       v-on:focusout="requiredNumberOfNights" v-on:keyup="requiredNumberOfNights" v-model="numberOfNights"
+                                       v-on:focusout="requiredNumberOfNights" v-on:keyup="requiredNumberOfNights" v-model="numberOfNights" v-on:focus="disableSubmit"
                                 >
                             </div>
                             <div class="form-group">
@@ -249,7 +273,7 @@ Vue.component("selected-apartment", {
                                     Details
                                 </h5>
                                 <div class="card-body" >
-                                    <label>Available for selected nights</label><br/>
+                                    <label>{{ this.availabilityLabel}}</label><br/>
                                     <label>Date start : {{new Date(this.date)}}</label><br/>
                                     <label>Date end : {{new Date(new Date(this.date).getTime() + (parseInt(this.numberOfNights)-1)*24*60*60*1000)}}</label><br/>
                                     <label>Check in : {{this.apartment.checkIn}}</label><br/>

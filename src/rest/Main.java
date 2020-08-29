@@ -244,11 +244,27 @@ public class Main {
             return converter.toJson(apartmentService.save(apartment));
         });
 
+        post("/apartment/new-reservation/checkAvailability", (req, res) -> {
+            String payload = req.body();
+            ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
+            res.type("application/json");
+            if (apartmentService.checkDates(reservationDTO)) {
+                res.status(200);
+                return "Ok";
+            }
+            res.status(400);
+            return "Ok";
+        });
+
         post("/apartment/new-reservation/save", (req, res) -> {
             String payload = req.body();
             ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
             res.type("application/json");
-            apartmentService.reserve(reservationDTO);
+            if (apartmentService.reserve(reservationDTO)) {
+                res.status(200);
+                return "Ok";
+            }
+            res.status(400);
             return "Ok";
         });
     }
