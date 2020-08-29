@@ -10,6 +10,7 @@ Vue.component("new-apartment", {
             checkinErr : false,
             checkoutErr : false,
             amenities : [],
+            images : [],
             apartment : {
                 'id' : '0',
                 'name' : null,
@@ -158,13 +159,28 @@ Vue.component("new-apartment", {
                 this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                 this.apartment.checkIn == null || this.apartment.checkOut == null ||
                 this.nameErr || this.roomErr || this.guestErr || this.priceErr);
+        },
+
+        previewImages : function(event) {
+            this.images = [];
+            for(let imageFile of event.target.files) {
+                let imageInfo = {
+                    image : imageFile,
+                    url : URL.createObjectURL(imageFile)
+                }
+                this.images.push(imageInfo);
+            }
+        },
+
+        cancel : function () {
+            window.location.hash = '/apartments';
         }
     },
     template : `
         <div class="container-fluid">
-       
+            
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                 <br>
                 <h1 class="text-primary">New Apartment</h1>
                     <div class="form-row mt-4">
@@ -255,8 +271,16 @@ Vue.component("new-apartment", {
                       v-model="apartment.checkOut" @focusout="checkoutValidation">
                     </div>
                   </div>
-                  <br/>
-                  <div>
+                </div>
+                <div class="col-md-6">
+                    <div id="map"></div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6">
+                   <div class="form-row">
+                    <div class="col-md-12">
                         <button class="btn btn-outline-secondary col-md-4" 
                         data-toggle="button" aria-pressed="false"
                         v-for="a in amenities"
@@ -264,33 +288,45 @@ Vue.component("new-apartment", {
                             {{a.name}}
                         </button>
                     </div>
+                  </div>
                     <br/>
-                    <div>
-                        <textarea class="form-control col-md-12" rows="5" placeholder="Description"
+                    <div class="form-row">
+                    <div class="col-md-12">
+                        <textarea class="form-control" rows="5" placeholder="Description"
                         v-model="apartment.description"></textarea>
                     </div>
+                    </div>
                     <br>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
+                    <div class="form-row">
+                    <div class="custom-file col-md-12">
+                        <input type="file" accept="image/*" class="custom-file-input" id="inputGroupFile01" multiple
+                        @change="previewImages">
                         <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>
                     </div>
-                    <br/>
-                    <div class="col-lg-2">
-                        <button class="btn btn-success" v-on:click="saveApartment" 
+                    </div>
+                    <br>
+                    <div class="form-row justify-content-end">
+                        <div class="col-md-1 mr-3"><button class="btn btn-success" v-on:click="saveApartment" 
                         v-bind:disabled="
                             this.apartment.name == null || this.apartment.type === 'Type' ||
                             this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                             this.apartment.checkIn == null || this.apartment.checkOut == null ||
                             this.nameErr || this.roomErr || this.guestErr || this.priceErr
-                        ">Save</button>
+                        ">Save</button></div>
+                        <div class="col-md-1"><button class="btn btn-secondary"
+                        @click="cancel">Cancel</button></div>
+                    </div>
+                <div class="col-md-6">
+                    <h2 v-if="images.length" class="text-secondary">Preview</h2>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <img v-bind:src="img.url" class="img-thumbnail col-md-4" 
+                            v-for="img in images"
+                            style="height: 200px; width: 200px"
+                            />
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                        <div id="map"></div>
-                </div>
             </div>
-            <br>
-            
-        </div>
     `
 })
