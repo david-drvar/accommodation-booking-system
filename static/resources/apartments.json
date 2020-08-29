@@ -297,5 +297,56 @@
     },
     "reservations": [],
     "isActive": true
+  },
+  {
+    "id": 9,
+    "type": "ROOM",
+    "roomNumber": 3,
+    "guestNumber": 9,
+    "rentDates": [],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 1.5631568E7,
+    "checkIn": "06:44",
+    "checkOut": "02:49",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 19.823826,
+      "latitude": 45.2472319,
+      "address": {
+        "street": "Laze Nančića",
+        "number": "5",
+        "state": "Serbia",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": 21000
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "host",
+      "password": "hostic",
+      "firstName": "Petar",
+      "lastName": "Markovic",
+      "sex": "MALE",
+      "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
   }
 ]

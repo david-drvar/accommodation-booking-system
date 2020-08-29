@@ -40,8 +40,6 @@ function initMap() {
         let addressComponents = place.address_components;
         let geometry = place.geometry;
 
-        console.log(place);
-
         for(let component of addressComponents) {
             const addressType = component.types[0];
             if(placeComponents[addressType])
