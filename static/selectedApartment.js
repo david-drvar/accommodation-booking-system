@@ -156,69 +156,12 @@ Vue.component("selected-apartment", {
                             <h1>
                                 {{this.apartment.name}}
                             </h1>
-<!--                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#editApartment">Edit</button>-->
                             <button class="btn btn-outline-primary" v-on:click="editApartment" v-if="userType === 'HOST' || userType === 'ADMIN'">Edit</button>
                             <button class="btn btn-outline-danger" v-on:click="deleteApartment" v-if="userType === 'HOST' || userType === 'ADMIN'">Delete</button>
                         </div>
-                        <br/> 
-                        <div class="carousel slide" id="carousel-918476">
-                            <ol class="carousel-indicators">
-                                <li data-slide-to="0" data-target="#carousel-918476">
-                                </li>
-                                <li data-slide-to="1" data-target="#carousel-918476" class="active">
-                                </li>
-                                <li data-slide-to="2" data-target="#carousel-918476">
-                                </li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" alt="Carousel Bootstrap First"
-                                         src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg"/>
-                                    <div class="carousel-caption">
-                                        <h4>
-                                            First Thumbnail label
-                                        </h4>
-                                        <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
-                                            non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
-                                            vehicula ut id elit.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100" alt="Carousel Bootstrap Second"
-                                         src="https://www.layoutit.com/img/sports-q-c-1600-500-2.jpg"/>
-                                    <div class="carousel-caption">
-                                        <h4>
-                                            Second Thumbnail label
-                                        </h4>
-                                        <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
-                                            non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
-                                            vehicula ut id elit.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <img class="d-block w-100" alt="Carousel Bootstrap Third"
-                                         src="https://www.layoutit.com/img/sports-q-c-1600-500-3.jpg"/>
-                                    <div class="carousel-caption">
-                                        <h4>
-                                            Third Thumbnail label
-                                        </h4>
-                                        <p>
-                                            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
-                                            non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies
-                                            vehicula ut id elit.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carousel-918476" data-slide="prev"><span
-                                    class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a>
-                            <a class="carousel-control-next" href="#carousel-918476" data-slide="next"><span
-                                    class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
-                        </div>
+                        <br/>
+                        
+                        
                         <br/>
                         <table class="table">
                             <tbody>
@@ -278,6 +221,18 @@ Vue.component("selected-apartment", {
                                     <li>{{amenity.name}}</li>
                                 </ul>
                             </div>
+                        </div>
+                        <br/>
+                        
+                        <div class="card">
+                            <h5 class="card-header">
+                                Photos
+                            </h5>
+                            <div v-for="image in apartment.images" class="card-body">
+                                <img :src="image" alt="Apartment photo"/>
+                                <br/><br/>
+                            </div>
+                            <p v-if="apartment.images.length===0">No photos available!</p> 
                         </div>
                         <br/>
                         <blockquote class="blockquote">
@@ -348,110 +303,7 @@ Vue.component("selected-apartment", {
                 </div>
             </div>
             
-            <div class="modal fade" id="editApartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit apartment
-                                <span class="text-secondary" v-if="page==0">GENERAL</span>
-                                <span class="text-secondary" v-if="page==1">INVENTORY</span></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <br>
-                            <div v-if="page==0">
-                                <div class="form-row">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Apartment name" v-model="apartment.name">
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="col-md-12">
-                                        <textarea class="form-control col-md-12" rows="5" placeholder="Description"
-                                                  v-model="apartment.description"></textarea>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="col-md-12">
-                                        <select class="form-control" v-model="apartment.type">
-                                            <option selected disabled>Type</option>
-                                            <option>ROOM</option>
-                                            <option>FULL</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <input type="number" class="form-control" placeholder="number of rooms" min="0"
-                                               v-model="apartment.roomNumber">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="number" class="form-control" placeholder="number of guests" min="0"
-                                               v-model="apartment.guestNumber">
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control" placeholder="Street">
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="input-group col-md-12">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
-                                        </div>
-                                        <input type="number" class="form-control" placeholder="Price per night" min="0"
-                                               v-model="apartment.pricePerNight">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <input type="time" class="form-control" placeholder="Time to check in"
-                                               v-model="apartment.checkIn">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="time" class="form-control" placeholder="Time to check out"
-                                               v-model="apartment.checkOut">
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="page==1">
-                                <div>
-                                    <button class="btn btn-outline-secondary col-md-4"
-                                            data-toggle="button" aria-pressed="false"
-                                            v-for="a in amenities"
-                                            v-on:click="addAmenity($event, a)">
-                                        {{a.name}}
-                                    </button>
-                                </div>
-                                <br/>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
-                                    <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" v-if="page === 1" v-on:click="previousPage">Back</button>
-                            <button type="button" class="btn btn-primary" v-if="page === 0" v-on:click="nextPage">Next</button>
-                            <button type="button" class="btn btn-primary" v-if="page === 1"
-                                    v-on:click="saveApartment">Save</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             
         </div>    
     `

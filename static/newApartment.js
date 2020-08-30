@@ -182,7 +182,7 @@ Vue.component("new-apartment", {
             let data = new FormData();
             for(let file of this.images) {
                 data.append('file', file.image);
-                this.apartment.images.push('./static/pics/' + file.image.name);
+                this.apartment.images.push('./pics/' + file.image.name);
             }
 
             axios

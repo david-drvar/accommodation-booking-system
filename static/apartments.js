@@ -326,7 +326,7 @@ Vue.component("apartments", {
                 <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
                     <img class="card-img-top" src="pics/kim-kardashian.jpg" alt="Card image cap">
                     <div class="card-body text-primary">
-                        <h5 class="card-title">Apartment name</h5>
+                        <h5 class="card-title">{{apartment.name}}</h5>
                         <p class="card-text">
                             {{"type : " + apartment.type}}
                             <br/>

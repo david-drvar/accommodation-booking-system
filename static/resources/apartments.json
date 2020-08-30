@@ -478,13 +478,8 @@
         "isActive": true
       },
       {
-        "id": 8,
-        "name": "Gym",
-        "isActive": true
-      },
-      {
         "id": 3,
-        "name": "AC",
+        "name": "ACC",
         "isActive": true
       }
     ],
@@ -499,7 +494,7 @@
       "userType": "HOST"
     },
     "reservations": [],
-    "isActive": true
+    "isActive": false
   },
   {
     "id": 17,
@@ -516,9 +511,9 @@
     ],
     "availableDates": [],
     "images": [
-      "./static/pics/92628999.jpg",
-      "./static/pics/166981326.jpg",
-      "./static/pics/166981335.jpg"
+      "./pics/92628999.jpg",
+      "./pics/166981326.jpg",
+      "./pics/166981335.jpg"
     ],
     "pricePerNight": 100.0,
     "checkIn": "19:07",
@@ -546,12 +541,7 @@
       },
       {
         "id": 3,
-        "name": "AC",
-        "isActive": true
-      },
-      {
-        "id": 8,
-        "name": "Gym",
+        "name": "ACC",
         "isActive": true
       }
     ],
@@ -566,7 +556,7 @@
       "userType": "HOST"
     },
     "reservations": [],
-    "isActive": true
+    "isActive": false
   },
   {
     "id": 18,
@@ -607,11 +597,6 @@
         "id": 6,
         "name": "Private entrance",
         "isActive": true
-      },
-      {
-        "id": 8,
-        "name": "Gym",
-        "isActive": true
       }
     ],
     "host": {
@@ -633,7 +618,7 @@
       "userType": "HOST"
     },
     "reservations": [],
-    "isActive": true
+    "isActive": false
   },
   {
     "id": 19,

@@ -322,6 +322,18 @@ Vue.component("edit-apartment", {
                             this.nameErr || this.roomErr || this.guestErr || this.priceErr
                         ">Save</button>
                     </div>
+                    <br/><br/>
+                    <div class="card">
+                        <h5 class="card-header">
+                            Photos
+                        </h5>
+                        <div v-for="image in apartment.images" class="card-body">
+                            <img :src="image" alt="Apartment photo"/>
+                            <br/><br/>
+                        </div>
+                        <p v-if="apartment.images.length===0">No photos available!</p>
+                    </div>
+                    <br/>
                 </div>
                 <div class="col-lg-6">
                         <div id="map"></div>

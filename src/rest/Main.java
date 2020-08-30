@@ -319,9 +319,7 @@ public class Main {
     }
 
     private static void configure() {
-        IAmenityRepository amenityRepository = new AmenityRepository(
-                new JSONStream<Amenity>(AMENITIES_FILE_PATH, new TypeToken<List<Amenity>>(){}.getType()));
-        amenityService = new AmenityService(amenityRepository);
+
 
         IUserRepository userRepository = new UserRepository(
                 new JSONStream<User>(USERS_FILE_PATH, new TypeToken<List<User>>(){}.getType(), RuntimeTypeAdapterFactory.of(User.class, "userType")
@@ -337,6 +335,10 @@ public class Main {
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
         apartmentService = new ApartmentService(apartmentRepository, userRepository);
+
+        IAmenityRepository amenityRepository = new AmenityRepository(
+                new JSONStream<Amenity>(AMENITIES_FILE_PATH, new TypeToken<List<Amenity>>(){}.getType()));
+        amenityService = new AmenityService(amenityRepository, apartmentRepository);
 
         userService.setApartmentRepository(apartmentRepository);
 
