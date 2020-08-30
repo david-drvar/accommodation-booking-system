@@ -298,7 +298,14 @@ public class Main {
             res.status(400);
             return "Ok";
         });
-        
+
+        post("/users/get-users-by-host", (req, res) -> {
+            res.type("application/json");
+            String payload = req.body();
+            Host host = (Host) converter.fromJson(payload, Host.class);
+            return converter.toJson(userService.getUsersByReservations(host));
+        });
+
         post("/image/upload", (req, res) -> {
             try {
                 imageUpload.uploadImage(req);
@@ -330,6 +337,8 @@ public class Main {
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
         apartmentService = new ApartmentService(apartmentRepository, userRepository);
+
+        userService.setApartmentRepository(apartmentRepository);
 
         imageUpload = new ImageUpload(IMAGE_UPLOAD_FOLDER_PATH);
     }

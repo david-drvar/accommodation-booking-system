@@ -5,14 +5,19 @@ Vue.component("users", {
             usernameSearch : '',
             sexSearch : '',
             userTypeSearch : '',
+            userType : '',
+            userId : ''
         }
     },
-    mounted() {
-        axios
-            .get('/users/getAll')
-            .then(response => {
-                this.users = response.data;
-            });
+    async mounted() {
+        const jwt = window.sessionStorage.getItem('jwt');
+        if (jwt!== null) {
+            const decoded = jwt_decode(jwt);
+            const parsed = JSON.parse(decoded.sub);
+            this.userId = parsed.id;
+            this.userType = parsed.userType;
+        }
+        await this.fetchUsers();
     },
     template: `
     <div>
@@ -48,6 +53,10 @@ Vue.component("users", {
 
                   <th scope="col">Sex</th>
                   <th scope="col">User type</th>
+                  <th scope="col" v-if="userType==='HOST'">Apartment name</th>
+                  <th scope="col" v-if="userType==='HOST'">Check in date</th>
+                  <th scope="col" v-if="userType==='HOST'">Total nights</th>
+
               </tr>
               </thead>
               <tbody>
@@ -58,6 +67,9 @@ Vue.component("users", {
 
                       <td>{{s.sex}}</td>
                       <td>{{s.userType}}</td>
+                      <td v-if="userType==='HOST'">{{s.apartmentName}}</td>
+                      <td v-if="userType==='HOST'">{{s.checkInDate}}</td>
+                      <td v-if="userType==='HOST'">{{s.totalNights}}</td>
                   </tr>
               </tbody>
           </table>
@@ -85,15 +97,33 @@ Vue.component("users", {
                 }
                );
         },
-        resetSearch : function () {
+        resetSearch : async function () {
             this.usernameSearch = '';
             this.userTypeSearch = '';
             this.sexSearch = '';
-            axios
-                .get('/users/getAll')
-                .then(response => {
-                    this.users = response.data;
-                });
+            await this.fetchUsers();
+        },
+        fetchUsers : async function () {
+            if (this.userType === 'ADMIN') {
+                axios
+                    .get('/users/getAll')
+                    .then(response => {
+                        this.users = response.data;
+                    });
+            }
+
+            else if (this.userType === 'HOST') {
+                let host;
+                await axios
+                    .get('/users/getOne/' + this.userId)
+                    .then(res => host = res.data);
+
+                await axios
+                    .post('/users/get-users-by-host', host)
+                    .then(response => {
+                        this.users = response.data;
+                    });
+            }
         }
     }
 })

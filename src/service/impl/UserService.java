@@ -1,17 +1,29 @@
 package service.impl;
 
+import beans.Apartment;
+import beans.Host;
+import beans.Reservation;
 import beans.User;
+import dto.HostViewOfUsers;
+import repository.IApartmentRepository;
 import repository.IUserRepository;
 import service.IUserService;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
+    private IApartmentRepository apartmentRepository;
 
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public void setApartmentRepository(IApartmentRepository apartmentRepository) {
+        this.apartmentRepository = apartmentRepository;
     }
 
     @Override
@@ -60,5 +72,29 @@ public class UserService implements IUserService {
         if(!user.getPassword().equals(password))
             return null;
         return user;
+    }
+
+    @Override
+    public Collection<HostViewOfUsers> getUsersByReservations(Host host) {
+        host = (Host) userRepository.get(host.getId());
+        ArrayList<HostViewOfUsers> ret = new ArrayList<>();
+        List<Apartment> newList = new ArrayList<>();
+        for (Apartment apartment : host.getApartments()) {
+            newList.add(apartmentRepository.get(apartment.getId()));
+        }
+        host.setApartments(newList);
+
+
+        for (Apartment apartment : host.getApartments()) {
+            for (Reservation reservation : apartment.getReservations()) {
+                User user = reservation.getGuest();
+                user = userRepository.get(user.getId());
+                HostViewOfUsers hostViewOfUsers = new HostViewOfUsers(user.getUsername(), user.getFirstName(),
+                        user.getLastName(), user.getSex(), user.getUserType(), apartment.getName(), reservation.getCheckInDate(), reservation.getNumberOfNights());
+                ret.add(hostViewOfUsers);
+            }
+        }
+
+        return ret;
     }
 }
