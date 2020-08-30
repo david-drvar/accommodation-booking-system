@@ -60,6 +60,12 @@ Vue.component("apartments", {
             .then(res => this.apartment.host = res.data);
 
         axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+
+        //ZA ILIJIN TOAST
+        this.$root.$on('newApartmentMsg', msg => {
+            if(msg === 'success')
+                $('#newApartmentSuccess').toast('show');
+        });
     },
     created() {
         var searchInput = 'my-input';
@@ -211,6 +217,22 @@ Vue.component("apartments", {
     },
     template : `
         <div>
+              <!-- ILIJIN TOAST -->
+              <div id="newApartmentSuccess"  
+              class="toast bg-success" 
+              data-delay="5000" style="position: absolute; top: 20px; right: 20px; z-index: 2">
+                <div class="toast-header bg-light text-success">
+                  <strong class="mr-auto">Success</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  New apartment has been successfully added!
+                </div>
+              </div>
+              
+              
             <br/>
             <a href="#/new-apartment"><button class="btn btn-outline-primary">New</button></a>
             <div id="search">

@@ -81,7 +81,11 @@ Vue.component("new-apartment", {
             this.parseDate();
             this.uploadImages();
             axios
-                .post('apartment/save', this.apartment);
+                .post('apartment/save', this.apartment)
+                .then(res => {
+                    this.$root.$emit('newApartmentMsg', 'success');
+                });
+            location.hash = '/apartments';
         },
 
         addAmenity : function (event, amenity) {
@@ -159,6 +163,7 @@ Vue.component("new-apartment", {
             return (this.apartment.name == null || this.apartment.type === 'Type' ||
                 this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                 this.apartment.checkIn == null || this.apartment.checkOut == null ||
+                this.apartment.pricePerNight == null ||
                 this.nameErr || this.roomErr || this.guestErr || this.priceErr);
         },
 
@@ -190,6 +195,10 @@ Vue.component("new-apartment", {
 
         cancel : function () {
             window.location.hash = '/apartments';
+        },
+
+        toastTest : function () {
+            $('#el').toast('show');
         }
     },
     template : `
@@ -345,5 +354,7 @@ Vue.component("new-apartment", {
                 </div>
             </div>
             </div>
+
+            
     `
 })
