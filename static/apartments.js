@@ -38,11 +38,13 @@ Vue.component("apartments", {
             moreFilters : false,
             filterAmenities : false,
             selectedAmenities : [],
-            apartmentType : ''
+            apartmentType : '',
+            userType : '',
+            userId : ''
 
         })
     },
-    mounted() {
+    async mounted() {
         const token = sessionStorage.getItem('jwt');
         const parsed = JSON.parse(jwt_decode(token).sub);
 
@@ -59,13 +61,22 @@ Vue.component("apartments", {
             .get('/users/getOne/' + parsed.id)
             .then(res => this.apartment.host = res.data);
 
-        axios.get('/apartment/getAll').then(response => this.apartments = response.data);
-
+			
         //ZA ILIJIN TOAST
         this.$root.$on('newApartmentMsg', msg => {
             if(msg === 'success')
                 $('#newApartmentSuccess').toast('show');
         });
+
+        await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+        const jwt = window.sessionStorage.getItem('jwt');
+        if (jwt!== null) {
+            const decoded = jwt_decode(jwt);
+            const parsed = JSON.parse(decoded.sub);
+            this.userType = parsed.userType;
+            this.userId = parsed.id;
+        }
+        await this.filterApartmentsByUserType();
     },
     created() {
         var searchInput = 'my-input';
@@ -86,6 +97,19 @@ Vue.component("apartments", {
         });
     },
     methods : {
+        filterApartmentsByUserType : function(userType) {
+            if (this.userType === 'ADMIN') {
+
+            }
+            else if (this.userType === 'HOST') {
+                this.apartments = this.apartments.filter(apartment => {
+                    return apartment.host.id === this.userId
+                });
+            }
+            else if (this.userType === 'GUEST') {
+                this.apartments = this.apartments.filter(apartment => apartment.status === 'ACTIVE');
+            }
+        },
         nextPage : function () {
             this.page = 1;
         },
@@ -167,22 +191,13 @@ Vue.component("apartments", {
         searchApartments : async function () {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
             this.location = localStorage.getItem('location');
-            //alert(this.location);
             this.apartments = this.apartments.filter((apartment) => {
                 return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
                 }
             );
+            await this.filterApartmentsByUserType();
         },
         filterApartmentsByType : async function (type) {
-            // if (type === 'All') {
-            //     await this.searchApartments();
-            // } else if (type === 'Room') {
-            //     await this.searchApartments();
-            //     this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
-            // } else if (type === 'Full') {
-            //     await this.searchApartments();
-            //     this.apartments = this.apartments.filter (apartment => apartment.type === "FULL");
-            // }
             this.apartmentType = type;
         },
         applyFiltersAmenities : async function () {
@@ -204,14 +219,6 @@ Vue.component("apartments", {
 
                 return ret_type && ret_amenity;
             });
-            // if (this.apartmentType === 'All') {
-            // } else if (this.apartmentType === 'Room') {
-            //
-            //     this.apartments = this.apartments.filter (apartment => apartment.type === "ROOM");
-            // } else if (this.apartmentType === 'Full') {
-            //
-            //     this.apartments = this.apartments.filter(apartment => apartment.type === "FULL");
-            // }
         }
 
     },

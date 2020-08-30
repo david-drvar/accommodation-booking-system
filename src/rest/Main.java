@@ -258,6 +258,23 @@ public class Main {
             return converter.toJson(apartmentService.save(apartment));
         });
 
+        post("/apartment/edit", (req, res) -> {
+            String payload = req.body();
+            Apartment apartment = converter.fromJson(payload, Apartment.class);
+            res.type("application/json");
+            apartmentService.edit(apartment);
+            return "OK";
+        });
+
+        delete("/apartment/delete", (req, res) -> {
+            String payload = req.body();
+            Apartment apartment = converter.fromJson(payload, Apartment.class);
+            res.type("application/json");
+            Apartment completeApartment = apartmentService.get(apartment.getId());
+            apartmentService.delete(completeApartment);
+            return "OK";
+        });
+
         post("/apartment/new-reservation/checkAvailability", (req, res) -> {
             String payload = req.body();
             ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);

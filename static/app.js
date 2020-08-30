@@ -5,6 +5,7 @@ const Amenities = {template: '<amenities></amenities>'}
 const RegisterHost = {template: '<register-host></register-host>'}
 const SelectedApartment = {template : '<selected-apartment></selected-apartment>'}
 const NewApartment = {template : '<new-apartment></new-apartment>'}
+const EditApartment = {template : '<edit-apartment></edit-apartment>'}
 
 const router = new VueRouter({
     mode: 'hash',
@@ -15,7 +16,8 @@ const router = new VueRouter({
         { path: '/amenities', component: Amenities},
         { path: '/register-host', component: RegisterHost},
         { path: '/apartment/:id', component: SelectedApartment },
-        { path: '/new-apartment', component: NewApartment }
+        { path: '/new-apartment', component: NewApartment },
+        { path: '/edit-apartment/:id', component: EditApartment }
     ]
 });
 
