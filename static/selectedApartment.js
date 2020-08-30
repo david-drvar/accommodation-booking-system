@@ -46,6 +46,18 @@ Vue.component("selected-apartment", {
         editApartment : function() {
             window.location.href = "#/edit-apartment/" + this.apartment.id;
         },
+        deleteApartment : function() {
+            let answer = confirm("Are you sure you want to delete apartment " + this.apartment.name + "?");
+            if (answer)
+                axios.delete('http://localhost:8088/apartment/delete', {
+                    data: {
+                        id: this.apartment.id
+                    }
+                }).then(() => {
+                    window.location.href = "#/apartments/";
+                });
+
+        },
         addAmenity : function (event, amenity) {
             let list = this.apartment.amenities;
             let index = list.indexOf(amenity);
@@ -145,7 +157,8 @@ Vue.component("selected-apartment", {
                                 {{this.apartment.name}}
                             </h1>
 <!--                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#editApartment">Edit</button>-->
-                            <button class="btn btn-outline-primary" v-on:click="editApartment">Edit</button>
+                            <button class="btn btn-outline-primary" v-on:click="editApartment" v-if="userType === 'HOST' || userType === 'ADMIN'">Edit</button>
+                            <button class="btn btn-outline-danger" v-on:click="deleteApartment" v-if="userType === 'HOST' || userType === 'ADMIN'">Delete</button>
                         </div>
                         <br/> 
                         <div class="carousel slide" id="carousel-918476">

@@ -255,6 +255,15 @@ public class Main {
             return "OK";
         });
 
+        delete("/apartment/delete", (req, res) -> {
+            String payload = req.body();
+            Apartment apartment = converter.fromJson(payload, Apartment.class);
+            res.type("application/json");
+            Apartment completeApartment = apartmentService.get(apartment.getId());
+            apartmentService.delete(completeApartment);
+            return "OK";
+        });
+
         post("/apartment/new-reservation/checkAvailability", (req, res) -> {
             String payload = req.body();
             ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);

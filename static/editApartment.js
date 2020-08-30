@@ -76,6 +76,10 @@ Vue.component("edit-apartment", {
                 this.apartment = response.data;
             });
     },
+    created() {
+        // let a = document.getElementsByName('davide')[0].value;
+        //alert('aa');
+    },
     methods : {
         saveApartment : function () {
             //this.apartment.images = document.getElementById('inputGroupFile01').files;
@@ -86,7 +90,9 @@ Vue.component("edit-apartment", {
             axios
                 .post('apartment/edit', this.apartment);
         },
-
+        toggleButtons : function (event) {
+            alert(event.target.name);
+        },
         addAmenity : function (event, amenity) {
             let list = this.apartment.amenities;
             let index = list.indexOf(amenity);
@@ -279,7 +285,7 @@ Vue.component("edit-apartment", {
                   <div>
                         <button class="btn btn-outline-secondary col-md-4" 
                         data-toggle="button" aria-pressed="false"
-                        v-for="a in amenities"
+                        v-for="a in amenities" name="{{a.name}}" v-on:mouseover="toggleButtons"
                         v-on:click="addAmenity($event, a)">
                             {{a.name}}
                         </button>
