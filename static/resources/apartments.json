@@ -114,192 +114,6 @@
     "isActive": true
   },
   {
-    "id": 2,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [],
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 3,
-    "type": "ROOM",
-    "roomNumber": 3,
-    "guestNumber": 3,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 3.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [],
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 4,
-    "type": "ROOM",
-    "roomNumber": 10,
-    "guestNumber": 10,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 11.0,
-    "checkIn": "22:12",
-    "checkOut": "22:12",
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [],
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 5,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      },
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 5,
-        "name": "Shampoo",
-        "isActive": true
-      }
-    ],
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 6,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      },
-      {
-        "id": 9,
-        "name": "Swimming pool",
-        "isActive": true
-      },
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      },
-      {
-        "id": 8,
-        "name": "Gym",
-        "isActive": true
-      },
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      },
-      {
-        "id": 9,
-        "name": "Swimming pool",
-        "isActive": true
-      },
-      {
-        "id": 5,
-        "name": "Shampoo",
-        "isActive": true
-      },
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 5,
-        "name": "Shampoo",
-        "isActive": true
-      },
-      {
-        "id": 6,
-        "name": "Private entrance",
-        "isActive": true
-      },
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      },
-      {
-        "id": 6,
-        "name": "Private entrance",
-        "isActive": true
-      },
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      }
-    ],
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 7,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      },
-      {
-        "id": 8,
-        "name": "Gym",
-        "isActive": true
-      }
-    ],
-    "reservations": [],
-    "isActive": true
-  },
-  {
     "id": 8,
     "roomNumber": 0,
     "guestNumber": 0,
@@ -681,6 +495,148 @@
       "lastName": "Markovic",
       "sex": "MALE",
       "id": 7,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 17,
+    "type": "FULL",
+    "name": "David Apartment",
+    "description": "blabla",
+    "roomNumber": 3,
+    "guestNumber": 5,
+    "rentDates": [
+      {
+        "startDate": "2020-08-30T00:00:00+0200",
+        "endDate": "2020-09-30T00:00:00+0200"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 2800.0,
+    "checkIn": "09:53",
+    "checkOut": "15:59",
+    "status": "INACTIVE",
+    "location": {
+      "longitude": 19.8335496,
+      "latitude": 45.2671352,
+      "address": {
+        "street": "",
+        "number": "0",
+        "state": "Serbia",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": 21000
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 7,
+        "name": "Balcony",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 5,
+        "name": "Shampoo",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "username": "wer",
+      "password": "wer",
+      "firstName": "weree",
+      "lastName": "wer",
+      "sex": "FEMALE",
+      "id": 24,
+      "isActive": true,
+      "userType": "ADMIN"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 18,
+    "type": "ROOM",
+    "name": "apartman u listu Edit OPETAS",
+    "description": "eee OP EDIT",
+    "roomNumber": 5,
+    "guestNumber": 1,
+    "rentDates": [
+      {
+        "startDate": "2020-08-30T00:00:00+0200",
+        "endDate": "2020-09-30T00:00:00+0200"
+      },
+      {
+        "startDate": "2020-10-02T00:00:00+0200",
+        "endDate": "2020-10-03T00:00:00+0200"
+      },
+      {
+        "startDate": "2020-09-01T00:00:00+0200",
+        "endDate": "2020-09-03T00:00:00+0200"
+      }
+    ],
+    "availableDates": [],
+    "images": [],
+    "pricePerNight": 213400.0,
+    "checkIn": "18:54",
+    "checkOut": "18:53",
+    "status": "ACTIVE",
+    "location": {
+      "longitude": 19.7928731,
+      "latitude": 45.2528136,
+      "address": {
+        "street": "Seljačkih buna",
+        "number": "71",
+        "state": "Serbia",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": 210008
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      },
+      {
+        "id": 9,
+        "name": "Swimming pool",
+        "isActive": true
+      },
+      {
+        "id": 9,
+        "name": "Swimming pool",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "apartments": [
+        {
+          "id": 18,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      ],
+      "username": "ase",
+      "password": "ase",
+      "firstName": "hostic name",
+      "lastName": "hostic surname",
+      "sex": "FEMALE",
+      "id": 25,
       "isActive": true,
       "userType": "HOST"
     },

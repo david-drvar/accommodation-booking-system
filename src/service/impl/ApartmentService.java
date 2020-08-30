@@ -24,7 +24,14 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public Apartment save(Apartment entity) {
-        return apartmentRepository.save(entity);
+        Apartment added = apartmentRepository.save(entity);
+
+        Host host = (Host) userRepository.get(entity.getHost().getId());
+        Apartment scaledApartment = new Apartment(added.getId());
+        host.getApartments().add(scaledApartment);
+        userRepository.edit(host);
+
+        return added;
     }
 
     @Override
@@ -75,15 +82,6 @@ public class ApartmentService implements IApartmentService {
         }
         return true;
     }
-//
-//                if (fixedCheckInDate.before(checkInDate) && fixedCheckOutDate.after(checkOutDate) && fixedCheckOutDate.compareTo(checkInDate)>0)
-//            return false;
-//            else if (fixedCheckInDate.after(checkInDate) && checkOutDate.after(fixedCheckInDate) && checkOutDate.before(fixedCheckOutDate))
-//            return false;
-//            else if (checkInDate.before(fixedCheckInDate) && checkOutDate.after(fixedCheckOutDate))
-//            return false;
-//            else if (fixedCheckInDate.before(checkInDate) && fixedCheckOutDate.after(checkInDate) && fixedCheckOutDate.before(checkOutDate))
-//            return false;
 
     public Boolean checkDates(ReservationDTO reservationDTO) throws ParseException {
         Apartment apartment = this.get(reservationDTO.getApartmentId());

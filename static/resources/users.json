@@ -230,6 +230,14 @@
     "userType": "ADMIN"
   },
   {
+    "apartments": [
+      {
+        "id": 18,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
+      }
+    ],
     "username": "ase",
     "password": "ase",
     "firstName": "hostic name",
