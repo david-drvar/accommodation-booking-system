@@ -8,9 +8,8 @@ import service.IApartmentService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ApartmentService implements IApartmentService {
 
@@ -45,6 +44,19 @@ public class ApartmentService implements IApartmentService {
     @Override
     public void delete(Apartment entity) {
         apartmentRepository.delete(entity);
+    }
+
+    public void setApartmentAvailableDates(Apartment entity) {
+        List<Date> availableDates = new ArrayList<>();
+        entity.getRentDates().forEach(interval -> {
+            Date start = interval.getStartDate();
+            Date end = interval.getEndDate();
+            while(start.before(end)) {
+                availableDates.add(start);
+                start = new Date(start.getTime() + 24 * 60 * 60 * 1000);
+            }
+        });
+        entity.setAvailableDates(availableDates);
     }
 
     private Date addDaysToDate(Date date, int days) {

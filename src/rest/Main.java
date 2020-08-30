@@ -252,6 +252,8 @@ public class Main {
         post("/apartment/save", (req, res) -> {
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
+            if(!apartment.getRentDates().isEmpty())
+                apartmentService.setApartmentAvailableDates(apartment);
             res.type("application/json");
             return converter.toJson(apartmentService.save(apartment));
         });
