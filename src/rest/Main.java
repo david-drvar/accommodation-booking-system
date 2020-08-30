@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import dto.ReservationDTO;
+import imageUtil.ImageUpload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -23,8 +24,13 @@ import service.impl.ApartmentService;
 import service.impl.StateService;
 import service.impl.UserService;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.security.Key;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +43,7 @@ public class Main {
     private static final String USERS_FILE_PATH = "./static/resources/users.json";
     private static final String STATES_FILE_PATH = "./static/resources/states.json";
     private static final String APARTMENTS_FILE_PATH = "./static/resources/apartments.json";
+    private static final String IMAGE_UPLOAD_FOLDER_PATH = "./static/pics";
 
     static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
@@ -48,6 +55,8 @@ public class Main {
     private static IUserService userService;
     private static IStateService stateService;
     private static IApartmentService apartmentService;
+
+    private static ImageUpload imageUpload;
 
     public static void main(String[] args) throws Exception {
 
@@ -270,6 +279,17 @@ public class Main {
             res.status(400);
             return "Ok";
         });
+        
+        post("/image/upload", (req, res) -> {
+            try {
+                imageUpload.uploadImage(req);
+                return "OK";
+            } catch (Exception e) {
+                res.status(400);
+                return "Error while uploading an image!";
+            }
+
+        });
     }
 
     private static void configure() {
@@ -291,5 +311,7 @@ public class Main {
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));
         apartmentService = new ApartmentService(apartmentRepository, userRepository);
+
+        imageUpload = new ImageUpload(IMAGE_UPLOAD_FOLDER_PATH);
     }
 }

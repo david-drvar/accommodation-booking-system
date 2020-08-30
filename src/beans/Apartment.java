@@ -3,7 +3,6 @@ package beans;
 import repository.bounds.Deletable;
 import repository.bounds.Identifiable;
 
-import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Apartment implements Identifiable, Deletable {
    private int guestNumber;
    private List<Interval> rentDates;
    private List<Date> availableDates;
-   private List<Image> images;
+   private List<String> images;
    private double pricePerNight;
    private String checkIn;
    private String checkOut;
@@ -76,11 +75,11 @@ public class Apartment implements Identifiable, Deletable {
       this.availableDates = availableDates;
    }
 
-   public List<Image> getImages() {
+   public List<String> getImages() {
       return images;
    }
 
-   public void setImages(List<Image> images) {
+   public void setImages(List<String> images) {
       this.images = images;
    }
 

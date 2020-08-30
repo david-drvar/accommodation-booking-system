@@ -79,6 +79,7 @@ Vue.component("new-apartment", {
             //     alert(el);
             this.fetchLocation();
             this.parseDate();
+            this.uploadImages();
             axios
                 .post('apartment/save', this.apartment);
         },
@@ -172,13 +173,27 @@ Vue.component("new-apartment", {
             }
         },
 
+        uploadImages : function() {
+            let data = new FormData();
+            for(let file of this.images) {
+                data.append('file', file.image);
+                this.apartment.images.push('./static/pics/' + file.image.name);
+            }
+
+            axios
+                .post('/image/upload', data, {
+                    header : {
+                        'Content-Type' : 'image/png'
+                    }
+                });
+            },
+
         cancel : function () {
             window.location.hash = '/apartments';
         }
     },
     template : `
         <div class="container-fluid">
-            
             <div class="row">
                 <div class="col-md-6">
                 <br>
@@ -316,6 +331,7 @@ Vue.component("new-apartment", {
                         <div class="col-md-1"><button class="btn btn-secondary"
                         @click="cancel">Cancel</button></div>
                     </div>
+                    </div>
                 <div class="col-md-6">
                     <h2 v-if="images.length" class="text-secondary">Preview</h2>
                     <div class="form-row">
@@ -327,6 +343,7 @@ Vue.component("new-apartment", {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
     `
 })
