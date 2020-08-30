@@ -236,6 +236,12 @@
         "roomNumber": 0,
         "guestNumber": 0,
         "pricePerNight": 0.0
+      },
+      {
+        "id": 23,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
       }
     ],
     "username": "ase",
