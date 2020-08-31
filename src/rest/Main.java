@@ -78,20 +78,22 @@ public class Main {
         });
 
         get("/amenities/getAll", (req, res) -> {
-            String auth = req.headers("Authorization");
-            System.out.println("Authorization: " + auth);
-            if ((auth != null) && (auth.contains("Bearer "))) {
-                String jwt = auth.substring(auth.indexOf("Bearer ") + 7);
-                try {
-                    Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
-                    return converter.toJson(amenityService.getAll());
-                    //return "User " + claims.getBody().getSubject() + " logged in.";
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            res.status(403);
-            return "No user logged in.";
+//            String auth = req.headers("Authorization");
+//            System.out.println("Authorization: " + auth);
+//            if ((auth != null) && (auth.contains("Bearer "))) {
+//                String jwt = auth.substring(auth.indexOf("Bearer ") + 7);
+//                try {
+//                    Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
+//                    return converter.toJson(amenityService.getAll());
+//                    //return "User " + claims.getBody().getSubject() + " logged in.";
+//                } catch (Exception e) {
+//                    System.out.println(e.getMessage());
+//                }
+//            }
+//            res.status(403);
+//            return "No user logged in.";
+
+            return converter.toJson(amenityService.getAll());
         });
 
         get("/amenities/getOne/:id", (req, res) -> {

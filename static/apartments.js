@@ -241,7 +241,7 @@ Vue.component("apartments", {
               
               
             <br/>
-            <a href="#/new-apartment"><button class="btn btn-outline-primary">New</button></a>
+            <a href="#/new-apartment"><button class="btn btn-outline-primary" v-if="userType === 'ADMIN' || userType==='HOST'">New</button></a>
             <div id="search">
                 <div class="p-4 bg-light">
                     <div class="input-group">
@@ -320,7 +320,7 @@ Vue.component("apartments", {
                 </button>
             </div>
 
-            <br/>
+            <br/><br/>
 
             <div class="col-md-4" v-for="apartment in this.apartments" >
                 <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
