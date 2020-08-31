@@ -32,9 +32,20 @@ public class ApartmentService implements IApartmentService {
 
         return added;
     }
+    //moj izum
+//ostavim sve kako jeste, dobijem size 0
+    //jedan izbrisem, samo taj mi se vrati size 1
+    //oba izbrisem oba mi se vrate size 2
+    //izbrisem pa isti dodam
+
+    //ilijin
+    // oba izbrisem - oba mi se vrate size 2
+    //
 
     @Override
     public void edit(Apartment entity) {
+//        Apartment apartment = this.get(entity.getId());
+//        apartment.setAmenities(entity.getAmenities());
         apartmentRepository.edit(entity);
     }
 

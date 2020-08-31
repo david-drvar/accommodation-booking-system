@@ -511,9 +511,7 @@
     ],
     "availableDates": [],
     "images": [
-      "./pics/92628999.jpg",
-      "./pics/166981326.jpg",
-      "./pics/166981335.jpg"
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
     ],
     "pricePerNight": 100.0,
     "checkIn": "19:07",
@@ -541,7 +539,7 @@
       },
       {
         "id": 3,
-        "name": "ACC",
+        "name": "AC",
         "isActive": true
       }
     ],
@@ -556,7 +554,7 @@
       "userType": "HOST"
     },
     "reservations": [],
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 18,
@@ -904,7 +902,9 @@
       "2020-08-20T00:00:00+0200",
       "2020-08-21T00:00:00+0200"
     ],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 23333.0,
     "checkIn": "19:18",
     "checkOut": "20:19",

@@ -1,7 +1,9 @@
 Vue.component("edit-apartment", {
     data: function() {
         return ({
+            selectedAmenities : [],
             saveDisabled : true,
+            images : [],
             nameErr : false,
             typeErr : false,
             roomErr : false,
@@ -45,7 +47,7 @@ Vue.component("edit-apartment", {
             }
         })
     },
-    mounted() {
+    async mounted() {
         if(localStorage.getItem('newApartmentReloaded')) {
             localStorage.removeItem('newApartmentReloaded');
             localStorage.removeItem('dateRange');
@@ -58,7 +60,7 @@ Vue.component("edit-apartment", {
         const token = sessionStorage.getItem('jwt');
         const parsed = JSON.parse(jwt_decode(token).sub);
 
-        axios
+        await axios
             .get('/amenities/getAll', {
                 headers : {
                     'Authorization':'Bearer ' + token
@@ -67,31 +69,34 @@ Vue.component("edit-apartment", {
             .then(res => {
                 this.amenities = res.data;
             });
-        axios
+        await axios
             .get('/users/getOne/' + parsed.id)
             .then(res => this.apartment.host = res.data);
 
-        axios.get('/apartment/getOne/' + this.$route.params.id)
+        await axios.get('/apartment/getOne/' + this.$route.params.id)
             .then(response => {
                 this.apartment = response.data;
             });
-    },
-    created() {
-        // let a = document.getElementsByName('davide')[0].value;
-        //alert('aa');
+
+        this.amenities.forEach(amenity => {
+            this.preToggleButtons(amenity.name);
+        })
     },
     methods : {
         saveApartment : function () {
-            //this.apartment.images = document.getElementById('inputGroupFile01').files;
-            // for(let el of this.apartment.images)
-            //     alert(el);
+            this.uploadImages();
             this.fetchLocation();
             this.parseDate();
             axios
                 .post('apartment/edit', this.apartment);
         },
-        toggleButtons : function (event) {
-            alert(event.target.name);
+        preToggleButtons : function (name) {
+            this.apartment.amenities.forEach(amenity => {
+                if (amenity.name.replace(/\s/g, '') === name.replace(/\s/g, '')) {
+                    const id = '#' + name.replace(/\s/g, '');
+                    $(id).click()
+                }
+            });
         },
         addAmenity : function (event, amenity) {
             let list = this.apartment.amenities;
@@ -100,6 +105,13 @@ Vue.component("edit-apartment", {
                 list.push(amenity);
             else
                 list.splice(list.indexOf(amenity), 1);
+
+            // let list = this.apartment.amenities;
+            // let index = list.findIndex(a => a.name === amenity.name);
+            // if (index === -1)
+            //     list.push(amenity);
+            // else
+            //     list.splice(list.findIndex(a => a.name === amenity.name), 1);
         },
 
         fetchLocation : function () {
@@ -172,11 +184,37 @@ Vue.component("edit-apartment", {
                 this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                 this.apartment.checkIn == null || this.apartment.checkOut == null ||
                 this.nameErr || this.roomErr || this.guestErr || this.priceErr);
-        }
+        },
+        previewImages : function(event) {
+            this.images = [];
+            for(let imageFile of event.target.files) {
+                let imageInfo = {
+                    image : imageFile,
+                    url : URL.createObjectURL(imageFile)
+                }
+                this.images.push(imageInfo);
+            }
+        },
+        uploadImages : function() {
+            if (this.images.length !== 0)
+                this.apartment.images = [];
+
+            let data = new FormData();
+            for(let file of this.images) {
+                data.append('file', file.image);
+                this.apartment.images.push('./pics/' + file.image.name);
+            }
+
+            axios
+                .post('/image/upload', data, {
+                    header : {
+                        'Content-Type' : 'image/png'
+                    }
+                });
+        },
     },
     template : `
         <div class="container-fluid">
-       
             <div class="row">
                 <div class="col-lg-6">
                 <br>
@@ -285,8 +323,8 @@ Vue.component("edit-apartment", {
                   <div>
                         <button class="btn btn-outline-secondary col-md-4" 
                         data-toggle="button" aria-pressed="false"
-                        v-for="a in amenities" name="{{a.name}}" v-on:mouseover="toggleButtons"
-                        v-on:click="addAmenity($event, a)">
+                        v-for="a in amenities" :id="a.name.replace(/\\s/g, '')" 
+                                v-on:click="addAmenity($event, a)">
                             {{a.name}}
                         </button>
                     </div>
@@ -308,7 +346,7 @@ Vue.component("edit-apartment", {
                     </div>
                     <br>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01" multiple>
+                        <input type="file" accept="image/*"  class="custom-file-input" id="inputGroupFile01" @change="previewImages" multiple>
                         <label class="custom-file-label" for="inputGroupFile01">Drag & Drop images here</label>
                     </div>
                     <br/>
@@ -322,20 +360,32 @@ Vue.component("edit-apartment", {
                             this.nameErr || this.roomErr || this.guestErr || this.priceErr
                         ">Save</button>
                     </div>
+                    <br/>
+                    <div class="col-md-6">
+                        <h2 v-if="images.length" class="text-secondary">Preview</h2>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <img v-bind:src="img.url" class="img-thumbnail col-md-4"
+                                     v-for="img in images"
+                                     style="height: 300px; width: 300px"
+                                />
+                            </div>
+                        </div>
+                    </div>
                     <br/><br/>
                     <div class="card">
                         <h5 class="card-header">
                             Photos
                         </h5>
                         <div v-for="image in apartment.images" class="card-body">
-                            <img :src="image" alt="Apartment photo"/>
+                            <img :src="image" alt="Apartment photo" style="height: 300px; width: 300px"/>
                             <br/><br/>
                         </div>
                         <p v-if="apartment.images.length===0">No photos available!</p>
                     </div>
                     <br/>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6" style="height: 500px">
                         <div id="map"></div>
                 </div>
             </div>

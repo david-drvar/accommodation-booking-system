@@ -229,7 +229,7 @@ Vue.component("selected-apartment", {
                                 Photos
                             </h5>
                             <div v-for="image in apartment.images" class="card-body">
-                                <img :src="image" alt="Apartment photo"/>
+                                <img :src="image" alt="Apartment photo" style="height: 300px; width: 300px"/>
                                 <br/><br/>
                             </div>
                             <p v-if="apartment.images.length===0">No photos available!</p> 

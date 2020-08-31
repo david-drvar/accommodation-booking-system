@@ -177,7 +177,6 @@ Vue.component("new-apartment", {
                 this.images.push(imageInfo);
             }
         },
-
         uploadImages : function() {
             let data = new FormData();
             for(let file of this.images) {
