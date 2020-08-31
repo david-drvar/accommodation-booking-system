@@ -1,291 +1,66 @@
 [
   {
-    "username": "username",
-    "password": "neki password",
-    "firstName": "Mirinda",
+    "username": "david",
+    "password": "drvar",
+    "firstName": "David",
     "lastName": "Drvar",
     "sex": "MALE",
-    "id": 2,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "mica",
-    "password": "mika",
-    "firstName": "mirela",
-    "lastName": "stojanovic",
-    "id": 3,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "dar",
-    "password": "rad",
-    "firstName": "mile",
-    "lastName": "kitic",
-    "sex": "MALE",
-    "id": 4,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "ee",
-    "password": "peee",
-    "firstName": "mica",
-    "lastName": "trofrtaljka",
-    "sex": "OTHER",
-    "id": 5,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "qwe",
-    "password": "qweq",
-    "firstName": "eeqw",
-    "lastName": "qweqwe",
-    "sex": "MALE",
-    "id": 6,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "asdsadd",
-    "password": "edd",
-    "firstName": "damir",
-    "lastName": "jovanovic",
-    "sex": "MALE",
-    "id": 8,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "asdsa",
-    "password": "qweqwe",
-    "firstName": "dd",
-    "lastName": "Drvar",
-    "sex": "MALE",
-    "id": 9,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "qwe",
-    "password": "qwe",
-    "firstName": "proba toast",
-    "lastName": "asd",
-    "sex": "FEMALE",
-    "id": 10,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "ewq",
-    "password": "qweqwe",
-    "firstName": "qweee",
-    "lastName": "eee",
-    "sex": "OTHER",
-    "id": 11,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "qwe",
-    "password": "qwe",
-    "firstName": "qweqwe",
-    "lastName": "qweqwe",
-    "sex": "FEMALE",
-    "id": 12,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "qweqwe",
-    "password": "qweqwe",
-    "firstName": "qweqweqwe",
-    "lastName": "qwe",
-    "sex": "MALE",
-    "id": 13,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "eee",
-    "password": "eee",
-    "firstName": "eeee",
-    "lastName": "eee",
-    "sex": "MALE",
-    "id": 14,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "eee",
-    "password": "eee",
-    "firstName": "eeee",
-    "lastName": "eee",
-    "sex": "FEMALE",
-    "id": 15,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "qweqw",
-    "password": "qweqwe",
-    "firstName": "qweqwe",
-    "lastName": "qweqw",
-    "sex": "MALE",
-    "id": 16,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "ww",
-    "password": "ww",
-    "firstName": "qww",
-    "lastName": "www",
-    "sex": "MALE",
-    "id": 17,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "wew",
-    "password": "wew",
-    "firstName": "ewe",
-    "lastName": "wewe",
-    "sex": "MALE",
-    "id": 18,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "asd",
-    "password": "asd",
-    "firstName": "sdaads",
-    "lastName": "asdasd",
-    "sex": "MALE",
-    "id": 19,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "asd",
-    "password": "asd",
-    "firstName": "asd",
-    "lastName": "asd",
-    "sex": "MALE",
-    "id": 20,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "host",
-    "password": "hostic",
-    "firstName": "Petar",
-    "lastName": "Markovic",
-    "sex": "MALE",
-    "id": 7,
-    "isActive": true,
-    "userType": "HOST",
-    "isBlocked" : false,
-    "apartments": [
-      {
-        "id": 18,
-        "roomNumber": 0,
-        "guestNumber": 0,
-        "pricePerNight": 0.0
-      },
-      {
-        "id": 23,
-        "roomNumber": 0,
-        "guestNumber": 0,
-        "pricePerNight": 0.0
-      }
-      ]
-  },
-  {
-    "username": "asdd",
-    "password": "asd",
-    "firstName": "proba posle merge-a",
-    "lastName": "lkj",
-    "sex": "MALE",
-    "id": 21,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "username": "asddd",
-    "password": "asd",
-    "firstName": "proba toast",
-    "lastName": "lkjlk",
-    "sex": "MALE",
-    "id": 22,
-    "isActive": true,
-    "userType": "ADMIN"
-  },
-  {
-    "reservations": [],
-    "isBlocked": true,
-    "username": "awewq",
-    "password": "gson",
-    "firstName": "gson",
-    "lastName": "kjhk",
-    "sex": "MALE",
-    "id": 23,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "username": "wer",
-    "password": "wer",
-    "firstName": "weree",
-    "lastName": "wer",
-    "sex": "FEMALE",
-    "id": 24,
+    "id": 1,
     "isActive": true,
     "userType": "ADMIN"
   },
   {
     "apartments": [
       {
-        "id": 18,
-        "roomNumber": 0,
-        "guestNumber": 0,
-        "pricePerNight": 0.0
-      },
-      {
-        "id": 23,
+        "id": 3,
         "roomNumber": 0,
         "guestNumber": 0,
         "pricePerNight": 0.0
       }
     ],
-    "username": "ase",
-    "password": "ase",
-    "firstName": "hostic name",
-    "lastName": "hostic surname",
+    "isBlocked": false,
+    "username": "mira",
+    "password": "mira",
+    "firstName": "Mira",
+    "lastName": "Miric",
     "sex": "FEMALE",
-    "id": 25,
+    "id": 2,
     "isActive": true,
-    "userType": "HOST",
-    "isBlocked" : false
+    "userType": "HOST"
   },
   {
-    "username": "qweee",
-    "password": "qweee",
-    "firstName": "reset form",
-    "lastName": "lasd",
-    "sex": "FEMALE",
-    "id": 26,
+    "apartments": [
+      {
+        "id": 1,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
+      },
+      {
+        "id": 2,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
+      }
+    ],
+    "isBlocked": false,
+    "username": "mati",
+    "password": "mati",
+    "firstName": "Matija",
+    "lastName": "Matijevic",
+    "sex": "OTHER",
+    "id": 4,
     "isActive": true,
     "userType": "HOST"
   },
   {
     "reservations": [
       {
-        "numberOfNights": 1,
-        "totalPrice": 0.0,
-        "id": 0,
+        "checkInDate": "2020-09-17",
+        "numberOfNights": 6,
+        "totalPrice": 16800.0,
+        "note": "First booking",
+        "status": "CREATED",
         "apartment": {
           "id": 1,
           "roomNumber": 0,
@@ -294,125 +69,14 @@
         }
       }
     ],
-    "username": "asdasd",
-    "password": "d",
-    "firstName": "sa nav bara",
-    "lastName": "kljasd",
-    "sex": "OTHER",
-    "id": 27,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "reservations": [
-      {
-        "numberOfNights": 1,
-        "totalPrice": 0.0,
-        "id": 0,
-        "apartment": {
-          "id": 11,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      }
-    ],
-    "username": "ddd",
-    "password": "e",
-    "firstName": "asddas",
-    "lastName": "d",
+    "isBlocked": false,
+    "username": "perke",
+    "password": "perke",
+    "firstName": "Pera",
+    "lastName": "Perke",
     "sex": "MALE",
-    "id": 28,
+    "id": 5,
     "isActive": true,
     "userType": "GUEST"
-  },
-  {
-    "reservations": [
-      {
-        "numberOfNights": 1,
-        "totalPrice": 0.0,
-        "id": 0,
-        "apartment": {
-          "id": 11,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      },
-      {
-        "numberOfNights": 1,
-        "totalPrice": 0.0,
-        "id": 0,
-        "apartment": {
-          "id": 11,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      }
-    ],
-    "username": "ded",
-    "password": "ee",
-    "firstName": "oluja",
-    "lastName": "dae",
-    "sex": "MALE",
-    "id": 29,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "reservations": [],
-    "username": "eqwe",
-    "password": "qq",
-    "firstName": "novi register",
-    "lastName": "nasd",
-    "sex": "MALE",
-    "id": 30,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "reservations": [],
-    "username": "eeq",
-    "password": "ee",
-    "firstName": "sesija",
-    "lastName": "lkqq",
-    "sex": "MALE",
-    "id": 31,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "reservations": [],
-    "username": "qweeee",
-    "password": "ee",
-    "firstName": "radii",
-    "lastName": "lkjlk",
-    "sex": "MALE",
-    "id": 32,
-    "isActive": true,
-    "userType": "GUEST"
-  },
-  {
-    "isBlocked": true,
-    "username": "asddddde",
-    "password": "asddddde",
-    "firstName": "novi hostasdad",
-    "lastName": "kjsalddas",
-    "sex": "FEMALE",
-    "id": 33,
-    "isActive": true,
-    "userType": "HOST"
-  },
-  {
-    "isBlocked": true,
-    "username": "wqeeeea",
-    "password": "wqeeeea",
-    "firstName": "jasaaa",
-    "lastName": "asd",
-    "sex": "FEMALE",
-    "id": 34,
-    "isActive": true,
-    "userType": "HOST"
   }
 ]

@@ -125,8 +125,9 @@ public class ApartmentService implements IApartmentService {
             apartment.getReservations().add(reservation);
             apartmentRepository.edit(apartment);
 
-            Reservation scaledReservation = new Reservation(scaledApartment);
-            guest.getReservations().add(scaledReservation);
+            //Reservation scaledReservation = new Reservation(scaledApartment);
+            reservation.setGuest(null);
+            guest.getReservations().add(reservation);
             userRepository.edit(guest);
 
             return true;

@@ -121,7 +121,8 @@ let register = new Vue(
                     username : this.user.username,
                     password : this.user.password,
                     isActive : true,
-                    isBlocked : false
+                    isBlocked : false,
+                    reservations : []
                 }).then(response => {
                     window.sessionStorage.setItem('jwt', response.data);
                     window.location.href = "/";

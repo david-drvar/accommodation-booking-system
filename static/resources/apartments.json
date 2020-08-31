@@ -1,807 +1,26 @@
 [
   {
     "id": 1,
-    "type": "FULL",
-    "roomNumber": 4,
-    "guestNumber": 3,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 1500.0,
-    "checkIn": "2013-01-04T11:50:26+0100",
-    "checkOut": "2013-01-04T11:50:26+0100",
-    "status": "ACTIVE",
-    "location": {
-      "longitude": 2132434.0,
-      "latitude": 124344.0,
-      "address": {
-        "street": "Bate Brkica",
-        "number": "1A",
-        "town": {
-          "name": "Novi Sad",
-          "postalNumber": "21000"
-        }
-      }
-    },
-    "apartmentComments": [
-      {
-        "content": "Jako lepo",
-        "grade": 10,
-        "guest": {
-          "reservations": [],
-          "username": "asd",
-          "password": "asd",
-          "firstName": "Angel",
-          "lastName": "Broadway",
-          "sex": "OTHER",
-          "id": 2,
-          "isActive": true,
-          "userType": "GUEST"
-        },
-        "isActive": true
-      }
-    ],
-    "amenities": [
-      {
-        "id": 1,
-        "name": "Toster",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "apartments": [],
-      "username": "mira",
-      "password": "mira",
-      "firstName": "Peter",
-      "lastName": "Richter",
-      "sex": "OTHER",
-      "id": 3,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [
-      {
-        "checkInDate": "2013-01-04T11:50:26+0100",
-        "numberOfNights": 3,
-        "totalPrice": 34545.0,
-        "note": "/",
-        "status": "APPROVED",
-        "id": 0,
-        "guest": {
-          "reservations": [],
-          "username": "Mirela",
-          "password": "asd",
-          "firstName": "Mirela",
-          "lastName": "Mikic",
-          "sex": "FEMALE",
-          "id": 5,
-          "isActive": true,
-          "userType": "GUEST"
-        },
-        "apartment": {
-          "id": 0,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      },
-      {
-        "checkInDate": "2020-10-08T00:00:00+0200",
-        "numberOfNights": 3,
-        "totalPrice": 4500.0,
-        "note": "sads",
-        "status": "CREATED",
-        "id": 0,
-        "guest": {
-          "reservations": [],
-          "username": "asdasd",
-          "password": "d",
-          "firstName": "sa nav bara",
-          "lastName": "kljasd",
-          "sex": "OTHER",
-          "id": 27,
-          "isActive": true,
-          "userType": "GUEST"
-        },
-        "apartment": {
-          "id": 1,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      }
-    ],
-    "isActive": true
-  },
-  {
-    "id": 8,
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "apartmentComments": [],
-    "amenities": [],
-    "host": {
-      "username": "qweqwweq",
-      "password": "qweqweqwe",
-      "firstName": "eqweqweqw",
-      "lastName": "qweqwe",
-      "sex": "FEMALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "ADMIN"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 9,
-    "type": "FULL",
-    "roomNumber": 3,
-    "guestNumber": 9,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 1.5631568E7,
-    "checkIn": "06:44",
-    "checkOut": "02:49",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 19.823826,
-      "latitude": 45.2472319,
-      "address": {
-        "street": "Laze Nančića",
-        "number": "5",
-        "state": "Serbia",
-        "town": {
-          "name": "Novi Sad",
-          "postalNumber": "21000"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      },
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 10,
     "type": "ROOM",
+    "name": "GEA",
+    "description": "Kod fakulteta!",
     "roomNumber": 2,
-    "guestNumber": 1,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 2500.0,
-    "checkIn": "12:49",
-    "checkOut": "11:49",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "21000"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [],
-    "host": {
-      "username": "wer",
-      "password": "wer",
-      "firstName": "weree",
-      "lastName": "wer",
-      "sex": "FEMALE",
-      "id": 24,
-      "isActive": true,
-      "userType": "ADMIN"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 11,
-    "type": "FULL",
-    "roomNumber": 4,
-    "guestNumber": 1,
-    "rentDates": [],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 26000.0,
-    "checkIn": "11:52",
-    "checkOut": "10:50",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 151.081731,
-      "latitude": -33.790362,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "Australia",
-        "town": {
-          "name": "Eastwood",
-          "postalNumber": "89222"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 13,
-    "type": "ROOM",
-    "name": "Ofelija",
-    "description": "lepo",
-    "roomNumber": 4,
-    "guestNumber": 5,
-    "rentDates": [
-      {
-        "startDate": "2019-12-30T00:00:00+0100",
-        "endDate": "2019-12-30T00:00:00+0100"
-      }
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 4.0,
-    "checkIn": "17:13",
-    "checkOut": "22:09",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "21000"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 6,
-        "name": "Private entrance",
-        "isActive": true
-      },
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 14,
-    "type": "ROOM",
-    "name": "Ilija",
-    "description": "divno",
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [
-      {
-        "startDate": "2019-12-30T00:00:00+0100",
-        "endDate": "2019-12-30T00:00:00+0100"
-      }
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "0"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      },
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      },
-      {
-        "id": 5,
-        "name": "Shampoo",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 15,
-    "type": "ROOM",
-    "name": "sdf",
-    "description": "joj",
-    "roomNumber": 3,
-    "guestNumber": 3,
-    "rentDates": [
-      {
-        "startDate": "2020-09-02T00:00:00+0200",
-        "endDate": "2020-09-25T00:00:00+0200"
-      }
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 4.0,
-    "checkIn": "21:18",
-    "checkOut": "17:23",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "7777"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 4,
-        "name": "Jacuzzi",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 16,
-    "type": "ROOM",
-    "name": "6546",
-    "description": "slajkh",
-    "roomNumber": 0,
-    "guestNumber": 0,
-    "rentDates": [
-      {
-        "startDate": "2020-09-01T00:00:00+0200",
-        "endDate": "2020-09-24T00:00:00+0200"
-      }
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 0.0,
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "0"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 3,
-        "name": "ACC",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": false
-  },
-  {
-    "id": 17,
-    "type": "FULL",
-    "name": "Economy Comfort Plus",
-    "description": "Plati pa klati",
-    "roomNumber": 11,
-    "guestNumber": 9,
-    "rentDates": [
-      {
-        "startDate": "2020-09-08T00:00:00+0200",
-        "endDate": "2020-09-24T00:00:00+0200"
-      }
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 100.0,
-    "checkIn": "19:07",
-    "checkOut": "16:12",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": -118.7797571,
-      "latitude": 34.0259216,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "United States",
-        "town": {
-          "name": "Malibu",
-          "postalNumber": "21000"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 18,
-    "type": "ROOM",
-    "name": "lux silver premium",
-    "roomNumber": 3,
     "guestNumber": 4,
     "rentDates": [
       {
-        "startDate": "2020-09-08T00:00:00+0200",
-        "endDate": "2020-09-24T00:00:00+0200"
-      },
-      null,
-      null
-    ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 4.0,
-    "checkIn": "20:54",
-    "checkOut": "16:00",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 19.8484674,
-      "latitude": 45.2492722,
-      "address": {
-        "street": "Stražilovska",
-        "number": "0",
-        "state": "Serbia",
-        "town": {
-          "name": "Novi Sad",
-          "postalNumber": "25"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 6,
-        "name": "Private entrance",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "apartments": [
-        {
-          "id": 18,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      ],
-      "username": "ase",
-      "password": "ase",
-      "firstName": "hostic name",
-      "lastName": "hostic surname",
-      "sex": "FEMALE",
-      "id": 25,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": false
-  },
-  {
-    "id": 19,
-    "type": "ROOM",
-    "name": "mona",
-    "roomNumber": 4,
-    "guestNumber": 4,
-    "rentDates": [
-      {
-        "startDate": "2020-09-01T00:00:00+0200",
+        "startDate": "2020-08-31T00:00:00+0200",
         "endDate": "2020-09-17T00:00:00+0200"
       }
     ],
-    "availableDates": [],
-    "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
-    ],
-    "pricePerNight": 4.0,
-    "checkIn": "16:03",
-    "checkOut": "20:59",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "0"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 7,
-        "name": "Balcony",
-        "isActive": true
-      },
-      {
-        "id": 5,
-        "name": "Shampoo",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 20,
-    "type": "FULL",
-    "name": "erg",
-    "roomNumber": 2,
-    "guestNumber": 2,
-    "rentDates": [
-      null
-    ],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 4.0,
-    "checkIn": "17:05",
-    "checkOut": "17:02",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "0"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [
-      {
-        "id": 3,
-        "name": "AC",
-        "isActive": true
-      }
-    ],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 21,
-    "type": "ROOM",
-    "name": "erwe",
-    "roomNumber": 3,
-    "guestNumber": 1,
-    "rentDates": [
-      null
-    ],
-    "availableDates": [],
-    "images": [],
-    "pricePerNight": 4.0,
-    "checkIn": "17:07",
-    "checkOut": "17:09",
-    "status": "INACTIVE",
-    "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
-      "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
-        "town": {
-          "name": "",
-          "postalNumber": "0"
-        }
-      }
-    },
-    "apartmentComments": [],
-    "amenities": [],
-    "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
-      "isActive": true,
-      "userType": "HOST"
-    },
-    "reservations": [],
-    "isActive": true
-  },
-  {
-    "id": 22,
-    "type": "ROOM",
-    "name": "sdfsd",
-    "roomNumber": 3,
-    "guestNumber": 6,
-    "rentDates": [
-      {
-        "startDate": "2020-09-08T00:00:00+0200",
-        "endDate": "2020-09-16T00:00:00+0200"
-      }
-    ],
     "availableDates": [
+      "2020-08-31T00:00:00+0200",
+      "2020-09-01T00:00:00+0200",
+      "2020-09-02T00:00:00+0200",
+      "2020-09-03T00:00:00+0200",
+      "2020-09-04T00:00:00+0200",
+      "2020-09-05T00:00:00+0200",
+      "2020-09-06T00:00:00+0200",
+      "2020-09-07T00:00:00+0200",
       "2020-09-08T00:00:00+0200",
       "2020-09-09T00:00:00+0200",
       "2020-09-10T00:00:00+0200",
@@ -809,78 +28,70 @@
       "2020-09-12T00:00:00+0200",
       "2020-09-13T00:00:00+0200",
       "2020-09-14T00:00:00+0200",
-      "2020-09-15T00:00:00+0200"
+      "2020-09-15T00:00:00+0200",
+      "2020-09-16T00:00:00+0200"
     ],
-    "images": [],
-    "pricePerNight": 4.0,
-    "checkIn": "17:37",
-    "checkOut": "17:37",
-    "status": "INACTIVE",
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
+    "pricePerNight": 2800.0,
+    "checkIn": "18:49",
+    "checkOut": "17:48",
+    "status": "ACTIVE",
     "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
+      "longitude": 19.8516968,
+      "latitude": 45.2461012,
       "address": {
-        "street": "",
-        "number": "0",
-        "state": "",
+        "street": "Trg Dositeja Obradovića",
+        "number": "6",
+        "state": "Serbia",
         "town": {
-          "name": ""
+          "name": "Novi Sad",
+          "postalNumber": "21000"
         }
       }
     },
     "apartmentComments": [],
-    "amenities": [],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Toaster",
+        "isActive": true
+      },
+      {
+        "id": 1,
+        "name": "Toaster",
+        "isActive": true
+      }
+    ],
     "host": {
-      "username": "host",
-      "password": "hostic",
-      "firstName": "Petar",
-      "lastName": "Markovic",
-      "sex": "MALE",
-      "id": 7,
+      "apartments": [],
+      "isBlocked": false,
+      "username": "mati",
+      "password": "mati",
+      "firstName": "Matija",
+      "lastName": "Matijevic",
+      "sex": "OTHER",
+      "id": 4,
       "isActive": true,
       "userType": "HOST"
     },
     "reservations": [
       {
-        "checkInDate": "2013-01-04T11:50:26+0100",
-        "numberOfNights": 3,
-        "totalPrice": 34545.0,
-        "note": "/",
-        "status": "APPROVED",
-        "id": 0,
-        "guest": {
-          "reservations": [],
-          "username": "Mirela",
-          "password": "asd",
-          "firstName": "Mirela",
-          "lastName": "Mikic",
-          "sex": "FEMALE",
-          "id": 5,
-          "isActive": true,
-          "userType": "GUEST"
-        },
-        "apartment": {
-          "id": 0,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      },
-      {
-        "checkInDate": "2020-10-08T00:00:00+0200",
-        "numberOfNights": 3,
-        "totalPrice": 4500.0,
-        "note": "sads",
+        "checkInDate": "2020-09-17T00:00:00+0200",
+        "numberOfNights": 6,
+        "totalPrice": 16800.0,
+        "note": "First booking",
         "status": "CREATED",
-        "id": 0,
         "guest": {
           "reservations": [],
-          "username": "asdasd",
-          "password": "d",
-          "firstName": "sa nav bara",
-          "lastName": "kljasd",
-          "sex": "OTHER",
-          "id": 27,
+          "isBlocked": false,
+          "username": "perke",
+          "password": "perke",
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "sex": "MALE",
+          "id": 5,
           "isActive": true,
           "userType": "GUEST"
         },
@@ -895,72 +106,198 @@
     "isActive": true
   },
   {
-    "id": 23,
-    "type": "ROOM",
-    "name": "noviasd",
-    "description": "desc",
-    "roomNumber": 3,
-    "guestNumber": 2,
+    "id": 2,
+    "type": "FULL",
+    "name": "Slavija",
+    "description": "Centar Beograda.",
+    "roomNumber": 2,
+    "guestNumber": 5,
     "rentDates": [
       {
-        "startDate": "2020-08-07T00:00:00+0200",
-        "endDate": "2020-08-22T00:00:00+0200"
+        "startDate": "2020-09-09T00:00:00+0200",
+        "endDate": "2020-09-30T00:00:00+0200"
       }
     ],
     "availableDates": [
-      "2020-08-07T00:00:00+0200",
-      "2020-08-08T00:00:00+0200",
-      "2020-08-09T00:00:00+0200",
-      "2020-08-10T00:00:00+0200",
-      "2020-08-11T00:00:00+0200",
-      "2020-08-12T00:00:00+0200",
-      "2020-08-13T00:00:00+0200",
-      "2020-08-14T00:00:00+0200",
-      "2020-08-15T00:00:00+0200",
-      "2020-08-16T00:00:00+0200",
-      "2020-08-17T00:00:00+0200",
-      "2020-08-18T00:00:00+0200",
-      "2020-08-19T00:00:00+0200",
-      "2020-08-20T00:00:00+0200",
-      "2020-08-21T00:00:00+0200"
+      "2020-09-09T00:00:00+0200",
+      "2020-09-10T00:00:00+0200",
+      "2020-09-11T00:00:00+0200",
+      "2020-09-12T00:00:00+0200",
+      "2020-09-13T00:00:00+0200",
+      "2020-09-14T00:00:00+0200",
+      "2020-09-15T00:00:00+0200",
+      "2020-09-16T00:00:00+0200",
+      "2020-09-17T00:00:00+0200",
+      "2020-09-18T00:00:00+0200",
+      "2020-09-19T00:00:00+0200",
+      "2020-09-20T00:00:00+0200",
+      "2020-09-21T00:00:00+0200",
+      "2020-09-22T00:00:00+0200",
+      "2020-09-23T00:00:00+0200",
+      "2020-09-24T00:00:00+0200",
+      "2020-09-25T00:00:00+0200",
+      "2020-09-26T00:00:00+0200",
+      "2020-09-27T00:00:00+0200",
+      "2020-09-28T00:00:00+0200",
+      "2020-09-29T00:00:00+0200"
     ],
     "images": [
-      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+      "./pics/patrick-perkins-3wylDrjxH-E-unsplash.jpg"
     ],
-    "pricePerNight": 23333.0,
-    "checkIn": "19:18",
-    "checkOut": "20:19",
-    "status": "INACTIVE",
+    "pricePerNight": 10000.0,
+    "checkIn": "20:54",
+    "checkOut": "17:51",
+    "status": "ACTIVE",
     "location": {
-      "longitude": 21.4432595,
-      "latitude": 41.9787938,
+      "longitude": 0.0,
+      "latitude": 0.0,
       "address": {
-        "street": "Puskinova",
+        "street": "",
         "number": "0",
-        "state": "North Macedonia",
+        "state": "",
         "town": {
-          "name": "Skopje",
-          "postalNumber": "23000"
+          "name": "",
+          "postalNumber": "1100-"
         }
       }
     },
     "apartmentComments": [],
-    "amenities": [],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Toaster",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      }
+    ],
     "host": {
       "apartments": [
         {
-          "id": 18,
+          "id": 1,
           "roomNumber": 0,
           "guestNumber": 0,
           "pricePerNight": 0.0
         }
       ],
-      "username": "ase",
-      "password": "ase",
-      "firstName": "hostic name",
-      "lastName": "hostic surname",
+      "isBlocked": false,
+      "username": "mati",
+      "password": "mati",
+      "firstName": "Matija",
+      "lastName": "Matijevic",
+      "sex": "OTHER",
+      "id": 4,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
+  },
+  {
+    "id": 3,
+    "type": "ROOM",
+    "name": "Mirina Oaza",
+    "description": "Raj u prirodi.",
+    "roomNumber": 6,
+    "guestNumber": 10,
+    "rentDates": [
+      {
+        "startDate": "2020-08-26T00:00:00+0200",
+        "endDate": "2020-09-30T00:00:00+0200"
+      }
+    ],
+    "availableDates": [
+      "2020-08-26T00:00:00+0200",
+      "2020-08-27T00:00:00+0200",
+      "2020-08-28T00:00:00+0200",
+      "2020-08-29T00:00:00+0200",
+      "2020-08-30T00:00:00+0200",
+      "2020-08-31T00:00:00+0200",
+      "2020-09-01T00:00:00+0200",
+      "2020-09-02T00:00:00+0200",
+      "2020-09-03T00:00:00+0200",
+      "2020-09-04T00:00:00+0200",
+      "2020-09-05T00:00:00+0200",
+      "2020-09-06T00:00:00+0200",
+      "2020-09-07T00:00:00+0200",
+      "2020-09-08T00:00:00+0200",
+      "2020-09-09T00:00:00+0200",
+      "2020-09-10T00:00:00+0200",
+      "2020-09-11T00:00:00+0200",
+      "2020-09-12T00:00:00+0200",
+      "2020-09-13T00:00:00+0200",
+      "2020-09-14T00:00:00+0200",
+      "2020-09-15T00:00:00+0200",
+      "2020-09-16T00:00:00+0200",
+      "2020-09-17T00:00:00+0200",
+      "2020-09-18T00:00:00+0200",
+      "2020-09-19T00:00:00+0200",
+      "2020-09-20T00:00:00+0200",
+      "2020-09-21T00:00:00+0200",
+      "2020-09-22T00:00:00+0200",
+      "2020-09-23T00:00:00+0200",
+      "2020-09-24T00:00:00+0200",
+      "2020-09-25T00:00:00+0200",
+      "2020-09-26T00:00:00+0200",
+      "2020-09-27T00:00:00+0200",
+      "2020-09-28T00:00:00+0200",
+      "2020-09-29T00:00:00+0200"
+    ],
+    "images": [
+      "./pics/brandon-griggs-wR11KBaB86U-unsplash.jpg"
+    ],
+    "pricePerNight": 4.0,
+    "checkIn": "20:57",
+    "checkOut": "18:55",
+    "status": "ACTIVE",
+    "location": {
+      "longitude": 19.8005554,
+      "latitude": 45.2557573,
+      "address": {
+        "street": "Seljačkih buna",
+        "number": "7",
+        "state": "Serbia",
+        "town": {
+          "name": "Novi Sad",
+          "postalNumber": "21000"
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Toaster",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "apartments": [],
+      "isBlocked": false,
+      "username": "mira",
+      "password": "mira",
+      "firstName": "Mira",
+      "lastName": "Miric",
       "sex": "FEMALE",
-      "id": 25,
+      "id": 2,
       "isActive": true,
       "userType": "HOST"
     },
