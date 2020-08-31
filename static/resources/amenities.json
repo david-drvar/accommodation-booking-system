@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Toaster",
-    "isActive": false
+    "isActive": true
   },
   {
     "id": 2,
@@ -17,31 +17,6 @@
   {
     "id": 4,
     "name": "Jacuzzi",
-    "isActive": true
-  },
-  {
-    "id": 5,
-    "name": "Shampoo",
-    "isActive": true
-  },
-  {
-    "id": 6,
-    "name": "Private entrance",
-    "isActive": true
-  },
-  {
-    "id": 7,
-    "name": "Balcony",
-    "isActive": true
-  },
-  {
-    "id": 8,
-    "name": "Gym",
-    "isActive": true
-  },
-  {
-    "id": 9,
-    "name": "Swimming pool",
     "isActive": true
   }
 ]

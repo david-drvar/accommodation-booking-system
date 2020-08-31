@@ -241,7 +241,7 @@ Vue.component("apartments", {
               
               
             <br/>
-            <a href="#/new-apartment"><button class="btn btn-outline-primary" v-if="userType === 'ADMIN' || userType==='HOST'">New</button></a>
+            <a href="#/new-apartment"><button class="btn btn-outline-primary" v-if="userType==='HOST'">New</button></a>
             <div id="search">
                 <div class="p-4 bg-light">
                     <div class="input-group">
@@ -324,7 +324,7 @@ Vue.component("apartments", {
 
             <div class="col-md-4" v-for="apartment in this.apartments" >
                 <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
-                    <img class="card-img-top" src="pics/kim-kardashian.jpg" alt="Card image cap">
+                    <img class="card-img-top" :src="apartment.images[0]" alt="Apartment photo">
                     <div class="card-body text-primary">
                         <h5 class="card-title">{{apartment.name}}</h5>
                         <p class="card-text">

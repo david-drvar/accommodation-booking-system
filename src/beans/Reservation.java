@@ -5,13 +5,12 @@ import repository.bounds.Identifiable;
 
 import java.util.Date;
 
-public class Reservation implements Identifiable {
+public class Reservation {
    private Date checkInDate;
    private int numberOfNights = 1;
    private double totalPrice;
    private String note;
    private ReservationStatus status;
-   private long id;
    
    private Guest guest;
    private Apartment apartment;
@@ -87,15 +86,5 @@ public class Reservation implements Identifiable {
 
    public void setApartment(Apartment apartment) {
       this.apartment = apartment;
-   }
-
-   @Override
-   public void setId(long id) {
-      this.id = id;
-   }
-
-   @Override
-   public long getId() {
-      return this.id;
    }
 }
