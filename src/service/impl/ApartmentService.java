@@ -88,21 +88,23 @@ public class ApartmentService implements IApartmentService {
     }
 
     private Boolean checkApartmentAvailability(Apartment apartment, Date checkInDate, int totalNights) {
-        Date checkOutDate = addDaysToDate(checkInDate, totalNights);
+        //napravim listu datuma rezervacija
+        //prolazim kroz tu listu i proveravam da li se svaki datum sadrzi u listi availableDates apartmana
+        //ako se svaki sadrzi onda krecem da brisem svaki iz liste available dates i return true
+        //ako se bar jedan ne sadrzi return false
 
-        for(Reservation reservation : apartment.getReservations()) {
-            Date fixedCheckOutDate = addDaysToDate(reservation.getCheckInDate(), reservation.getNumberOfNights());
-            Date fixedCheckInDate = reservation.getCheckInDate();
-
-            if (fixedCheckInDate.compareTo(checkInDate)<=0 && fixedCheckOutDate.compareTo(checkOutDate)>=0)
-                return false;
-            else if (fixedCheckInDate.compareTo(checkInDate)>=0 && checkOutDate.compareTo(fixedCheckInDate)>=0 && checkOutDate.compareTo(fixedCheckOutDate)<=0)
-                return false;
-            else if (checkInDate.compareTo(fixedCheckInDate)<=0 && checkOutDate.compareTo(fixedCheckOutDate)>=0)
-                return false;
-            else if (fixedCheckInDate.compareTo(checkInDate)<=0 && fixedCheckOutDate.compareTo(checkInDate)>=0 && fixedCheckOutDate.compareTo(checkOutDate)<=0)
-                return false;
+        Date checkInDateCopy = new Date(checkInDate.getTime());
+        Date checkOutDate = addDaysToDate(checkInDate, totalNights+1);
+        ArrayList<Date> reservationDates = new ArrayList<>();
+        while (checkInDateCopy.before(checkOutDate)) {
+            reservationDates.add(checkInDateCopy);
+            checkInDateCopy = new Date(checkInDateCopy.getTime() + 24 * 60 * 60 * 1000);
         }
+
+        for (Date date : reservationDates)
+            if (!apartment.getAvailableDates().contains(date))
+                return false;
+
         return true;
     }
 
@@ -110,6 +112,19 @@ public class ApartmentService implements IApartmentService {
         Apartment apartment = this.get(reservationDTO.getApartmentId());
         Date date = new SimpleDateFormat("yyyy-MM-dd").parse(reservationDTO.getCheckInDate());
         return checkApartmentAvailability(apartment, date, reservationDTO.getNumberOfNights());
+    }
+
+    private void deleteAvailableDates (Apartment apartment, Date checkInDate, int totalNights) {
+        Date checkInDateCopy = new Date(checkInDate.getTime());
+        Date checkOutDate = addDaysToDate(checkInDate, totalNights+1);
+        ArrayList<Date> reservationDates = new ArrayList<>();
+        while (checkInDateCopy.before(checkOutDate)) {
+            reservationDates.add(checkInDateCopy);
+            checkInDateCopy = new Date(checkInDateCopy.getTime() + 24 * 60 * 60 * 1000);
+        }
+
+        for (Date date : reservationDates)
+            apartment.getAvailableDates().remove(date);
     }
 
     @Override
@@ -122,10 +137,10 @@ public class ApartmentService implements IApartmentService {
         Reservation reservation = new Reservation(date, reservationDTO.getNumberOfNights(), reservationDTO.getTotalPrice(), reservationDTO.getNote(), status, guest, scaledApartment);
 
         if (checkApartmentAvailability(apartment, date, reservationDTO.getNumberOfNights())) {
+            deleteAvailableDates(apartment, date, reservationDTO.getNumberOfNights());
             apartment.getReservations().add(reservation);
             apartmentRepository.edit(apartment);
 
-            //Reservation scaledReservation = new Reservation(scaledApartment);
             reservation.setGuest(null);
             guest.getReservations().add(reservation);
             userRepository.edit(guest);

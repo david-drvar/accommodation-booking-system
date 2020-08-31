@@ -23,7 +23,7 @@ Vue.component("apartments", {
                 'isActive' : true
             },
             apartments : [],
-            sort : null,
+            sort : "",
             filter : {
                 fromDate : null,
                 toDate : null,
@@ -294,22 +294,21 @@ Vue.component("apartments", {
                     </div>
                 </div>
                 <br/>
-                <br/>
+                
             </div>
-            <div>
-                <select class="form-control" type="text" v-on:change="sortApartments" v-model="sort">
+            <div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 10px;">
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ALL')" style="margin:2px;">All</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ROOM')" style="margin:2px;">Room</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')" style="margin:2px;">Full</button>
+                <button class="btn btn-outline-info"
+                        v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities" style="margin:2px;">Filter Amenities</button>
+                <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities" style="margin:2px;">Apply</button>
+
+                <select class="form-control" type="text" v-on:change="sortApartments" v-model="sort" style="width: 200px; margin : 2px">
                     <option value="" disabled selected>sort by</option>
                     <option value="DESCENDING">by price - descending</option>
                     <option value="ASCENDING">by price - ascending</option>
                 </select>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ALL')">All</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ROOM')">Room</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')">Full</button>
-                <button class="btn btn-outline-info"
-                        v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities">Filter Amenities</button>
-                <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities">Apply</button>
             </div>
             <div v-bind:class="{collapse : !filterAmenities}">
                 <button class="btn btn-outline-secondary col-md-4"
