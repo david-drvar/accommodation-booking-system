@@ -19,10 +19,7 @@ import repository.impl.StateRepository;
 import repository.impl.UserRepository;
 import repository.json.stream.JSONStream;
 import service.*;
-import service.impl.AmenityService;
-import service.impl.ApartmentService;
-import service.impl.StateService;
-import service.impl.UserService;
+import service.impl.*;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.annotation.MultipartConfig;
@@ -55,6 +52,7 @@ public class Main {
     private static IUserService userService;
     private static IStateService stateService;
     private static IApartmentService apartmentService;
+    private static IReservationService reservationService;
 
     private static ImageUpload imageUpload;
 
@@ -316,7 +314,23 @@ public class Main {
                 res.status(400);
                 return "Error while uploading an image!";
             }
+        });
 
+        get("/reservation/guest/:id", (req, res) -> {
+            res.type("application/json");
+            long id = Long.parseLong(req.params("id"));
+            return converter.toJson(reservationService.getGuestReservations(id));
+        });
+
+        get("/reservation/host/:id", (req, res) -> {
+            res.type("application/json");
+            long id = Long.parseLong(req.params("id"));
+            return converter.toJson(reservationService.getHostReservations(id));
+        });
+
+        get("reservation/admin", (req, res) -> {
+            res.type("application/json");
+            return converter.toJson(reservationService.getAllReservations());
         });
     }
 
@@ -341,6 +355,8 @@ public class Main {
         IAmenityRepository amenityRepository = new AmenityRepository(
                 new JSONStream<Amenity>(AMENITIES_FILE_PATH, new TypeToken<List<Amenity>>(){}.getType()));
         amenityService = new AmenityService(amenityRepository, apartmentRepository);
+
+        reservationService = new ReservationService(userService, apartmentService);
 
         userService.setApartmentRepository(apartmentRepository);
 

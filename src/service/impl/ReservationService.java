@@ -1,5 +1,6 @@
 package service.impl;
 
+import beans.Apartment;
 import beans.Guest;
 import beans.Host;
 import beans.Reservation;
@@ -28,10 +29,12 @@ public class ReservationService implements IReservationService {
 
     @Override
     public Collection<Reservation> getHostReservations(long id) {
-        Host host = (Host) userService.get(id);
-        Collection<Reservation> hostReservations = new ArrayList<>();
-        host.getApartments().forEach(x -> hostReservations.addAll(x.getReservations()));
-        return hostReservations;
+        Collection<Reservation> reservations = new ArrayList<>();
+        apartmentService.getAll().forEach(x -> {
+            if(x.getHost().getId() == id && !x.getReservations().isEmpty())
+                reservations.addAll(x.getReservations());
+        });
+        return reservations;
     }
 
     @Override
