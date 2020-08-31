@@ -6,7 +6,9 @@
     "guestNumber": 3,
     "rentDates": [],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 1500.0,
     "checkIn": "2013-01-04T11:50:26+0100",
     "checkOut": "2013-01-04T11:50:26+0100",
@@ -119,7 +121,9 @@
     "guestNumber": 0,
     "rentDates": [],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 0.0,
     "status": "INACTIVE",
     "apartmentComments": [],
@@ -144,7 +148,9 @@
     "guestNumber": 9,
     "rentDates": [],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 1.5631568E7,
     "checkIn": "06:44",
     "checkOut": "02:49",
@@ -195,7 +201,9 @@
     "guestNumber": 1,
     "rentDates": [],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 2500.0,
     "checkIn": "12:49",
     "checkOut": "11:49",
@@ -235,7 +243,9 @@
     "guestNumber": 1,
     "rentDates": [],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 26000.0,
     "checkIn": "11:52",
     "checkOut": "10:50",
@@ -282,7 +292,9 @@
       }
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 4.0,
     "checkIn": "17:13",
     "checkOut": "22:09",
@@ -340,7 +352,9 @@
       }
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 0.0,
     "status": "INACTIVE",
     "location": {
@@ -401,7 +415,9 @@
       }
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 4.0,
     "checkIn": "21:18",
     "checkOut": "17:23",
@@ -454,7 +470,9 @@
       }
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 0.0,
     "status": "INACTIVE",
     "location": {
@@ -571,7 +589,9 @@
       null
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 4.0,
     "checkIn": "20:54",
     "checkOut": "16:00",
@@ -631,7 +651,9 @@
       }
     ],
     "availableDates": [],
-    "images": [],
+    "images": [
+      "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
+    ],
     "pricePerNight": 4.0,
     "checkIn": "16:03",
     "checkOut": "20:59",

@@ -120,7 +120,8 @@ let register = new Vue(
                     userType : this.user.userType,
                     username : this.user.username,
                     password : this.user.password,
-                    isActive : true
+                    isActive : true,
+                    isBlocked : false
                 }).then(response => {
                     window.sessionStorage.setItem('jwt', response.data);
                     window.location.href = "/";

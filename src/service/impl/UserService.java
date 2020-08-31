@@ -1,9 +1,6 @@
 package service.impl;
 
-import beans.Apartment;
-import beans.Host;
-import beans.Reservation;
-import beans.User;
+import beans.*;
 import dto.HostViewOfUsers;
 import repository.IApartmentRepository;
 import repository.IUserRepository;
@@ -24,6 +21,34 @@ public class UserService implements IUserService {
 
     public void setApartmentRepository(IApartmentRepository apartmentRepository) {
         this.apartmentRepository = apartmentRepository;
+    }
+
+    @Override
+    public void blockUser(User user) {
+        if (user.getUserType() == Enum.valueOf(UserType.class, "GUEST")) {
+            Guest guest = (Guest) this.get(user.getId());
+            guest.setBlocked(true);
+            this.edit(guest);
+        }
+        else if (user.getUserType() == Enum.valueOf(UserType.class, "HOST")) {
+            Host host = (Host) this.get(user.getId());
+            host.setBlocked(true);
+            this.edit(host);
+        }
+    }
+
+    @Override
+    public void unblockUser(User user) {
+        if (user.getUserType() == Enum.valueOf(UserType.class, "GUEST")) {
+            Guest guest = (Guest) this.get(user.getId());
+            guest.setBlocked(false);
+            this.edit(guest);
+        }
+        else if (user.getUserType() == Enum.valueOf(UserType.class, "HOST")) {
+            Host host = (Host) this.get(user.getId());
+            host.setBlocked(false);
+            this.edit(host);
+        }
     }
 
     @Override
@@ -71,6 +96,18 @@ public class UserService implements IUserService {
         if(user == null) return null;
         if(!user.getPassword().equals(password))
             return null;
+
+        if (user.getUserType() == Enum.valueOf(UserType.class, "GUEST")) {
+            Guest guest = (Guest) this.get(user.getId());
+            if (guest.getBlocked())
+                return null;
+        }
+        else if (user.getUserType() == Enum.valueOf(UserType.class, "HOST")) {
+            Host host = (Host) this.get(user.getId());
+            if (host.getBlocked())
+                return null;
+        }
+
         return user;
     }
 

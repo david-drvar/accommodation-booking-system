@@ -17,4 +17,9 @@ public interface IUserService extends IService<User> {
     Collection<HostViewOfUsers> getUsersByReservations(Host host);
 
     void setApartmentRepository(IApartmentRepository apartmentRepository);
+
+    void blockUser (User user);
+
+    void unblockUser (User user);
+
 }

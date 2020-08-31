@@ -18,7 +18,9 @@ Vue.component("users", {
             this.userType = parsed.userType;
         }
         await this.fetchUsers();
+       // v-bind:style="{ s.isBlocked ? backgroundColor: '#FF0000' , backgroundColor: '#FFFFFF'}"
     },
+
     template: `
     <div>
       <br/>
@@ -56,11 +58,12 @@ Vue.component("users", {
                   <th scope="col" v-if="userType==='HOST'">Apartment name</th>
                   <th scope="col" v-if="userType==='HOST'">Check in date</th>
                   <th scope="col" v-if="userType==='HOST'">Total nights</th>
+                  <th scope="col" v-if="userType === 'ADMIN'">Block user</th>
 
               </tr>
               </thead>
               <tbody>
-                  <tr v-for="s in this.users">
+                  <tr v-for="s in this.users" >
                     <td>{{s.username}}</td>
                       <td>{{s.firstName}}</td>
                       <td>{{s.lastName}}</td>
@@ -70,6 +73,11 @@ Vue.component("users", {
                       <td v-if="userType==='HOST'">{{s.apartmentName}}</td>
                       <td v-if="userType==='HOST'">{{s.checkInDate}}</td>
                       <td v-if="userType==='HOST'">{{s.totalNights}}</td>
+                      <td>
+                          <button class="btn btn-outline-danger" v-on:click="blockUser(s)" v-if="userType==='ADMIN' && s.userType!=='ADMIN' && s.isBlocked === false">Block</button>
+                          <button class="btn btn-outline-success" v-on:click="unblockUser(s)" v-if="userType==='ADMIN' && s.userType!=='ADMIN' && s.isBlocked === true">Unblock</button>
+
+                      </td>
                   </tr>
               </tbody>
           </table>
@@ -96,6 +104,12 @@ Vue.component("users", {
                         return user.username === this.usernameSearch;
                 }
                );
+        },
+        blockUser : function(user) {
+            axios.post('/users/block', user).then(res => this.fetchUsers());
+        },
+        unblockUser : function(user) {
+            axios.post('/users/unblock', user).then(res => this.fetchUsers());
         },
         resetSearch : async function () {
             this.usernameSearch = '';

@@ -186,7 +186,22 @@
     "sex": "MALE",
     "id": 7,
     "isActive": true,
-    "userType": "HOST"
+    "userType": "HOST",
+    "isBlocked" : false,
+    "apartments": [
+      {
+        "id": 18,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
+      },
+      {
+        "id": 23,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
+      }
+      ]
   },
   {
     "username": "asdd",
@@ -210,6 +225,7 @@
   },
   {
     "reservations": [],
+    "isBlocked": true,
     "username": "awewq",
     "password": "gson",
     "firstName": "gson",
@@ -251,7 +267,8 @@
     "sex": "FEMALE",
     "id": 25,
     "isActive": true,
-    "userType": "HOST"
+    "userType": "HOST",
+    "isBlocked" : false
   },
   {
     "username": "qweee",
@@ -377,12 +394,24 @@
     "userType": "GUEST"
   },
   {
+    "isBlocked": true,
     "username": "asddddde",
     "password": "asddddde",
     "firstName": "novi hostasdad",
     "lastName": "kjsalddas",
     "sex": "FEMALE",
     "id": 33,
+    "isActive": true,
+    "userType": "HOST"
+  },
+  {
+    "isBlocked": true,
+    "username": "wqeeeea",
+    "password": "wqeeeea",
+    "firstName": "jasaaa",
+    "lastName": "asd",
+    "sex": "FEMALE",
+    "id": 34,
     "isActive": true,
     "userType": "HOST"
   }

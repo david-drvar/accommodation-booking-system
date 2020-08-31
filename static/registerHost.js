@@ -150,7 +150,8 @@ Vue.component("register-host", {
                 userType : this.user.userType,
                 username : this.user.username,
                 password : this.user.username,
-                isActive : true
+                isActive : true,
+                isBlocked : false
             }).then (response => {
                 alert("New host successfully created");
                 this.user = {username: "", firstName: "", lastName: "", sex: ""};

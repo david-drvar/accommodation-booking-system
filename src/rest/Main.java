@@ -155,6 +155,20 @@ public class Main {
             return "ERROR";
         });
 
+        post("/users/block", (req, res) -> {
+            String json = req.body();
+            User user = converter.fromJson(json, User.class);
+            userService.blockUser(user);
+            return "OK";
+        });
+
+        post("/users/unblock", (req, res) -> {
+            String json = req.body();
+            User user = converter.fromJson(json, User.class);
+            userService.unblockUser(user);
+            return "OK";
+        });
+
         post("users/edit", (req, res)->{
             String json = req.body();
             User user = converter.fromJson(json, User.class);
