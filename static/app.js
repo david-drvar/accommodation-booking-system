@@ -7,6 +7,7 @@ const SelectedApartment = {template : '<selected-apartment></selected-apartment>
 const NewApartment = {template : '<new-apartment></new-apartment>'}
 const EditApartment = {template : '<edit-apartment></edit-apartment>'}
 const GuestReservations = {template: '<guest-reservation></guest-reservation>'}
+const Holidays = {template : '<holidays></holidays>'}
 
 const router = new VueRouter({
     mode: 'hash',
@@ -20,6 +21,7 @@ const router = new VueRouter({
         { path: '/new-apartment', component: NewApartment },
         { path: '/edit-apartment/:id', component: EditApartment },
         { path: '/guest-reservation', component: GuestReservations }
+        { path: '/holidays', component: Holidays }
     ]
 });
 

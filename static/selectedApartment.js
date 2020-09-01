@@ -14,6 +14,7 @@ Vue.component("selected-apartment", {
             availabilityLabel : '',
             page : 0,
             amenities : [],
+            weekendDiscount : 0
         })
     },
     mounted() {
@@ -97,6 +98,7 @@ Vue.component("selected-apartment", {
           this.submitEnabled = false;
         },
         checkAvailability : function () {
+            this.weekendDiscount = 0;
             const jwt = window.sessionStorage.getItem('jwt');
             let id;
             if (jwt!== null) {
@@ -115,14 +117,32 @@ Vue.component("selected-apartment", {
                 this.detailsCardEnabled = true;
                 this.submitEnabled = true;
                 this.availabilityLabel = 'Available for selected dates!';
+                document.getElementById('availableLabel').style.color = "green";
+
+                const checkIn = new Date(this.date);
+                const checkOut = new Date(checkIn);
+                checkOut.setDate(checkOut.getDate() + parseInt(this.numberOfNights) - 1);
+                let dateArray = this.makeDateArray(checkIn, checkOut);
+                let a = 5;
+
+                dateArray.forEach(date => {
+                    if (date.getDay()=== 6 || date.getDay() ===0 || date.getDay() ===5) {
+                        this.weekendDiscount += this.apartment.pricePerNight * 0.1;
+                    }
+                });
+                document.getElementById('weekend').style.visibility = "visible";
+                document.getElementById('weekend').style.color = "blue";
+
+
+
             })
                 .catch(response => {
                 this.availabilityLabel = 'Not available for selected dates!';
                 this.detailsCardEnabled = true;
                 this.submitEnabled = false;
+                document.getElementById('availableLabel').style.color = "red";
+                this.weekendDiscount = 0;
             });
-
-
         },
         submitReservation : function () {
             const jwt = window.sessionStorage.getItem('jwt');
@@ -136,13 +156,20 @@ Vue.component("selected-apartment", {
                 apartmentId : this.apartment.id,
                 checkInDate : this.date,
                 numberOfNights : parseInt(this.numberOfNights),
-                totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
+                totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights) - this.weekendDiscount,
                 note : this.note,
                 guestId : id
             }).catch(response => {
                 this.availabilityLabel = 'Not available for selected dates!';
                 this.submitEnabled = false;
             });
+        },
+        makeDateArray : function (start, end) {
+            let arr = []
+            for(let dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+                arr.push(new Date(dt));
+            }
+            return arr;
         }
     },
     template : `
@@ -284,12 +311,15 @@ Vue.component("selected-apartment", {
                                     Details
                                 </h5>
                                 <div class="card-body" >
-                                    <label>{{ this.availabilityLabel}}</label><br/>
+                                    <label id="availableLabel">{{ this.availabilityLabel}}</label><br/>
                                     <label>Date start : {{new Date(this.date)}}</label><br/>
                                     <label>Date end : {{new Date(new Date(this.date).getTime() + (parseInt(this.numberOfNights)-1)*24*60*60*1000)}}</label><br/>
                                     <label>Check in : {{this.apartment.checkIn}}</label><br/>
                                     <label>Check out : {{this.apartment.checkOut}}</label><br/>
                                     <label>Price : {{this.apartment.pricePerNight * parseInt(this.numberOfNights)}}</label><br/>
+                                    <label id="weekend" style="visibility: collapse">Weekend discount 10% per weekend days : - {{this.weekendDiscount}}
+                                        <br/>Price after discount : {{this.apartment.pricePerNight * parseInt(this.numberOfNights) - this.weekendDiscount}}
+                                    </label><br/>
                                 </div>
                             </div>
                             

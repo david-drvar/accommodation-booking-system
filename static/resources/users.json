@@ -56,13 +56,42 @@
   {
     "reservations": [
       {
-        "checkInDate": "2020-09-17",
-        "numberOfNights": 6,
-        "totalPrice": 16800.0,
-        "note": "First booking",
+        "checkInDate": "2020-09-01",
+        "numberOfNights": 5,
+        "totalPrice": 13440.0,
+        "note": "first booking",
         "status": "CREATED",
+        "id": 1,
         "apartment": {
           "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-09-10",
+        "numberOfNights": 4,
+        "totalPrice": 10360.0,
+        "note": "second booking",
+        "status": "CREATED",
+        "id": 2,
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "checkInDate": "2020-09-03",
+        "numberOfNights": 4,
+        "totalPrice": 14.8,
+        "note": "oaza",
+        "status": "CREATED",
+        "id": 1,
+        "apartment": {
+          "id": 3,
           "roomNumber": 0,
           "guestNumber": 0,
           "pricePerNight": 0.0
