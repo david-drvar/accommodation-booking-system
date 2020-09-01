@@ -138,6 +138,8 @@ public class ApartmentService implements IApartmentService {
 
         if (checkApartmentAvailability(apartment, date, reservationDTO.getNumberOfNights())) {
             deleteAvailableDates(apartment, date, reservationDTO.getNumberOfNights());
+            long reservationId = this.getReservationId(apartment) + 1;
+            reservation.setId(reservationId);
             apartment.getReservations().add(reservation);
             apartmentRepository.edit(apartment);
 
@@ -148,5 +150,14 @@ public class ApartmentService implements IApartmentService {
             return true;
         }
         return  false;
+    }
+
+    private long getReservationId(Apartment apartment) {
+        long max = 0;
+        for (Reservation reservation : apartment.getReservations()) {
+            if (reservation.getId() > max)
+                max = reservation.getId();
+        }
+        return max;
     }
 }

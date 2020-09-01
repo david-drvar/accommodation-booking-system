@@ -14,8 +14,9 @@
     ],
     "availableDates": [
       "2020-08-31T00:00:00+0200",
-      "2020-09-01T00:00:00+0200",
-      "2020-09-11T00:00:00+0200",
+      "2020-09-07T00:00:00+0200",
+      "2020-09-08T00:00:00+0200",
+      "2020-09-09T00:00:00+0200",
       "2020-09-15T00:00:00+0200",
       "2020-09-16T00:00:00+0200"
     ],
@@ -61,12 +62,12 @@
     },
     "reservations": [
       {
-        "checkInDate": "2020-09-02T00:00:00+0200",
-        "numberOfNights": 8,
-        "totalPrice": 22400.0,
+        "checkInDate": "2020-09-01T00:00:00+0200",
+        "numberOfNights": 5,
+        "totalPrice": 13440.0,
         "note": "first booking",
         "status": "CREATED",
-        "id": 0,
+        "id": 1,
         "guest": {
           "reservations": [],
           "isBlocked": false,
@@ -87,21 +88,21 @@
         }
       },
       {
-        "checkInDate": "2020-09-12T00:00:00+0200",
-        "numberOfNights": 2,
-        "totalPrice": 5600.0,
-        "note": "first booking",
+        "checkInDate": "2020-09-10T00:00:00+0200",
+        "numberOfNights": 4,
+        "totalPrice": 10360.0,
+        "note": "second booking",
         "status": "CREATED",
-        "id": 0,
+        "id": 2,
         "guest": {
           "reservations": [
             {
-              "checkInDate": "2020-09-02T00:00:00+0200",
-              "numberOfNights": 8,
-              "totalPrice": 22400.0,
+              "checkInDate": "2020-09-01T00:00:00+0200",
+              "numberOfNights": 5,
+              "totalPrice": 13440.0,
               "note": "first booking",
               "status": "CREATED",
-              "id": 0,
+              "id": 1,
               "apartment": {
                 "id": 1,
                 "roomNumber": 0,
@@ -144,10 +145,6 @@
       }
     ],
     "availableDates": [
-      "2020-09-09T00:00:00+0200",
-      "2020-09-10T00:00:00+0200",
-      "2020-09-11T00:00:00+0200",
-      "2020-09-12T00:00:00+0200",
       "2020-09-13T00:00:00+0200",
       "2020-09-14T00:00:00+0200",
       "2020-09-15T00:00:00+0200",
@@ -248,11 +245,6 @@
       "2020-08-31T00:00:00+0200",
       "2020-09-01T00:00:00+0200",
       "2020-09-02T00:00:00+0200",
-      "2020-09-03T00:00:00+0200",
-      "2020-09-04T00:00:00+0200",
-      "2020-09-05T00:00:00+0200",
-      "2020-09-06T00:00:00+0200",
-      "2020-09-07T00:00:00+0200",
       "2020-09-08T00:00:00+0200",
       "2020-09-09T00:00:00+0200",
       "2020-09-10T00:00:00+0200",
@@ -326,7 +318,63 @@
       "isActive": true,
       "userType": "HOST"
     },
-    "reservations": [],
+    "reservations": [
+      {
+        "checkInDate": "2020-09-03T00:00:00+0200",
+        "numberOfNights": 4,
+        "totalPrice": 14.8,
+        "note": "oaza",
+        "status": "CREATED",
+        "id": 1,
+        "guest": {
+          "reservations": [
+            {
+              "checkInDate": "2020-09-01T00:00:00+0200",
+              "numberOfNights": 5,
+              "totalPrice": 13440.0,
+              "note": "first booking",
+              "status": "CREATED",
+              "id": 1,
+              "apartment": {
+                "id": 1,
+                "roomNumber": 0,
+                "guestNumber": 0,
+                "pricePerNight": 0.0
+              }
+            },
+            {
+              "checkInDate": "2020-09-10T00:00:00+0200",
+              "numberOfNights": 4,
+              "totalPrice": 10360.0,
+              "note": "second booking",
+              "status": "CREATED",
+              "id": 2,
+              "apartment": {
+                "id": 1,
+                "roomNumber": 0,
+                "guestNumber": 0,
+                "pricePerNight": 0.0
+              }
+            }
+          ],
+          "isBlocked": false,
+          "username": "perke",
+          "password": "perke",
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "sex": "MALE",
+          "id": 5,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 3,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "isActive": true
   }
 ]
