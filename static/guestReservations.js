@@ -4,7 +4,10 @@ Vue.component('view-reservations', {
            user : null,
            role : '',
            reservations : [],
-           simpleReservations : []
+           simpleReservations : [],
+           grade : null,
+           content : null,
+           hover : true
        });
    },
 
@@ -62,8 +65,23 @@ Vue.component('view-reservations', {
       seeApartment : function (id) {
           let apartmentId = this.reservations[id].apartment.id;
           location.hash = '/apartment/' +  apartmentId;
+      },
+
+      inStar : function (grade) {
+        if(this.hover)
+            this.grade = grade;
+      },
+
+      outStar : function (grade) {
+          if(this.hover)
+              this.grade = 0;
+      },
+
+      closeGrading: function () {
+          this.hover = true;
+          this.grade = null;
+          this.content = null;
       }
-       
     },
 
     template: `
@@ -142,6 +160,13 @@ Vue.component('view-reservations', {
                                     (r.reservation.status === 'CREATED' || r.reservation.status === 'APPROVED')
                                 "
                                 @click="handleReservation(r.id, 'REFUSED')">Refuse</button>
+                                <button class="btn btn-warning btn-block" 
+                                data-toggle="modal" data-target="#commentModal"
+                                v-if="
+                                    role==='GUEST' && 
+                                    (r.reservation.status === 'REFUSED' || r.reservation.status === 'FINISHED')
+                                "
+                                @click="comment(r.id)">Leave a comment</button>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -173,6 +198,71 @@ Vue.component('view-reservations', {
                     </div>
                   </div>
               </div>
+              
+              <div class="modal fade" id="commentModal" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Leave a comment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    v-on:click="closeGrading">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <textarea class="form-control col-lg-12" rows="5" 
+                                    placeholder="Comment about the apartment"
+                                    v-model="content"></textarea>
+                                </div>
+                                <br/>
+                                <div class="row">&nbsp;Grade your experience:</div>
+                                <br/>
+                                <div class="rate row">
+                                    <h2 class="col-lg-2 whiteStar" 
+                                    @mouseover="inStar(1)"
+                                    @mouseleave="outStar(2)"
+                                    @click="hover=false"
+                                    :class="{yellowStar: grade>=1}"
+                                    >★</h2>
+                                    <h2 class="col-lg-2 whiteStar" 
+                                    @mouseover="inStar(2)"
+                                    @mouseleave="outStar"
+                                    @click="hover=false"
+                                    :class="{yellowStar: grade>=2}"
+                                    >★</h2>
+                                    <h2 class="col-lg-2 whiteStar" 
+                                    @mouseover="inStar(3)"
+                                    @mouseleave="outStar"
+                                    @click="hover=false"
+                                    :class="{yellowStar: grade>=3}"
+                                    >★</h2>
+                                    <h2 class="col-lg-2 whiteStar" 
+                                    @mouseover="inStar(4)"
+                                    @mouseleave="outStar"
+                                    @click="hover=false"
+                                    :class="{yellowStar: grade>=4}"
+                                    >★</h2>
+                                    <h2 class="col-lg-2 whiteStar" 
+                                    @mouseover="inStar(5)"
+                                    @mouseleave="outStar"
+                                    @click="hover=false"
+                                    :class="{yellowStar: grade>=5}"
+                                    >★</h2>
+                                    <h2 class="col-lg-2 text-warning" v-if="!hover">{{grade}}</h2>
+                                  </div>
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                            :disabled = "content == null || hover"
+                                    >Submit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    v-on:click="closeGrading">Close</button>
+                        </div>
+                    </div>
+                </div>
         </div>
     `
 
