@@ -346,10 +346,11 @@ public class Main {
             return converter.toJson(reservationService.getAllReservations());
         });
 
-        post("reservations/cancel", (req, res) -> {
+        post("reservations/handle", (req, res) -> {
             long reservationId = Long.parseLong(req.queryParams("reservationId"));
             long apartmentId = Long.parseLong(req.queryParams("apartmentId"));
-            reservationService.cancelReservation(reservationId, apartmentId);
+            ReservationStatus status = ReservationStatus.valueOf(req.queryParams("status"));
+            reservationService.handleReservation(reservationId, apartmentId, status);
             return "OK";
         });
 

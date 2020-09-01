@@ -42,15 +42,17 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    public void cancelReservation(long reservationId, long apartmentId) {
+    public void handleReservation(long reservationId, long apartmentId, ReservationStatus status) {
         Apartment apartment = apartmentService.get(apartmentId);
         Reservation apartmentReservation = apartment.getReservations()
                 .stream()
                 .filter(x -> x.getId() == reservationId)
                 .findFirst().orElse(null);
 
-        apartmentReservation.setStatus(ReservationStatus.CANCELED);
-        apartmentService.retrieveAvailableDates(apartment, apartmentReservation);
+        apartmentReservation.setStatus(status);
+
+        if(status == ReservationStatus.REFUSED || status == ReservationStatus.CANCELED)
+            apartmentService.retrieveAvailableDates(apartment, apartmentReservation);
 
         apartmentService.edit(apartment);
 
@@ -60,7 +62,7 @@ public class ReservationService implements IReservationService {
                 .filter(x -> x.getId() == reservationId && x.getApartment().getId() == apartmentId)
                 .findFirst().orElse(null);
 
-        reservation.setStatus(ReservationStatus.CANCELED);
+        reservation.setStatus(status);
         userService.edit(guest);
 
     }

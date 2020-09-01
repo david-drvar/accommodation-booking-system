@@ -74,7 +74,7 @@
         "numberOfNights": 4,
         "totalPrice": 10360.0,
         "note": "second booking",
-        "status": "CANCELED",
+        "status": "CREATED",
         "id": 2,
         "apartment": {
           "id": 1,
@@ -88,7 +88,7 @@
         "numberOfNights": 4,
         "totalPrice": 14.8,
         "note": "oaza",
-        "status": "CANCELED",
+        "status": "CREATED",
         "id": 1,
         "apartment": {
           "id": 3,

@@ -31,13 +31,16 @@ Vue.component('view-reservations', {
                 this.simpleReservations = res.data;
                 var _runningIndex = 0;
                 for (let r of res.data) {
+                    let startDate = new Date(r.checkInDate);
+                    let endDate = new Date(startDate.getTime() + r.numberOfNights * (24*60*60*1000));
                     axios
                         .get('/apartment/getOne/' + r.apartment.id)
                         .then(response => {
                             this.reservations.push({
                                 reservation: r,
                                 apartment: response.data,
-                                id: _runningIndex++
+                                id: _runningIndex++,
+                                checkOutDate: endDate
                             });
                         });
                 }
@@ -45,25 +48,15 @@ Vue.component('view-reservations', {
     },
     
     methods : {
-      cancelReservation : async function (id) {
+      handleReservation : async function (id, status) {
           let apartmentId = this.reservations[id].apartment.id;
+          let reservationId = this.reservations[id].reservation.id;
 
           await axios
-              .post('reservations/cancel', 'reservationId=' + id + '&apartmentId=' + apartmentId);
+              .post('reservations/handle', 'reservationId=' + reservationId +
+                  '&apartmentId=' + apartmentId + '&status=' + status);
 
           location.reload();
-      },
-
-      approveReservation : function(id) {
-
-      },
-
-      refuseReservation : function(id) {
-
-      },
-
-      finishReservation : function(id) {
-
       },
 
       seeApartment : function (id) {
@@ -120,13 +113,13 @@ Vue.component('view-reservations', {
                                     role === 'GUEST' && 
                                     (r.reservation.status === 'CREATED' || r.reservation.status === 'APPROVED')
                                 "
-                                @click="cancelReservation(r.id)"
+                                @click="handleReservation(r.id, 'CANCELED')"
                                 >Cancel Reservation</button>
                                 <button class="btn btn-success btn-block" 
                                 v-if="
                                     role==='HOST' && r.reservation.status === 'CREATED'
                                 "
-                                @click="approveReservation(r.id)">Approve</button>
+                                @click="handleReservation(r.id, 'APPROVED')">Approve</button>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -148,7 +141,7 @@ Vue.component('view-reservations', {
                                     role==='HOST' && 
                                     (r.reservation.status === 'CREATED' || r.reservation.status === 'APPROVED')
                                 "
-                                @click="refuseReservation(r.id)">Refuse</button>
+                                @click="handleReservation(r.id, 'REFUSED')">Refuse</button>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -170,9 +163,10 @@ Vue.component('view-reservations', {
                                 <button class="btn btn-outline-info btn-block" v-if="role==='GUEST' || role==='ADMIN'"
                                 @click="seeApartment(r.id)">See Apartment</button>
                                 <button class="btn btn-info btn-block" v-if="
-                                    role==='HOST' && r.reservation.status === 'APPROVED'
+                                    role==='HOST' && r.reservation.status === 'APPROVED' &&
+                                    r.checkOutDate.getTime() <= Date.now()
                                 "
-                                @click="finishReservation(r.id)">Finish</button>
+                                @click="handleReservation(r.id, 'FINISHED')">Finish</button>
                             </div>
                         </div>
                       </div>
