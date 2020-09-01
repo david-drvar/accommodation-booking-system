@@ -32,21 +32,25 @@ Vue.component("apartments", {
                 maxPrice : "",
                 minPrice : "",
                 minRooms : "",
-                maxRooms : ""
+                maxRooms : "",
+                state : "",
+                town : ""
             },
-            location : "",
             moreFilters : false,
             filterAmenities : false,
             selectedAmenities : [],
             apartmentType : '',
             userType : '',
-            userId : ''
+            userId : '',
+            location : ''
 
         })
     },
     async mounted() {
         const token = sessionStorage.getItem('jwt');
         const parsed = JSON.parse(jwt_decode(token).sub);
+
+        localStorage.removeItem('apartmentsSearchMap');
 
         axios
             .get('/amenities/getAll', {
@@ -90,10 +94,71 @@ Vue.component("apartments", {
                 }*/
             });
 
-            google.maps.event.addListener(autocomplete, 'place_changed',function () {
-                this.location = autocomplete.getPlace().formatted_address;
-                localStorage.setItem('location', this.location);
+            //moje dodavanje
+            // autocomplete.setTypes(['geocode']);
+            // autocomplete.bindTo("bounds", map);
+            // autocomplete.setFields(["address_component", "geometry", "icon", "name"]);
+            // const marker = new google.maps.Marker({
+            //     map,
+            //     anchorPoint: new google.maps.Point(0, -29)
+            // });
+
+            let placeComponents = {
+                street_number : 'number',
+                route : 'street',
+                locality : 'town',
+                country : 'state',
+                postalCode : 0
+            };
+
+            autocomplete.addListener("place_changed", () => {
+                // marker.setVisible(false);
+                const place = autocomplete.getPlace();
+                let placeInfo = {
+                    number : 0,
+                    street : '',
+                    town : '',
+                    state : '',
+                    lat : 0.0,
+                    lng : 0.0
+                };
+                let addressComponents = place.address_components;
+                let geometry = place.geometry;
+
+                for(let component of addressComponents) {
+                    const addressType = component.types[0];
+                    if(placeComponents[addressType])
+                        placeInfo[placeComponents[addressType]] = component.long_name;
+                }
+
+                placeInfo.lat = geometry.location.lat();
+                placeInfo.lng = geometry.location.lng();
+
+                localStorage.setItem('apartmentsSearchMap', JSON.stringify(placeInfo));
+
+                if (!place.geometry) {
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
+                // If the place has a geometry, then present it on a map.
+                // if (place.geometry.viewport) {
+                //     map.fitBounds(place.geometry.viewport);
+                // } else {
+                //     map.setCenter(place.geometry.location);
+                //     map.setZoom(17); // Why 17? Because it looks good.
+                // }
+                // marker.setPosition(place.geometry.location);
+                // marker.setVisible(true);
             });
+            //
+
+            // google.maps.event.addListener(autocomplete, 'place_changed',function () {
+            //     this.location = autocomplete.getPlace().formatted_address;
+            //     localStorage.setItem('location', this.location);
+            // });
         });
     },
     methods : {
@@ -118,9 +183,6 @@ Vue.component("apartments", {
             this.page = 0;
         },
         saveApartment : function () {
-            //this.apartment.images = document.getElementById('inputGroupFile01').files;
-            // for(let el of this.apartment.images)
-            //     alert(el);
             alert(this.apartment);
             axios
                 .post('apartment/save', this.apartment);
@@ -188,14 +250,44 @@ Vue.component("apartments", {
                 return true;
             return guestNumber === guests;
         },
+        locationFilter : function (location) {
+          if (this.filter.state=== "" && this.filter.town==="" )
+              return true;
+          else if (this.filter.town ==="") {
+              return location.address.state === this.filter.state;
+          }
+          else {
+              return location.address.town.name === this.filter.town && location.address.state === this.filter.state;
+          }
+        },
         searchApartments : async function () {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
-            this.location = localStorage.getItem('location');
+            this.fetchLocation();
             this.apartments = this.apartments.filter((apartment) => {
-                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
+                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location);
                 }
             );
             await this.filterApartmentsByUserType();
+            this.resetLocationData();
+        },
+        fetchLocation : function () {
+            let location = localStorage.getItem('apartmentsSearchMap');
+            if (location == null) return;
+            localStorage.removeItem('apartmentsSearchMap');
+            let locationJSON = JSON.parse(location);
+            this.filter.state = locationJSON.state;
+            this.filter.town = locationJSON.town;
+            this.location = this.filter.town + ", " + this.filter.state;
+            console.log(this.filter.state + "  " + this.filter.town);
+        },
+        resetLocationData : function () {
+            localStorage.removeItem('apartmentsSearchMap');
+        },
+        CheckDeleteLocationFilters : function() {
+            if (this.location === "") {
+                this.filter.town = "";
+                this.filter.state = "";
+            }
         },
         filterApartmentsByType : async function (type) {
             this.apartmentType = type;
@@ -254,7 +346,7 @@ Vue.component("apartments", {
                                 class="form-control"
                                 type="text"
                                 placeholder="location"
-                                data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top"
+                                data-toggle="tooltip" title="What country or city are you traveling to?" data-placement="top" v-model="location" v-on:keyup="CheckDeleteLocationFilters"
                         />
 
 

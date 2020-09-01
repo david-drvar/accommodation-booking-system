@@ -176,9 +176,9 @@
       "address": {
         "street": "",
         "number": "0",
-        "state": "",
+        "state": "France",
         "town": {
-          "name": "",
+          "name": "Paris",
           "postalNumber": "1100-"
         }
       }
