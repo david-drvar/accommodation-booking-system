@@ -13,16 +13,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import repository.*;
-import repository.impl.AmenityRepository;
-import repository.impl.ApartmentRepository;
-import repository.impl.StateRepository;
-import repository.impl.UserRepository;
+import repository.impl.*;
 import repository.json.stream.JSONStream;
 import service.*;
-import service.impl.AmenityService;
-import service.impl.ApartmentService;
-import service.impl.StateService;
-import service.impl.UserService;
+import service.impl.*;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.annotation.MultipartConfig;
@@ -43,6 +37,7 @@ public class Main {
     private static final String USERS_FILE_PATH = "./static/resources/users.json";
     private static final String STATES_FILE_PATH = "./static/resources/states.json";
     private static final String APARTMENTS_FILE_PATH = "./static/resources/apartments.json";
+    private static final String HOLIDAYS_FILE_PATH = "./static/resources/holidays.json";
     private static final String IMAGE_UPLOAD_FOLDER_PATH = "./static/pics";
 
     static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -55,6 +50,7 @@ public class Main {
     private static IUserService userService;
     private static IStateService stateService;
     private static IApartmentService apartmentService;
+    private static IHolidayService holidayService;
 
     private static ImageUpload imageUpload;
 
@@ -332,11 +328,35 @@ public class Main {
             }
 
         });
+
+        post("/holidays/save", (req, res) -> {
+            String json = req.body();
+            Holiday holiday = converter.fromJson(json, Holiday.class);
+            holidayService.save(holiday);
+            return "OK";
+        });
+
+        post("/holidays/edit", (req, res) -> {
+            String json = req.body();
+            Holiday holiday = converter.fromJson(json, Holiday.class);
+            holidayService.edit(holiday);
+            return "OK";
+        });
+
+        delete("/holidays/delete", (req, res) -> {
+            String json = req.body();
+            Holiday holiday = converter.fromJson(json, Holiday.class);
+            holidayService.delete(holiday);
+            return "OK";
+        });
+
+        get("/holidays/getAll", (req, res) -> {
+            res.type("application/json");
+            return converter.toJson(holidayService.getAll());
+        });
     }
 
     private static void configure() {
-
-
         IUserRepository userRepository = new UserRepository(
                 new JSONStream<User>(USERS_FILE_PATH, new TypeToken<List<User>>(){}.getType(), RuntimeTypeAdapterFactory.of(User.class, "userType")
                         .registerSubtype(Guest.class, "GUEST")
@@ -359,5 +379,13 @@ public class Main {
         userService.setApartmentRepository(apartmentRepository);
 
         imageUpload = new ImageUpload(IMAGE_UPLOAD_FOLDER_PATH);
+
+        IHolidayRepository holidayRepository = new HolidayRepository(
+                new JSONStream<Holiday>(HOLIDAYS_FILE_PATH, new TypeToken<List<Holiday>>(){}.getType()));
+
+        holidayService = new HolidayService(holidayRepository);
+
     }
+
+
 }
