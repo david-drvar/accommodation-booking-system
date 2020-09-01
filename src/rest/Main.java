@@ -346,6 +346,13 @@ public class Main {
             return converter.toJson(reservationService.getAllReservations());
         });
 
+        post("reservations/cancel", (req, res) -> {
+            long reservationId = Long.parseLong(req.queryParams("reservationId"));
+            long apartmentId = Long.parseLong(req.queryParams("apartmentId"));
+            reservationService.cancelReservation(reservationId, apartmentId);
+            return "OK";
+        });
+
         post("/holidays/save", (req, res) -> {
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);

@@ -20,7 +20,7 @@ const router = new VueRouter({
         { path: '/apartment/:id', component: SelectedApartment },
         { path: '/new-apartment', component: NewApartment },
         { path: '/edit-apartment/:id', component: EditApartment },
-        { path: '/guest-reservation', component: GuestReservations }
+        { path: '/guest-reservation', component: GuestReservations },
         { path: '/holidays', component: Holidays }
     ]
 });

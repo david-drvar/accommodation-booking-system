@@ -77,6 +77,15 @@ public class ApartmentService implements IApartmentService {
         entity.setAvailableDates(availableDates);
     }
 
+    public void retrieveAvailableDates(Apartment entity, Reservation reservation) {
+        Collection<Date> availableDates = entity.getAvailableDates();
+        int days = reservation.getNumberOfNights();
+        Date startDate = reservation.getCheckInDate();
+        while(days-- > 0)
+            availableDates.add(new Date(startDate.getTime() + days * (24 * 60 * 60 * 1000)));
+
+    }
+
     private Date addDaysToDate(Date date, int days) {
         Date checkoutDate = new Date(date.getTime());
         Calendar c = Calendar.getInstance();

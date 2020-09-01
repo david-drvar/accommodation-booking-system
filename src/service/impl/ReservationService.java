@@ -1,9 +1,6 @@
 package service.impl;
 
-import beans.Apartment;
-import beans.Guest;
-import beans.Host;
-import beans.Reservation;
+import beans.*;
 import service.IApartmentService;
 import service.IReservationService;
 import service.IUserService;
@@ -42,5 +39,29 @@ public class ReservationService implements IReservationService {
         Collection<Reservation> allReservations = new ArrayList<>();
         apartmentService.getAll().forEach(x -> allReservations.addAll(x.getReservations()));
         return allReservations;
+    }
+
+    @Override
+    public void cancelReservation(long reservationId, long apartmentId) {
+        Apartment apartment = apartmentService.get(apartmentId);
+        Reservation apartmentReservation = apartment.getReservations()
+                .stream()
+                .filter(x -> x.getId() == reservationId)
+                .findFirst().orElse(null);
+
+        apartmentReservation.setStatus(ReservationStatus.CANCELED);
+        apartmentService.retrieveAvailableDates(apartment, apartmentReservation);
+
+        apartmentService.edit(apartment);
+
+        Guest guest = (Guest) userService.get(apartmentReservation.getGuest().getId());
+        Reservation reservation = guest.getReservations()
+                .stream()
+                .filter(x -> x.getId() == reservationId && x.getApartment().getId() == apartmentId)
+                .findFirst().orElse(null);
+
+        reservation.setStatus(ReservationStatus.CANCELED);
+        userService.edit(guest);
+
     }
 }

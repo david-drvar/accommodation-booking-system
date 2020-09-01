@@ -39,12 +39,12 @@ Vue.component('guest-reservation', {
     
     methods : {
       cancelReservation : async function (id) {
-          this.reservations[id].reservation.status = 'CANCELED';
-          this.user.reservations = this.simpleReservations;
+          let apartmentId = this.reservations[id].apartment.id;
 
           await axios
-              .post('users/edit', this.user);
+              .post('reservations/cancel', 'reservationId=' + id + '&apartmentId=' + apartmentId);
 
+          location.reload();
       }
        
     },
