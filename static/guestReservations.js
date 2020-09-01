@@ -21,8 +21,12 @@ Vue.component('view-reservations', {
                 this.user = res.data;
             });
 
+        let path = '/reservation/' + this.role.toLowerCase();
+        if(this.role === 'HOST' || this.role === 'GUEST')
+            path += '/' + parsed.id;
+
         await axios
-            .get('/reservation/' + this.role.toLowerCase() + '/' + parsed.id)
+            .get(path)
             .then(res => {
                 this.simpleReservations = res.data;
                 var _runningIndex = 0;
@@ -155,15 +159,15 @@ Vue.component('view-reservations', {
                                 <div>{{r.reservation.note}}</div>
                             </div><div class="col-lg-1"></div>
                             <div class="col-lg-2">
-                                <b><label v-if="role==='HOST'">Guest</label></b>
+                                <b><label v-if="role!=='GUEST'">Guest</label></b>
                             </div>
                             <div class="col-lg-2">
-                                <div v-if="role==='HOST'">{{reservations[r.id].reservation.guest.firstName + 
+                                <div v-if="role!=='GUEST'">{{reservations[r.id].reservation.guest.firstName + 
                                 ' ' + reservations[r.id].reservation.guest.lastName
                                 }}</div>
                             </div><div class="col-lg-1"></div>
                             <div class="col-lg-2">
-                                <button class="btn btn-outline-info btn-block" v-if="role==='GUEST'"
+                                <button class="btn btn-outline-info btn-block" v-if="role==='GUEST' || role==='ADMIN'"
                                 @click="seeApartment(r.id)">See Apartment</button>
                                 <button class="btn btn-info btn-block" v-if="
                                     role==='HOST' && r.reservation.status === 'APPROVED'
