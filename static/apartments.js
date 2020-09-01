@@ -250,6 +250,56 @@ Vue.component("apartments", {
                 return true;
             return guestNumber === guests;
         },
+        dateFilter : function(apartment) {
+            // let dateDifference = Math.abs(parseInt((new Date(this.fromDate) - new Date(this.toDate)) / (1000 * 60 * 60 * 24), 10));
+            // let ret = false;
+            // if (this.fromDate === "" && this.toDate==="")
+            //     return true;
+
+            // await axios.post('/apartment/new-reservation/checkAvailability', {
+            //     apartmentId : apartment.id,
+            //     checkInDate : this.fromDate,
+            //     numberOfNights : dateDifference,
+            // })
+            //     .then(response => {
+            //     ret = true;
+            // })
+            //     .catch(err => {
+            //         ret = false;
+            //     });
+            //
+            // return ret;
+
+            let reservationArray = this.makeDateArray(new Date(this.fromDate),new Date(this.toDate));
+            let availableDates = apartment.availableDates.map(date => {
+                return new Date(date)
+            });
+
+            // reservationArray.forEach(reservationDate => {
+            //     if (!availableDates.includes(reservationDate))
+            //         return false;
+            // });
+            // return true;
+            let ret = true;
+
+            let reservationArrayString = reservationArray.map(date => date.toString());
+            let availableDatesString = availableDates.map(date => date.toString());
+
+            reservationArrayString.forEach(reservationDate => {
+                if (!availableDatesString.includes(reservationDate, 0))
+                    ret = false;
+            });
+            return ret;
+
+
+        },
+        makeDateArray : function (start, end) {
+            let arr = []
+            for(let dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+                arr.push(new Date(dt));
+            }
+            return arr;
+        },
         locationFilter : function (location) {
           if (this.filter.state=== "" && this.filter.town==="" )
               return true;
@@ -264,7 +314,7 @@ Vue.component("apartments", {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
             this.fetchLocation();
             this.apartments = this.apartments.filter((apartment) => {
-                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location);
+                return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location) && this.dateFilter(apartment);
                 }
             );
             await this.filterApartmentsByUserType();
@@ -337,9 +387,9 @@ Vue.component("apartments", {
             <div id="search">
                 <div class="p-4 bg-light">
                     <div class="input-group">
-                        <input type="date" class="form-control"
+                        <input type="date" class="form-control" v-model="fromDate"
                                data-toggle="tooltip" title="When is your arrival date?" data-placement="top">
-                        <input type="date" class="form-control"
+                        <input type="date" class="form-control" v-model="toDate"
                                data-toggle="tooltip" title="When is your returning date?" data-placement="top">
                         <input
                                 id="my-input"
