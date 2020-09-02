@@ -259,6 +259,24 @@ Vue.component('home-page', {
 
                 return ret_type && ret_amenity;
             });
+        },
+        resetSearch : async function () {
+            this.location = "";
+            this.filter.fromDate = null;
+            this.filter.toDate = null;
+            this.filter.destination = "";
+            this.filter.guests = "";
+            this.filter.maxPrice = "";
+            this.filter.minRooms = "";
+            this.filter.minPrice = "";
+            this.filter.state = "";
+            this.filter.town = "";
+            this.filter.maxRooms = "";
+            this.fromDate = "";
+            this.toDate = "";
+
+            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            this.filterApartmentsByUserType(this.userType);
         }
     },
     template: `
@@ -286,6 +304,8 @@ Vue.component('home-page', {
                                 v-bind:class="{invisible : moreFilters}" v-on:click="showMoreFilters">More</button>
                         <button class="btn btn-primary"
                                 v-bind:class="{invisible : moreFilters}" v-on:click="searchApartments">Search</button>
+                        <button class="btn btn-info" v-on:click="resetSearch">Reset</button>
+
                     </div>
                     <div class="input-group" v-bind:class="{collapse : !moreFilters}">
                         <div class="input-group-prepend">
