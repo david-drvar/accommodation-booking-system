@@ -2,6 +2,7 @@ Vue.component("edit-apartment", {
     data: function() {
         return ({
             selectedAmenities : [],
+            location : '',
             saveDisabled : true,
             images : [],
             nameErr : false,
@@ -13,6 +14,7 @@ Vue.component("edit-apartment", {
             checkoutErr : false,
             amenities : [],
             backUpAmenities : [],
+            backUpRentDates : [],
             apartment : {
                 'id' : '0',
                 'name' : null,
@@ -82,6 +84,11 @@ Vue.component("edit-apartment", {
         this.amenities.forEach(amenity => {
             this.preToggleButtons(amenity.name);
         })
+
+        if (this.apartment.location.address.town.name !== "")
+            this.location = this.apartment.location.address.town.name + ", " + this.apartment.location.address.state;
+        else
+            this.location = this.apartment.location.address.state;
     },
     methods : {
         saveApartment : function () {
@@ -89,6 +96,7 @@ Vue.component("edit-apartment", {
             this.fetchLocation();
             this.parseDate();
             this.apartment.amenities = this.backUpAmenities;
+            this.apartment.rentDates = this.backUpRentDates;
             axios
                 .post('apartment/edit', this.apartment)
                 .then (response => location.hash = '/apartment/' + this.apartment.id);
@@ -137,10 +145,11 @@ Vue.component("edit-apartment", {
             localStorage.removeItem('dateRange');
             if (range === null)
                 return;
-            if (this.apartment.rentDates.length === 0)
-                this.apartment.rentDates = [JSON.parse(range)];
-            else
-                this.apartment.rentDates.push(JSON.parse(range));
+            // if (this.apartment.rentDates.length === 0)
+            //     this.apartment.rentDates = [JSON.parse(range)];
+            // else
+            //     this.apartment.rentDates.push(JSON.parse(range));
+            this.backUpRentDates = [JSON.parse(range)];
         },
 
         nameValidation : function () {
@@ -260,7 +269,7 @@ Vue.component("edit-apartment", {
                   <div class="form-row">
                     <div class="col-md-8">
                         <input
-                          id="pac-input"
+                          id="pac-input" v-model="location"
                           class="form-control"
                           type="text"
                           placeholder="Location"

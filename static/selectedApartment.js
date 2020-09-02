@@ -215,6 +215,14 @@ Vue.component("selected-apartment", {
                             <tbody>
                             <tr>
                                 <td>
+                                    Location
+                                </td>
+                                <td>
+                                    {{this.apartment.location.address.town.name + ", " + this.apartment.location.address.state}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     Description
                                 </td>
                                 <td>
@@ -260,6 +268,19 @@ Vue.component("selected-apartment", {
                             </tbody>
                         </table>
                         <br/>
+                        
+                        <div class="card" v-if="this.userType === 'HOST' || this.userType==='ADMIN'">
+                            <h5 class="card-header">
+                                Rent dates
+                            </h5>
+                            <div class="card-body" >
+                                <ul v-for="dates in this.apartment.rentDates">
+                                    <li>{{dates.startDate}}  -   {{dates.endDate}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br/>
+                        
                         <div class="card">
                             <h5 class="card-header">
                                 Amenities

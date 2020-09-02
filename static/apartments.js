@@ -39,7 +39,7 @@ Vue.component("apartments", {
             moreFilters : false,
             filterAmenities : false,
             selectedAmenities : [],
-            apartmentType : '',
+            apartmentType : 'ALL',
             userType : '',
             userId : '',
             location : ''

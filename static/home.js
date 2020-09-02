@@ -20,7 +20,7 @@ Vue.component('home-page', {
             moreFilters : false,
             filterAmenities : false,
             selectedAmenities : [],
-            apartmentType : '',
+            apartmentType : 'ALL',
             userType : 'BROWSE',
             userId : ''
         })
