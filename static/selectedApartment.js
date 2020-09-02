@@ -178,7 +178,9 @@ Vue.component("selected-apartment", {
                 totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights) - this.weekendDiscount + this.holidayIncrease,
                 note : this.note,
                 guestId : id
-            }).catch(response => {
+            })
+                .then(response => location.hash = '/view-reservation')
+                .catch(response => {
                 this.availabilityLabel = 'Not available for selected dates!';
                 this.submitEnabled = false;
             });
@@ -324,7 +326,18 @@ Vue.component("selected-apartment", {
                                 <small class="errorMsg"></small>
                                 <textarea name="personalMessage" class="form-control" placeholder="Personal message to your host" v-model="note"></textarea>
                             </div>
-
+                            
+                            <div class="card">
+                                <h5 class="card-header">
+                                    Available dates
+                                </h5>
+                                <div class="card-body" >
+                                    <table>
+                                        <tr v-for="date in this.apartment.availableDates">{{date}}</tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
                             <div class="card" :hidden="this.detailsCardEnabled === false">
                                 <h5 class="card-header">
                                     Details
@@ -344,6 +357,9 @@ Vue.component("selected-apartment", {
                                     <br/>
                                 </div>
                             </div>
+                            
+
+                            
                             
                             <br/>
                             <button type="button" class="btn btn-warning" v-on:click="checkAvailability" :disabled="date === '' || numberOfNights===''">Check availability</button>

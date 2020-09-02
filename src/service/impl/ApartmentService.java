@@ -44,8 +44,9 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public void edit(Apartment entity) {
-//        Apartment apartment = this.get(entity.getId());
-//        apartment.setAmenities(entity.getAmenities());
+        Apartment apartment = this.get(entity.getId());
+        apartment.setAmenities(entity.getAmenities());
+        apartmentRepository.edit(apartment);
         apartmentRepository.edit(entity);
     }
 

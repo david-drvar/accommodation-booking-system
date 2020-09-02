@@ -154,12 +154,13 @@ Vue.component("register-host", {
                 isBlocked : false,
                 apartments : []
             }).then (response => {
-                alert("New host successfully created");
+                //alert("New host successfully created");
                 this.user = {username: "", firstName: "", lastName: "", sex: ""};
                 this.userErr = '';
                 this.firstNameErr = '';
                 this.lastNameErr = '';
                 this.sexErr = '';
+                location.hash = '/users'
                 }
             );
         }

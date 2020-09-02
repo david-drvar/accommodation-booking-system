@@ -3,7 +3,7 @@ Vue.component('home-page', {
         return ({
             amenities : [],
             apartments : [],
-            sort : null,
+            sort : "",
             filter : {
                 fromDate : null,
                 toDate : null,
@@ -12,7 +12,9 @@ Vue.component('home-page', {
                 maxPrice : "",
                 minPrice : "",
                 minRooms : "",
-                maxRooms : ""
+                maxRooms : "",
+                state : "",
+                town : ""
             },
             location : "",
             moreFilters : false,
@@ -24,11 +26,13 @@ Vue.component('home-page', {
         })
     },
     async mounted() {
+        localStorage.removeItem('apartmentsSearchMap');
+
         const jwt = window.sessionStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);
-            this.id = parsed.id;
+            this.userId = parsed.id;
             this.userType = parsed.userType;
         }
         if (this.userType !== 'BROWSE')
@@ -57,9 +61,46 @@ Vue.component('home-page', {
                 }*/
             });
 
-            google.maps.event.addListener(autocomplete, 'place_changed',function () {
-                this.location = autocomplete.getPlace().formatted_address;
-                localStorage.setItem('location', this.location);
+            let placeComponents = {
+                street_number : 'number',
+                route : 'street',
+                locality : 'town',
+                country : 'state',
+                postalCode : 0
+            };
+
+            autocomplete.addListener("place_changed", () => {
+                // marker.setVisible(false);
+                const place = autocomplete.getPlace();
+                let placeInfo = {
+                    number : 0,
+                    street : '',
+                    town : '',
+                    state : '',
+                    lat : 0.0,
+                    lng : 0.0
+                };
+                let addressComponents = place.address_components;
+                let geometry = place.geometry;
+
+                for(let component of addressComponents) {
+                    const addressType = component.types[0];
+                    if(placeComponents[addressType])
+                        placeInfo[placeComponents[addressType]] = component.long_name;
+                }
+
+                placeInfo.lat = geometry.location.lat();
+                placeInfo.lng = geometry.location.lng();
+
+                localStorage.setItem('apartmentsSearchMap', JSON.stringify(placeInfo));
+
+                if (!place.geometry) {
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
             });
         });
     },
@@ -128,14 +169,73 @@ Vue.component('home-page', {
                 return true;
             return guestNumber === guests;
         },
+        dateFilter : function(apartment) {
+            let reservationArray = this.makeDateArray(new Date(this.fromDate),new Date(this.toDate));
+            let availableDates = apartment.availableDates.map(date => {
+                return new Date(date)
+            });
+
+            let ret = true;
+
+            let reservationArrayString = reservationArray.map(date => date.toString());
+            let availableDatesString = availableDates.map(date => date.toString());
+
+            reservationArrayString.forEach(reservationDate => {
+                if (!availableDatesString.includes(reservationDate, 0))
+                    ret = false;
+            });
+            return ret;
+        },
+        makeDateArray : function (start, end) {
+            let arr = []
+            for(let dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+                arr.push(new Date(dt));
+            }
+            return arr;
+        },
+        locationFilter : function (location) {
+            if (this.filter.state=== "" && this.filter.town==="" )
+                return true;
+            else if (this.filter.town ==="") {
+                return location.address.state === this.filter.state;
+            }
+            else {
+                return location.address.town.name === this.filter.town && location.address.state === this.filter.state;
+            }
+        },
         searchApartments : async function () {
             await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
-            this.location = localStorage.getItem('location');
+            this.fetchLocation();
             this.apartments = this.apartments.filter((apartment) => {
-                    return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight);
+                    return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location) && this.dateFilter(apartment);
                 }
             );
             await this.filterApartmentsByUserType();
+            this.resetLocationData();
+        },
+        fetchLocation : function () {
+            let location = localStorage.getItem('apartmentsSearchMap');
+            if (location == null) return;
+            localStorage.removeItem('apartmentsSearchMap');
+            let locationJSON = JSON.parse(location);
+            this.filter.state = locationJSON.state;
+            this.filter.town = locationJSON.town;
+
+            if (this.filter.town !== "")
+                this.location = this.filter.town + ", " + this.filter.state;
+            else
+                this.location = this.filter.state;
+
+            console.log(this.filter.state + "  " + this.filter.town);
+        },
+        resetLocationData : function () {
+            localStorage.removeItem('apartmentsSearchMap');
+        },
+        CheckDeleteLocationFilters : function() {
+            if (this.location === "") {
+                this.filter.town = "";
+                this.filter.state = "";
+            }
         },
         filterApartmentsByType : async function (type) {
             this.apartmentType = type;
@@ -166,12 +266,12 @@ Vue.component('home-page', {
             <div id="search">
                 <div class="p-4 bg-light">
                     <div class="input-group">
-                        <input type="date" class="form-control"
+                        <input type="date" class="form-control" v-model="fromDate"
                                data-toggle="tooltip" title="When is your arrival date?" data-placement="top">
-                        <input type="date" class="form-control"
+                        <input type="date" class="form-control" v-model="toDate"
                                data-toggle="tooltip" title="When is your returning date?" data-placement="top">
                         <input
-                                id="my-input"
+                                id="my-input" v-model="location" v-on:keyup="CheckDeleteLocationFilters"
                                 class="form-control"
                                 type="text"
                                 placeholder="location"
@@ -217,20 +317,21 @@ Vue.component('home-page', {
                 <br/>
                 <br/>
             </div>
-            <div>
-                <select class="form-control" type="text" v-on:change="sortApartments" v-model="sort">
+
+            <div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 10px;">
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ALL')" style="margin:2px;">All</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ROOM')" style="margin:2px;">Room</button>
+                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')" style="margin:2px;">Full</button>
+                <button class="btn btn-outline-info"
+                        v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities" style="margin:2px;">Filter Amenities</button>
+                <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities" style="margin:2px;">Apply</button>
+                
+                <select class="form-control" type="text" v-on:change="sortApartments" v-model="sort" style="width: 200px; margin : 2px">
                     <option value="" disabled selected>sort by</option>
                     <option value="DESCENDING">by price - descending</option>
                     <option value="ASCENDING">by price - ascending</option>
                 </select>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ALL')">All</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('ROOM')">Room</button>
-                <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')">Full</button>
-                <button class="btn btn-outline-info"
-                        v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities">Filter Amenities</button>
-                <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities">Apply</button>
+            
             </div>
             <div v-bind:class="{collapse : !filterAmenities}">
                 <button class="btn btn-outline-secondary col-md-4"

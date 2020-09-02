@@ -12,6 +12,7 @@ Vue.component("edit-apartment", {
             checkinErr : false,
             checkoutErr : false,
             amenities : [],
+            backUpAmenities : [],
             apartment : {
                 'id' : '0',
                 'name' : null,
@@ -87,8 +88,10 @@ Vue.component("edit-apartment", {
             this.uploadImages();
             this.fetchLocation();
             this.parseDate();
+            this.apartment.amenities = this.backUpAmenities;
             axios
-                .post('apartment/edit', this.apartment);
+                .post('apartment/edit', this.apartment)
+                .then (response => location.hash = '/apartment/' + this.apartment.id);
         },
         preToggleButtons : function (name) {
             this.apartment.amenities.forEach(amenity => {
@@ -99,7 +102,7 @@ Vue.component("edit-apartment", {
             });
         },
         addAmenity : function (event, amenity) {
-            let list = this.apartment.amenities;
+            let list = this.backUpAmenities;
             let index = list.indexOf(amenity);
             if (index === -1)
                 list.push(amenity);
@@ -132,6 +135,8 @@ Vue.component("edit-apartment", {
         parseDate : function () {
             let range = localStorage.getItem('dateRange');
             localStorage.removeItem('dateRange');
+            if (range === null)
+                return;
             if (this.apartment.rentDates.length === 0)
                 this.apartment.rentDates = [JSON.parse(range)];
             else
