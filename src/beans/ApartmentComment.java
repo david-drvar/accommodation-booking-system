@@ -4,16 +4,9 @@ public class ApartmentComment {
    private String content;
    private int grade;
    private Guest guest;
-   private Boolean isActive;
+   private Apartment apartment;
 
    public ApartmentComment() {
-   }
-
-   public ApartmentComment(String content, int grade, Guest guest, Boolean isActive) {
-      this.content = content;
-      this.grade = grade;
-      this.guest = guest;
-      this.isActive = isActive;
    }
 
    public String getContent() {
@@ -40,12 +33,11 @@ public class ApartmentComment {
       this.guest = guest;
    }
 
-   public Boolean getActive() {
-      return isActive;
+   public Apartment getApartment() {
+      return apartment;
    }
 
-   public void setActive(Boolean active) {
-      isActive = active;
+   public void setApartment(Apartment apartment) {
+      this.apartment = apartment;
    }
-
 }

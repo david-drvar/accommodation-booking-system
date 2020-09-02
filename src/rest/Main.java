@@ -51,6 +51,7 @@ public class Main {
     private static IStateService stateService;
     private static IApartmentService apartmentService;
     private static IReservationService reservationService;
+    private static IApartmentCommentService apartmentCommentService;
     private static IHolidayService holidayService;
 
     private static ImageUpload imageUpload;
@@ -379,6 +380,17 @@ public class Main {
             res.type("application/json");
             return converter.toJson(holidayService.getAll());
         });
+
+        get("/comments/guest/:id", (req, res) -> {
+           res.type("application/json");
+           long id = Long.parseLong(req.params("id"));
+           return converter.toJson(apartmentCommentService.getCommentsByHostId(id));
+        });
+
+        get("/comments/admin", (req, res) -> {
+            res.type("application/json");
+            return converter.toJson(apartmentCommentService.getAllComments());
+        });
     }
 
     private static void configure() {
@@ -402,6 +414,8 @@ public class Main {
         amenityService = new AmenityService(amenityRepository, apartmentRepository);
 
         reservationService = new ReservationService(userService, apartmentService);
+
+        apartmentCommentService = new ApartmentCommentService(apartmentService);
 
         userService.setApartmentRepository(apartmentRepository);
 
