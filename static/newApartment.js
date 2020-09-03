@@ -57,7 +57,12 @@ Vue.component("new-apartment", {
         }
 
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
+
         const parsed = JSON.parse(jwt_decode(token).sub);
+        if (parsed.userType !== 'HOST')
+            location.hash = '/forbidden';
 
         axios
             .get('/amenities/getAll', {

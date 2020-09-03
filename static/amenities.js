@@ -12,6 +12,8 @@ Vue.component("amenities", {
     },
     mounted() {
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
 
         axios
             .get('/amenities/getAll', {
@@ -30,6 +32,10 @@ Vue.component("amenities", {
         this.selectedAmenity = { name : '', id : 0}
         this.selectedAmenityErr = '';
         this.selected = false;
+
+        if (this.userType !== 'ADMIN')
+            location.hash = '/forbidden';
+
     },
     template: `
       <div v-if="this.userType === 'ADMIN'">

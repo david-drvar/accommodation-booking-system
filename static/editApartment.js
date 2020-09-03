@@ -64,7 +64,11 @@ Vue.component("edit-apartment", {
         }
 
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
         const parsed = JSON.parse(jwt_decode(token).sub);
+        if (parsed.userType === 'GUEST')
+            location.hash = '/forbidden';
 
         await axios
             .get('/amenities/getAll', {
