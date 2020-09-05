@@ -13,6 +13,14 @@ Vue.component('holidays', {
         })
     },
     mounted() {
+        const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
+
+        const parsed = JSON.parse(jwt_decode(token).sub);
+        if (parsed.userType !== 'ADMIN')
+            location.hash = '/forbidden';
+
         axios.get('/holidays/getAll')
             .then(response => this.holidays = response.data);
 

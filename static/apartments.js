@@ -39,7 +39,7 @@ Vue.component("apartments", {
             moreFilters : false,
             filterAmenities : false,
             selectedAmenities : [],
-            apartmentType : '',
+            apartmentType : 'ALL',
             userType : '',
             userId : '',
             location : ''
@@ -48,6 +48,9 @@ Vue.component("apartments", {
     },
     async mounted() {
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
+
         const parsed = JSON.parse(jwt_decode(token).sub);
 
         localStorage.removeItem('apartmentsSearchMap');
@@ -93,15 +96,6 @@ Vue.component("apartments", {
                  country: "USA"
                 }*/
             });
-
-            //moje dodavanje
-            // autocomplete.setTypes(['geocode']);
-            // autocomplete.bindTo("bounds", map);
-            // autocomplete.setFields(["address_component", "geometry", "icon", "name"]);
-            // const marker = new google.maps.Marker({
-            //     map,
-            //     anchorPoint: new google.maps.Point(0, -29)
-            // });
 
             let placeComponents = {
                 street_number : 'number',
@@ -251,35 +245,11 @@ Vue.component("apartments", {
             return guestNumber === guests;
         },
         dateFilter : function(apartment) {
-            // let dateDifference = Math.abs(parseInt((new Date(this.fromDate) - new Date(this.toDate)) / (1000 * 60 * 60 * 24), 10));
-            // let ret = false;
-            // if (this.fromDate === "" && this.toDate==="")
-            //     return true;
-
-            // await axios.post('/apartment/new-reservation/checkAvailability', {
-            //     apartmentId : apartment.id,
-            //     checkInDate : this.fromDate,
-            //     numberOfNights : dateDifference,
-            // })
-            //     .then(response => {
-            //     ret = true;
-            // })
-            //     .catch(err => {
-            //         ret = false;
-            //     });
-            //
-            // return ret;
-
             let reservationArray = this.makeDateArray(new Date(this.fromDate),new Date(this.toDate));
             let availableDates = apartment.availableDates.map(date => {
                 return new Date(date)
             });
 
-            // reservationArray.forEach(reservationDate => {
-            //     if (!availableDates.includes(reservationDate))
-            //         return false;
-            // });
-            // return true;
             let ret = true;
 
             let reservationArrayString = reservationArray.map(date => date.toString());
@@ -327,7 +297,12 @@ Vue.component("apartments", {
             let locationJSON = JSON.parse(location);
             this.filter.state = locationJSON.state;
             this.filter.town = locationJSON.town;
-            this.location = this.filter.town + ", " + this.filter.state;
+
+            if (this.filter.town !== "")
+                this.location = this.filter.town + ", " + this.filter.state;
+            else
+                this.location = this.filter.state;
+
             console.log(this.filter.state + "  " + this.filter.town);
         },
         resetLocationData : function () {
@@ -361,8 +336,25 @@ Vue.component("apartments", {
 
                 return ret_type && ret_amenity;
             });
-        }
+        },
+        resetSearch : async function () {
+            this.location = "";
+            this.filter.fromDate = null;
+            this.filter.toDate = null;
+            this.filter.destination = "";
+            this.filter.guests = "";
+            this.filter.maxPrice = "";
+            this.filter.minRooms = "";
+            this.filter.minPrice = "";
+            this.filter.state = "";
+            this.filter.town = "";
+            this.filter.maxRooms = "";
+            this.fromDate = "";
+            this.toDate = "";
 
+            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            this.filterApartmentsByUserType(this.userType);
+        }
     },
     template : `
         <div>
@@ -407,6 +399,7 @@ Vue.component("apartments", {
                                 v-bind:class="{invisible : moreFilters}" v-on:click="showMoreFilters">More</button>
                         <button class="btn btn-primary"
                                 v-bind:class="{invisible : moreFilters}" v-on:click="searchApartments">Search</button>
+                        <button class="btn btn-info" v-on:click="resetSearch">Reset</button>
                     </div>
                     <div class="input-group" v-bind:class="{collapse : !moreFilters}">
                         <div class="input-group-prepend">

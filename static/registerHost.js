@@ -11,9 +11,14 @@ Vue.component("register-host", {
     },
     mounted() {
         const jwt = window.sessionStorage.getItem('jwt');
+        if (jwt === null)
+            location.hash = '/forbidden';
+
         const decoded = jwt_decode(jwt);
         const parsed = JSON.parse(decoded.sub);
         this.userType = parsed.userType;
+        if (this.userType !== 'ADMIN')
+            location.hash = '/forbidden';
 
         this.user = {username : "", firstName : "", lastName : "", sex : ""};
 
@@ -154,12 +159,13 @@ Vue.component("register-host", {
                 isBlocked : false,
                 apartments : []
             }).then (response => {
-                alert("New host successfully created");
+                //alert("New host successfully created");
                 this.user = {username: "", firstName: "", lastName: "", sex: ""};
                 this.userErr = '';
                 this.firstNameErr = '';
                 this.lastNameErr = '';
                 this.sexErr = '';
+                location.hash = '/users'
                 }
             );
         }

@@ -2,6 +2,7 @@ Vue.component("edit-apartment", {
     data: function() {
         return ({
             selectedAmenities : [],
+            location : '',
             saveDisabled : true,
             images : [],
             nameErr : false,
@@ -11,7 +12,12 @@ Vue.component("edit-apartment", {
             priceErr : false,
             checkinErr : false,
             checkoutErr : false,
+            locationErr : false,
+            postalNumberErr : false,
+            dateRangeErr : false,
             amenities : [],
+            backUpAmenities : [],
+            backUpRentDates : [],
             apartment : {
                 'id' : '0',
                 'name' : null,
@@ -58,7 +64,11 @@ Vue.component("edit-apartment", {
         }
 
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
         const parsed = JSON.parse(jwt_decode(token).sub);
+        if (parsed.userType === 'GUEST')
+            location.hash = '/forbidden';
 
         await axios
             .get('/amenities/getAll', {
@@ -81,14 +91,24 @@ Vue.component("edit-apartment", {
         this.amenities.forEach(amenity => {
             this.preToggleButtons(amenity.name);
         })
+
+        if (this.apartment.location.address.town.name !== "")
+            this.location = this.apartment.location.address.town.name + ", " + this.apartment.location.address.state;
+        else
+            this.location = this.apartment.location.address.state;
     },
     methods : {
         saveApartment : function () {
             this.uploadImages();
             this.fetchLocation();
             this.parseDate();
+            if (!this.dateRangeValidation())
+                return;
+            this.apartment.amenities = this.backUpAmenities;
+            this.apartment.rentDates = this.backUpRentDates;
             axios
-                .post('apartment/edit', this.apartment);
+                .post('apartment/edit', this.apartment)
+                .then (response => location.hash = '/apartment/' + this.apartment.id);
         },
         preToggleButtons : function (name) {
             this.apartment.amenities.forEach(amenity => {
@@ -99,7 +119,7 @@ Vue.component("edit-apartment", {
             });
         },
         addAmenity : function (event, amenity) {
-            let list = this.apartment.amenities;
+            let list = this.backUpAmenities;
             let index = list.indexOf(amenity);
             if (index === -1)
                 list.push(amenity);
@@ -132,10 +152,13 @@ Vue.component("edit-apartment", {
         parseDate : function () {
             let range = localStorage.getItem('dateRange');
             localStorage.removeItem('dateRange');
-            if (this.apartment.rentDates.length === 0)
-                this.apartment.rentDates = [JSON.parse(range)];
-            else
-                this.apartment.rentDates.push(JSON.parse(range));
+            if (range === null)
+                return;
+            // if (this.apartment.rentDates.length === 0)
+            //     this.apartment.rentDates = [JSON.parse(range)];
+            // else
+            //     this.apartment.rentDates.push(JSON.parse(range));
+            this.backUpRentDates = [JSON.parse(range)];
         },
 
         nameValidation : function () {
@@ -212,6 +235,39 @@ Vue.component("edit-apartment", {
                     }
                 });
         },
+        locationValidation : function () {
+            this.locationErr = this.location === "";
+        },
+        postalNumberValidation : function () {
+            this.postalNumberErr = this.apartment.location.address.town.postalNumber === "";
+        },
+        dateRangeValidation : function () {
+            if (this.backUpRentDates.length === 0)
+                return true;
+            let rangeIn = new Date(this.backUpRentDates[0].startDate);
+            let rangeOut = new Date(this.backUpRentDates[0].endDate);
+            // let rangeIn = Date.parse(this.backUpRentDates.startDate);
+            let ret = true;
+
+            this.apartment.rentDates.forEach(interval => {
+                let intervalIn = new Date(interval.startDate);
+                let intervalOut = new Date(interval.endDate);
+
+                if (intervalIn <= rangeIn && intervalOut>=rangeOut)
+                    ret = false;
+                else if (intervalIn>=rangeIn ** rangeOut>=intervalIn && rangeOut<=intervalIn)
+                    ret = false;
+                else if (rangeIn<=intervalIn && rangeOut>=intervalIn)
+                    ret = false;
+                else if (intervalIn<=rangeIn && intervalOut>=rangeIn && intervalOut<=rangeOut)
+                    ret = false;
+            })
+            this.dateRangeErr = !ret;
+            return ret;
+        },
+        resetDateErr : function () {
+            this.dateRangeErr = false;
+        }
     },
     template : `
         <div class="container-fluid">
@@ -240,7 +296,7 @@ Vue.component("edit-apartment", {
                   <div class="form-row">
                     <div class="col-md-6"><small class="errorMsg" v-if="roomErr">Number of rooms is positive number.</small></div>
                     <div class="col-md-6"><small class="errorMsg" v-if="guestErr">Number of guests is positive number.</small></div>
-                    </div>
+                  </div>
                   <div class="form-row">
                     <div class="col-md-6">
                       <input type="number" class="form-control" placeholder="number of rooms" min="0"
@@ -251,12 +307,16 @@ Vue.component("edit-apartment", {
                       v-model="apartment.guestNumber" @keyup="guestValidation" @focusout="guestValidation">
                     </div>
                   </div>
-                  <br/>
+                    <br/>
+                    <div class="form-row">
+                        <div class="col-md-8"><small class="errorMsg" v-if="locationErr">Location is required.</small></div>
+                        <div class="col-md-4"><small class="errorMsg" v-if="postalNumberErr">Postal number is required.</small></div>
+                    </div>
                   <div class="form-row">
                     <div class="col-md-8">
                         <input
-                          id="pac-input"
-                          class="form-control"
+                          id="pac-input" v-model="location"
+                          class="form-control" @keyup="locationValidation" @focusout="locationValidation"
                           type="text"
                           placeholder="Location"
                         />
@@ -265,7 +325,7 @@ Vue.component("edit-apartment", {
                       
                     <div class="col-md-4">
                         <input 
-                          class="form-control"
+                          class="form-control" @keyup="postalNumberValidation" @focusout="postalNumberValidation"
                           type="text"
                           placeholder="Postal number" v-model="apartment.location.address.town.postalNumber"
                         />
@@ -288,7 +348,7 @@ Vue.component("edit-apartment", {
                     </div>
                   <div class="form-row">
                     <div class="col-md-6">
-                      <input type="text" readonly class="form-control" placeholder="Available dates" 
+                      <input type="text" readonly class="form-control" placeholder="Available dates" v-on:focusout="resetDateErr"
                       name="daterange" autocomplete="off">
                     </div>
                     <div class="input-group col-md-6">
@@ -351,13 +411,14 @@ Vue.component("edit-apartment", {
                     </div>
                     <br/>
                     <br/>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2"><small class="errorMsg" v-if="dateRangeErr">This rent dates cannot be selected.</small></div>
+                    <div class="col-lg-4">
                         <button class="btn btn-success" v-on:click="saveApartment" 
                         v-bind:disabled="
                             this.apartment.name == null || this.apartment.type === 'Type' ||
                             this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                             this.apartment.checkIn == null || this.apartment.checkOut == null ||
-                            this.nameErr || this.roomErr || this.guestErr || this.priceErr
+                            this.nameErr || this.roomErr || this.guestErr || this.priceErr || this.postalNumberErr || this.locationErr || this.dateRangeErr
                         ">Save</button>
                     </div>
                     <br/>

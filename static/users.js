@@ -17,6 +17,13 @@ Vue.component("users", {
             this.userId = parsed.id;
             this.userType = parsed.userType;
         }
+        else
+            location.hash = '/forbidden';
+
+        const parsed = JSON.parse(jwt_decode(jwt).sub);
+        if (parsed.userType === 'GUEST')
+            location.hash = '/forbidden';
+
         await this.fetchUsers();
        // v-bind:style="{ s.isBlocked ? backgroundColor: '#FF0000' , backgroundColor: '#FFFFFF'}"
     },

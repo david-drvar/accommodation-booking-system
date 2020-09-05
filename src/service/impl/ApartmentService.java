@@ -44,8 +44,15 @@ public class ApartmentService implements IApartmentService {
 
     @Override
     public void edit(Apartment entity) {
-//        Apartment apartment = this.get(entity.getId());
-//        apartment.setAmenities(entity.getAmenities());
+        Apartment apartment = this.get(entity.getId());
+        apartment.setAmenities(entity.getAmenities());
+        apartmentRepository.edit(apartment);
+
+        setApartmentAvailableDatesEdit(entity);
+        for (Interval interval : apartment.getRentDates())
+            entity.getRentDates().add(interval);
+//        for (Date date : apartment.getAvailableDates())
+//            entity.getAvailableDates().add(date);
         apartmentRepository.edit(entity);
     }
 
@@ -62,6 +69,20 @@ public class ApartmentService implements IApartmentService {
     @Override
     public void delete(Apartment entity) {
         apartmentRepository.delete(entity);
+    }
+
+    public void setApartmentAvailableDatesEdit(Apartment entity) {
+        List<Date> availableDates = new ArrayList<>();
+        entity.getRentDates().forEach(interval -> {
+            Date start = interval.getStartDate();
+            Date end = interval.getEndDate();
+            while(start.before(end)) {
+                availableDates.add(start);
+                start = new Date(start.getTime() + 24 * 60 * 60 * 1000);
+            }
+        });
+        for (Date date : availableDates)
+            entity.getAvailableDates().add(date);
     }
 
     public void setApartmentAvailableDates(Apartment entity) {

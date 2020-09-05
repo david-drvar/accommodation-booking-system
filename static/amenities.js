@@ -12,6 +12,8 @@ Vue.component("amenities", {
     },
     mounted() {
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
 
         axios
             .get('/amenities/getAll', {
@@ -30,14 +32,18 @@ Vue.component("amenities", {
         this.selectedAmenity = { name : '', id : 0}
         this.selectedAmenityErr = '';
         this.selected = false;
+
+        if (this.userType !== 'ADMIN')
+            location.hash = '/forbidden';
+
     },
     template: `
       <div v-if="this.userType === 'ADMIN'">
           <br/>
-          <div class="row">
+          <div class="row" style="margin-left: 10px">
               <div class="col-lg-15"></div>
-              <div class="col-lg-2">
-                <button class="btn btn-outline-primary btn-block"
+              <div class="col-lg-2" >
+                <button class="btn btn-outline-primary btn-block" 
                         data-toggle="modal" data-target="#addAmenityModal"
                     >
                   Add
@@ -57,7 +63,7 @@ Vue.component("amenities", {
               </div>
           </div>
           <br/>
-          <table class="table table-hover">
+          <table class="table table-hover" style="margin-left: 10px">
               <thead>
               <tr>
                   <th scope="col">Name</th>

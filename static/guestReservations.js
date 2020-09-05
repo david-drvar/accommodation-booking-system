@@ -15,6 +15,9 @@ Vue.component('view-reservations', {
     async mounted() {
 
         const token = sessionStorage.getItem('jwt');
+        if (token === null)
+            location.hash = '/forbidden';
+
         const parsed = JSON.parse(jwt_decode(token).sub);
 
         this.role = parsed.userType;
