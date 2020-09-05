@@ -122,7 +122,7 @@ Vue.component('view-reservations', {
 
     template: `
         <div class="row">
-              <div class="input-group m-3 col-lg-4">
+              <div class="input-group m-3 col-lg-4" v-if="role !== 'GUEST'">
                   <input type="text" class="form-control" placeholder="Guest's username" v-model="username">
                   <div class="input-group-append">
                     <button class="btn btn-outline-primary" type="button" @click="searchByUsername">Search</button>
