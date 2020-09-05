@@ -281,23 +281,21 @@ Vue.component("selected-apartment", {
                             <p v-if="apartment.images.length===0">No photos available!</p> 
                         </div>
                         <br/>
-                        <blockquote class="blockquote">
-                            <p class="mb-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                            </p>
-                            <footer class="blockquote-footer">
-                                Someone famous in <cite>Source Title</cite>
-                            </footer>
-                        </blockquote>
+                        <h3 v-if="apartment.apartmentComments.length != 0">Comments</h3>
                         <br/>
-                        <blockquote class="blockquote">
-                            <p class="mb-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                            </p>
-                            <footer class="blockquote-footer">
-                                Someone famous in <cite>Source Title</cite>
-                            </footer>
-                        </blockquote>
+                        <div v-for="c in apartment.apartmentComments" class="m-1"
+                        v-if="c.status == 'APPROVED'"
+                        >
+                            <blockquote class="blockquote">
+                                <p class="mb-0">
+                                    {{c.content}}
+                                </p>
+                                <footer class="blockquote-footer">
+                                    {{c.guest.firstName + ' ' + c.guest.lastName}}
+                                </footer>
+                            </blockquote>
+                            <br/>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <br/><br/><br/><br/>

@@ -107,7 +107,7 @@
           "guestNumber": 0,
           "pricePerNight": 0.0
         },
-        "status": "PENDING"
+        "status": "APPROVED"
       }
     ],
     "amenities": [
