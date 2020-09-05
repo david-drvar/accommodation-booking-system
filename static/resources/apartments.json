@@ -47,21 +47,6 @@
     "apartmentComments": [
       {
         "content": "talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely not ever been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it",
-        "grade": 4,
-        "guest": {
-          "firstName": "Pera",
-          "lastName": "Perke",
-          "id": 5
-        },
-        "apartment": {
-          "id": 1,
-          "roomNumber": 0,
-          "guestNumber": 0,
-          "pricePerNight": 0.0
-        }
-      },
-      {
-        "content": "talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely not ever been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it",
         "grade": 5,
         "guest": {
           "firstName": "Pera",
@@ -73,7 +58,56 @@
           "roomNumber": 0,
           "guestNumber": 0,
           "pricePerNight": 0.0
-        }
+        },
+        "status": "APPROVED"
+      },
+      {
+        "content": "vidimo se na sudu klosarko!!!!1111!111!!!1!!!!!!!",
+        "grade": 1,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        },
+        "status": "REJECTED"
+      },
+      {
+        "content": "superiskaaaaaaaaaaaaaa \u003c333 vidimo seeee poyyyy :***",
+        "grade": 5,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        },
+        "status": "REJECTED"
+      },
+      {
+        "content": "lepo *_*",
+        "grade": 3,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        },
+        "status": "PENDING"
       }
     ],
     "amenities": [

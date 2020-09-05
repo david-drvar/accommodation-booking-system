@@ -391,6 +391,13 @@ public class Main {
             res.type("application/json");
             return converter.toJson(apartmentCommentService.getAllComments());
         });
+
+        post("/comments/status", (req, res) -> {
+            String payload = req.body();
+            ApartmentComment comment = converter.fromJson(payload, ApartmentComment.class);
+            apartmentCommentService.editCommentStatus(comment);
+            return "Ok";
+        });
     }
 
     private static void configure() {

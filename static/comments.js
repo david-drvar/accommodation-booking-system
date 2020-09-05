@@ -1,7 +1,8 @@
 Vue.component('comment', {
    data : function () {
         return({
-            comments : []
+            comments : [],
+            role : null
         });
    },
 
@@ -9,8 +10,14 @@ Vue.component('comment', {
        const token = sessionStorage.getItem('jwt');
        const parsed = JSON.parse(jwt_decode(token).sub);
 
+       this.role = parsed.userType;
+
+       let path = '/comments/' + this.role.toLowerCase();
+       if(this.role === 'HOST')
+           path += '/' + parsed.id;
+
        axios
-            .get('/comments/host/' + parsed.id)
+            .get(path)
            .then(res => {
                for(let oneComment of res.data) {
                    var _runningIndex = 0;
@@ -28,7 +35,17 @@ Vue.component('comment', {
    },
 
    methods : {
+       seeApartment : function (id) {
+           let apartmentId = this.comments[id].apartment.id;
+           location.hash = '/apartment/' +  apartmentId;
+       },
 
+        editCommentStatus : function (index, status) {
+            let comment = this.comments[index].comment;
+            comment.status = status;
+            axios
+                .post('/comments/status', comment);
+        }
    },
 
    template : `
@@ -37,15 +54,27 @@ Vue.component('comment', {
             <div class="card-header" id="headingOne">
               <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" :data-target="'#no' + c.id" aria-expanded="true" aria-controls="collapseOne">
-                  Apartment <i>{{c.apartment.name}}</i>
+                  <h5>Apartment <i>{{c.apartment.name}}</i>
+                      <span class="badge badge-pill"
+                        v-bind:class = "{'badge-primary': c.comment.status == 'PENDING',
+                                         'badge-success': c.comment.status == 'APPROVED',
+                                         'badge-danger': c.comment.status == 'REJECTED',
+                                         }"
+                        >{{c.comment.status}}</span>
+                  </h5>
                 </button>
               </h5>
             </div>
         
             <div :id="'no' + c.id" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body container-fluid">
-                <div class="row mb-2">
-                    <h3 class="whiteStar col-lg-2" :class="{yellowStar : c.comment.grade >=1 }">★ {{c.comment.grade}}</h3>
+                <div class="row mb-3">
+                    <div class="col-lg-10">
+                        <h3 class="whiteStar" :class="{yellowStar : c.comment.grade >=1 }">★ {{c.comment.grade}}</h3>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-outline-info btn-block" @click="seeApartment(c.id)">See apartment</button>
+                    </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-10">
@@ -56,10 +85,9 @@ Vue.component('comment', {
                         </footer>
                     </blockquote>
                   </div>
-                  <div class="col-lg-2">
-                    <button class="btn btn-success btn-block">Approve</button>
-                    <br/>
-                    <button class="btn btn-danger btn-block">Remove</button>
+                  <div class="col-lg-2" v-if="role === 'HOST' && c.comment.status === 'PENDING'">
+                    <p><button class="btn btn-success btn-block" @click="editCommentStatus(c.id, 'APPROVED')">Approve</button></p>
+                    <p><button class="btn btn-danger btn-block" @click="editCommentStatus(c.id, 'REJECTED')">Reject</button></p>
                   </div>
                 </div>
               </div>

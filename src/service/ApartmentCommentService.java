@@ -2,6 +2,7 @@ package service;
 
 import beans.Apartment;
 import beans.ApartmentComment;
+import beans.CommentStatus;
 import beans.Host;
 
 import java.util.ArrayList;
@@ -33,5 +34,21 @@ public class ApartmentCommentService implements IApartmentCommentService{
         if(apartments != null)
             apartments.forEach(x -> comments.addAll(x.getApartmentComments()));
         return comments;
+    }
+
+    @Override
+    public void editCommentStatus(ApartmentComment comment) {
+        Apartment apartment = this.apartmentService.get(comment.getApartment().getId());
+        ApartmentComment currentComment =
+                apartment.getApartmentComments()
+                        .stream()
+                        .filter(c -> c.getContent().hashCode() == comment.getContent().hashCode())
+                        .findFirst().orElse(null);
+
+        if(currentComment != null) {
+            currentComment.setStatus(comment.getStatus());
+            apartmentService.edit(apartment);
+        }
+
     }
 }
