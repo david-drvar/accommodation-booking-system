@@ -74,7 +74,7 @@
         "numberOfNights": 4,
         "totalPrice": 10360.0,
         "note": "second booking",
-        "status": "CREATED",
+        "status": "REFUSED",
         "id": 2,
         "apartment": {
           "id": 1,

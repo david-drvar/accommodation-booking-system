@@ -18,7 +18,11 @@
       "2020-09-08T00:00:00+0200",
       "2020-09-09T00:00:00+0200",
       "2020-09-15T00:00:00+0200",
-      "2020-09-16T00:00:00+0200"
+      "2020-09-16T00:00:00+0200",
+      "2020-09-13T00:00:00+0200",
+      "2020-09-12T00:00:00+0200",
+      "2020-09-11T00:00:00+0200",
+      "2020-09-10T00:00:00+0200"
     ],
     "images": [
       "./pics/deborah-cortelazzi-gREquCUXQLI-unsplash.jpg"
@@ -40,7 +44,38 @@
         }
       }
     },
-    "apartmentComments": [],
+    "apartmentComments": [
+      {
+        "content": "talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely not ever been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it",
+        "grade": 4,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      },
+      {
+        "content": "talented, brilliant, incredible, amazing, show-stopping, spectacular, never the same, totally unique, completely not ever been done before, unafraid to reference or not reference, put it in a blender, shit on it, vomit on it, eat it, give birth to it",
+        "grade": 5,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Perke",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "amenities": [
       {
         "id": 1,
@@ -92,7 +127,7 @@
         "numberOfNights": 4,
         "totalPrice": 10360.0,
         "note": "second booking",
-        "status": "CREATED",
+        "status": "REFUSED",
         "id": 2,
         "guest": {
           "reservations": [

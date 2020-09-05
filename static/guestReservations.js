@@ -2,6 +2,7 @@ Vue.component('view-reservations', {
    data : function () {
        return ({
            user : null,
+           selectedApartment : null,
            role : '',
            reservations : [],
            simpleReservations : [],
@@ -81,6 +82,26 @@ Vue.component('view-reservations', {
           this.hover = true;
           this.grade = null;
           this.content = null;
+      },
+
+      submitComment : function () {
+          let apartment = this.reservations[this.selectedApartment].apartment;
+          apartment.apartmentComments.push({
+              content : this.content,
+              grade : this.grade,
+              guest : {
+                  id : this.user.id,
+                  firstName : this.user.firstName,
+                  lastName : this.user.lastName
+              },
+              apartment : {
+                  id : apartment.id
+              }
+          });
+
+          axios
+              .post('/apartment/edit', apartment)
+              .then(res => console.log(apartment));
       }
     },
 
@@ -166,7 +187,8 @@ Vue.component('view-reservations', {
                                     role==='GUEST' && 
                                     (r.reservation.status === 'REFUSED' || r.reservation.status === 'FINISHED')
                                 "
-                                @click="comment(r.id)">Leave a comment</button>
+                                @click="selectedApartment = r.id"
+                                >Leave a comment</button>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -257,12 +279,14 @@ Vue.component('view-reservations', {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary"
                             :disabled = "content == null || hover"
+                            @click="submitComment()"
                                     >Submit</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                     v-on:click="closeGrading">Close</button>
                         </div>
                     </div>
                 </div>
+        </div>
         </div>
     `
 

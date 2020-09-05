@@ -381,7 +381,7 @@ public class Main {
             return converter.toJson(holidayService.getAll());
         });
 
-        get("/comments/guest/:id", (req, res) -> {
+        get("/comments/host/:id", (req, res) -> {
            res.type("application/json");
            long id = Long.parseLong(req.params("id"));
            return converter.toJson(apartmentCommentService.getCommentsByHostId(id));
