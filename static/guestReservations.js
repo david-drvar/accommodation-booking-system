@@ -96,6 +96,22 @@ Vue.component('view-reservations', {
 
       filterByStatus : function (status) {
           this.reservations = this.backup.filter(r => r.reservation.status === status);
+      },
+
+      sortByPrice : function(method) {
+          console.log(this.backup);
+          console.log(this.reservations);
+
+          this.reservations = this.backup.filter(r => true);
+
+          this.reservations.sort(function(a, b) {
+             if(method === 'ASCENDING')
+                 return a.reservation.totalPrice - b.reservation.totalPrice;
+             else
+                 return b.reservation.totalPrice - a.reservation.totalPrice;
+          });
+
+          console.log(this.backup);
           console.log(this.reservations);
       },
 
@@ -143,6 +159,16 @@ Vue.component('view-reservations', {
                 <button type="button" class="btn btn-danger" @click="filterByStatus('REFUSED')">REFUSED</button>
                 <button type="button" class="btn btn-info" @click="filterByStatus('FINISHED')">FINISHED</button>
               </div>
+              <div class="input-group m-3 col-lg-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Sort by price</span>
+                  </div>
+                    <button type="button" class="btn btn-outline-secondary" 
+                    @click="sortByPrice('ASCENDING')">ASCENDING</button>
+                    <button type="button" class="btn btn-outline-secondary" 
+                    @click="sortByPrice('DESCENDING')">DESCENDING</button>
+               </div>
+              
               <div class="col-lg-12" v-if="!reservations.length">
                 <h4 class="text-secondary m-3">Sorry, it seem like we cannot find any reservation.</h4>
               </div>
@@ -158,7 +184,7 @@ Vue.component('view-reservations', {
                                                  'badge-danger': r.reservation.status == 'REFUSED',
                                                  'badge-secondary': r.reservation.status == 'CANCELED',
                                                  'badge-info': r.reservation.status == 'FINISHED'}"
-                                >{{r.reservation.status}}</span></h5>  
+                                >{{r.reservation.status}}</span></h5>  {{r.id}}
                         </button>
                       </h5>
                     </div>
