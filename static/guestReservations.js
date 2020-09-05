@@ -8,7 +8,9 @@ Vue.component('view-reservations', {
            simpleReservations : [],
            grade : null,
            content : null,
-           hover : true
+           hover : true,
+           username : null,
+           backup : null
        });
    },
 
@@ -52,6 +54,7 @@ Vue.component('view-reservations', {
                         });
                 }
             });
+        this.backup = this.reservations;
     },
     
     methods : {
@@ -87,6 +90,15 @@ Vue.component('view-reservations', {
           this.content = null;
       },
 
+      searchByUsername : function () {
+          this.reservations = this.reservations.filter(r => r.reservation.guest.username === this.username);
+      },
+
+      reset : function() {
+          this.username = null;
+          this.reservations = this.backup;
+      },
+
       submitComment : function () {
           let apartment = this.reservations[this.selectedApartment].apartment;
           apartment.apartmentComments.push({
@@ -109,8 +121,20 @@ Vue.component('view-reservations', {
     },
 
     template: `
-        <div>
-              <div id="accordion">
+        <div class="row">
+              <div class="input-group m-3 col-lg-4">
+                  <input type="text" class="form-control" placeholder="Guest's username" v-model="username">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" @click="searchByUsername">Search</button>
+                  </div>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" @click="reset">Reset</button>
+                  </div>
+              </div>
+              <div class="col-lg-12" v-if="!reservations.length">
+                <h4 class="text-secondary m-3">Sorry, it seem like we cannot find any reservation.</h4>
+              </div>
+              <div id="accordion" class="col-lg-12">
                   <div class="card" v-for="r in reservations">
                     <div class="card-header" id="headingOne">
                       <h5 class="mb-0">
@@ -206,7 +230,8 @@ Vue.component('view-reservations', {
                             </div>
                             <div class="col-lg-2">
                                 <div v-if="role!=='GUEST'">{{reservations[r.id].reservation.guest.firstName + 
-                                ' ' + reservations[r.id].reservation.guest.lastName
+                                ' ' + reservations[r.id].reservation.guest.lastName + 
+                                ' (@' + reservations[r.id].reservation.guest.username + ')'
                                 }}</div>
                             </div><div class="col-lg-1"></div>
                             <div class="col-lg-2">
