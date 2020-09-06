@@ -47,6 +47,14 @@ Vue.component("apartments", {
         })
     },
     async mounted() {
+        if(localStorage.getItem('apartmentsReloaded')) {
+            localStorage.removeItem('apartmentsReloaded');
+        }
+        else {
+            localStorage.setItem('apartmentsReloaded', '1');
+            location.reload();
+        }
+
         const token = sessionStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';

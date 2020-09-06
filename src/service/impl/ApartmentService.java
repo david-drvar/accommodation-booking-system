@@ -32,27 +32,9 @@ public class ApartmentService implements IApartmentService {
 
         return added;
     }
-    //moj izum
-//ostavim sve kako jeste, dobijem size 0
-    //jedan izbrisem, samo taj mi se vrati size 1
-    //oba izbrisem oba mi se vrate size 2
-    //izbrisem pa isti dodam
-
-    //ilijin
-    // oba izbrisem - oba mi se vrate size 2
-    //
 
     @Override
     public void edit(Apartment entity) {
-        Apartment apartment = this.get(entity.getId());
-        apartment.setAmenities(entity.getAmenities());
-        apartmentRepository.edit(apartment);
-
-        setApartmentAvailableDatesEdit(entity);
-        for (Interval interval : apartment.getRentDates())
-            entity.getRentDates().add(interval);
-//        for (Date date : apartment.getAvailableDates())
-//            entity.getAvailableDates().add(date);
         apartmentRepository.edit(entity);
     }
 
@@ -105,6 +87,18 @@ public class ApartmentService implements IApartmentService {
         while(days-- > 0)
             availableDates.add(new Date(startDate.getTime() + days * (24 * 60 * 60 * 1000)));
 
+    }
+
+    @Override
+    public void editWithDates(Apartment entity) {
+        Apartment apartment = this.get(entity.getId());
+        apartment.setAmenities(entity.getAmenities());
+        apartmentRepository.edit(apartment);
+
+        setApartmentAvailableDatesEdit(entity);
+        for (Interval interval : apartment.getRentDates())
+            entity.getRentDates().add(interval);
+        apartmentRepository.edit(entity);
     }
 
     private Date addDaysToDate(Date date, int days) {

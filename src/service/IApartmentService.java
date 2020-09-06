@@ -11,4 +11,5 @@ public interface IApartmentService extends IService<Apartment> {
     Boolean checkDates(ReservationDTO reservationDTO) throws ParseException;
     void setApartmentAvailableDates(Apartment entity);
     void retrieveAvailableDates(Apartment entity, Reservation reservation);
+    void editWithDates(Apartment apartment);
 }

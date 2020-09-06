@@ -92,7 +92,10 @@ Vue.component("edit-apartment", {
             this.preToggleButtons(amenity.name);
         })
 
-        if (this.apartment.location.address.town.name !== "")
+        if (this.apartment.location.address.street !== "")
+            this.location = this.apartment.location.address.street + " " + this.apartment.location.address.number +
+                ", " + this.apartment.location.address.town.name + ", " + this.apartment.location.address.state;
+        else if (this.apartment.location.address.town.name !== "")
             this.location = this.apartment.location.address.town.name + ", " + this.apartment.location.address.state;
         else
             this.location = this.apartment.location.address.state;
@@ -107,7 +110,7 @@ Vue.component("edit-apartment", {
             this.apartment.amenities = this.backUpAmenities;
             this.apartment.rentDates = this.backUpRentDates;
             axios
-                .post('apartment/edit', this.apartment)
+                .post('apartment/edit-with-dates', this.apartment)
                 .then (response => location.hash = '/apartment/' + this.apartment.id);
         },
         preToggleButtons : function (name) {

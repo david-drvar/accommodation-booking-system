@@ -220,7 +220,8 @@ Vue.component("selected-apartment", {
                                     Location
                                 </td>
                                 <td>
-                                    {{this.apartment.location.address.town.name + ", " + this.apartment.location.address.state}}
+                                    {{this.apartment.location.address.street + " " + this.apartment.location.address.number +
+                                ", " + this.apartment.location.address.town.name + ", " + this.apartment.location.address.state}}
                                 </td>
                             </tr>
                             <tr>

@@ -280,6 +280,14 @@ public class Main {
             return "OK";
         });
 
+        post("/apartment/edit-with-dates", (req, res) -> {
+            String payload = req.body();
+            Apartment apartment = converter.fromJson(payload, Apartment.class);
+            res.type("application/json");
+            apartmentService.editWithDates(apartment);
+            return "OK";
+        });
+
         delete("/apartment/delete", (req, res) -> {
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);

@@ -91,14 +91,14 @@
     "checkOut": "17:48",
     "status": "ACTIVE",
     "location": {
-      "longitude": 151.2092955,
-      "latitude": -33.8688197,
+      "longitude": 19.8383494,
+      "latitude": 45.2523095,
       "address": {
-        "street": "",
-        "number": "0",
-        "state": "Australia",
+        "street": "Jevrejska",
+        "number": "23",
+        "state": "Serbia",
         "town": {
-          "name": "",
+          "name": "Novi Sad",
           "postalNumber": "21000"
         }
       }
@@ -299,14 +299,14 @@
     "checkOut": "17:51",
     "status": "ACTIVE",
     "location": {
-      "longitude": 0.0,
-      "latitude": 0.0,
+      "longitude": 18.8112285,
+      "latitude": 45.3048684,
       "address": {
-        "street": "",
-        "number": "0",
-        "state": "France",
+        "street": "Slavija ulica",
+        "number": "2",
+        "state": "Croatia",
         "town": {
-          "name": "Paris",
+          "name": "Vinkovci",
           "postalNumber": "1100-"
         }
       }
