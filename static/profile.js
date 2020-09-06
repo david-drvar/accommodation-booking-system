@@ -22,16 +22,20 @@ let profile = new Vue({
             .get('/users/getOne/' + parsed.id)
             .then(res => {
                 this.user = res.data;
-                this.backupUser = {
-                    firstName : this.user.firstName,
-                    lastName : this.user.lastName,
-                    sex : this.user.sex,
-                    password : this.user.password
-                };
-                this.user.password = null;
+                this.initializeBackupUser();
             });
     },
     methods : {
+        initializeBackupUser : function() {
+            this.backupUser = {
+                firstName : this.user.firstName,
+                lastName : this.user.lastName,
+                sex : this.user.sex,
+                password : this.user.password
+            };
+            this.user.password = null;
+        },
+
         editMode : function () {
             this.edit = true;
         },
@@ -67,15 +71,29 @@ let profile = new Vue({
             axios
                 .post('/users/edit', this.user)
                 .then(res => {
-                    window.location.reload();
-                    $('#editSuccess').toast('show', {delay:100000000});
+                    this.initializeBackupUser();
+                    this.cancelEditing();
+                    $('#editSuccess').toast('show');
+                })
+                .catch(e => {
+                    this.cancelEditing();
+                    $('#editFailure').toast('show');
                 });
         },
         cancelEditing : function() {
             this.edit = false;
             this.user.firstName = this.backupUser.firstName;
             this.user.lastName = this.backupUser.lastName;
-            this.user.password = this.backupUser.password;
+            this.user.password = null;
+            this.firstNameErr = false;
+            this.lastNameErr = false;
+            this.currentPassErr = false;
+            this.matchingPassErr = false;
+            this.hiddenMatchingPassErr = false;
+            this.newPassErr = false;
+            this.newPass = null;
+            this.repeatPass = null;
+            this.passChangeActive = false;
         }
     }
 });

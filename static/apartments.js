@@ -376,7 +376,7 @@ Vue.component("apartments", {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="toast-body">
+                <div class="toast-body text-light">
                   New apartment has been successfully added!
                 </div>
               </div>

@@ -184,7 +184,7 @@ Vue.component('view-reservations', {
                                                  'badge-danger': r.reservation.status == 'REFUSED',
                                                  'badge-secondary': r.reservation.status == 'CANCELED',
                                                  'badge-info': r.reservation.status == 'FINISHED'}"
-                                >{{r.reservation.status}}</span></h5>  {{r.id}}
+                                >{{r.reservation.status}}</span></h5>
                         </button>
                       </h5>
                     </div>
@@ -343,7 +343,7 @@ Vue.component('view-reservations', {
                                 </div>
                             </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
                             :disabled = "content == null || hover"
                             @click="submitComment()"
                                     >Submit</button>

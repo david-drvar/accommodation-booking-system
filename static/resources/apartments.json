@@ -167,6 +167,22 @@
           "pricePerNight": 0.0
         },
         "status": "APPROVED"
+      },
+      {
+        "content": "diiivno",
+        "grade": 3,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Peric",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        },
+        "status": "PENDING"
       }
     ],
     "amenities": [
