@@ -183,6 +183,22 @@
           "pricePerNight": 0.0
         },
         "status": "PENDING"
+      },
+      {
+        "content": "puno kostaa $$$$$$$$$$$$$$ *_____*",
+        "grade": 5,
+        "guest": {
+          "firstName": "Pera",
+          "lastName": "Peric",
+          "id": 5
+        },
+        "apartment": {
+          "id": 1,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        },
+        "status": "PENDING"
       }
     ],
     "amenities": [
@@ -410,7 +426,11 @@
       "2020-09-26T00:00:00+0200",
       "2020-09-27T00:00:00+0200",
       "2020-09-28T00:00:00+0200",
-      "2020-09-29T00:00:00+0200"
+      "2020-09-29T00:00:00+0200",
+      "2020-09-06T00:00:00+0200",
+      "2020-09-05T00:00:00+0200",
+      "2020-09-04T00:00:00+0200",
+      "2020-09-03T00:00:00+0200"
     ],
     "images": [
       "./pics/brandon-griggs-wR11KBaB86U-unsplash.jpg"
@@ -468,7 +488,7 @@
         "numberOfNights": 4,
         "totalPrice": 14.8,
         "note": "oaza",
-        "status": "CREATED",
+        "status": "CANCELED",
         "id": 1,
         "guest": {
           "reservations": [

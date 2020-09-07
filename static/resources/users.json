@@ -88,7 +88,7 @@
         "numberOfNights": 4,
         "totalPrice": 14.8,
         "note": "oaza",
-        "status": "CREATED",
+        "status": "CANCELED",
         "id": 1,
         "apartment": {
           "id": 3,

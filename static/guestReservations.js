@@ -159,11 +159,44 @@ Vue.component('view-reservations', {
                       'Authorization':'Bearer ' + token
                   }
               })
-              .then(res => console.log(apartment));
+              .then(res => {
+                $('#CommentSuccess').toast('show');
+              })
+              .catch(e => {
+                $('#CommentError').toast('show');
+              });
       }
     },
 
     template: `
+        <div>
+            <div id="CommentSuccess"  
+              class="toast bg-success" 
+              data-delay="5000" style="position: absolute; top: 20px; right: 20px; z-index: 2">
+                <div class="toast-header bg-light text-success">
+                  <strong class="mr-auto">Success</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body text-light">
+                  Your comment has been successfully submitted!
+                </div>
+              </div>
+              
+              <div id="CommentError"  
+              class="toast bg-error" 
+              data-delay="5000" style="position: absolute; top: 20px; right: 20px; z-index: 2">
+                <div class="toast-header bg-light text-error">
+                  <strong class="mr-auto">Error</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body text-light">
+                  Your comment has failed to submit. Please, try again.
+                </div>
+              </div>    
         <div class="row">
               <div class="input-group ml-3 mt-3 col-lg-4" v-if="role !== 'GUEST'">
                   <input type="text" class="form-control" placeholder="Guest's username" v-model="username">
@@ -175,7 +208,8 @@ Vue.component('view-reservations', {
                   </div>
               </div><div class="col-lg-8"></div>
               <div class="btn-group m-3 col-lg-5" role="group">
-                <button type="button" class="btn btn-secondary" @click="reset">ALL</button>
+                <button type="button" class="btn btn-dark" @click="reset">ALL</button>
+                <button type="button" class="btn btn-secondary" @click="filterByStatus('CANCELED')">CANCELED</button>
                 <button type="button" class="btn btn-primary" @click="filterByStatus('CREATED')">CREATED</button>
                 <button type="button" class="btn btn-success" @click="filterByStatus('APPROVED')">APPROVED</button>
                 <button type="button" class="btn btn-danger" @click="filterByStatus('REFUSED')">REFUSED</button>
@@ -374,6 +408,7 @@ Vue.component('view-reservations', {
                         </div>
                     </div>
                 </div>
+        </div>
         </div>
         </div>
     `
