@@ -59,9 +59,9 @@ Vue.component("apartments", {
         if (token === null)
             location.hash = '/forbidden';
 
-        const parsed = JSON.parse(jwt_decode(token).sub);
+        const parsed = await JSON.parse(jwt_decode(token).sub);
 
-        localStorage.removeItem('apartmentsSearchMap');
+        await localStorage.removeItem('apartmentsSearchMap');
 
         axios
             .get('/amenities/getAll', {
@@ -73,7 +73,11 @@ Vue.component("apartments", {
                 this.amenities = res.data;
             });
         axios
-            .get('/users/getOne/' + parsed.id)
+            .get('/users/getOne/' + parsed.id, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => this.apartment.host = res.data);
 
 			
@@ -83,7 +87,11 @@ Vue.component("apartments", {
                 $('#newApartmentSuccess').toast('show');
         });
 
-        await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+        await axios.get('/apartment/getAll', {
+            headers : {
+                'Authorization':'Bearer ' + token
+            }
+        }).then(response => this.apartments = response.data);
         const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
@@ -186,8 +194,13 @@ Vue.component("apartments", {
         },
         saveApartment : function () {
             alert(this.apartment);
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios
-                .post('apartment/save', this.apartment);
+                .post('apartment/save', this.apartment, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
+                });
         },
 
         addAmenity : function (event, amenity) {
@@ -289,7 +302,12 @@ Vue.component("apartments", {
           }
         },
         searchApartments : async function () {
-            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+            await axios.get('/apartment/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(response => this.apartments = response.data);
             this.fetchLocation();
             this.apartments = this.apartments.filter((apartment) => {
                 return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location) && this.dateFilter(apartment);
@@ -360,7 +378,12 @@ Vue.component("apartments", {
             this.fromDate = "";
             this.toDate = "";
 
-            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+            await axios.get('/apartment/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(response => this.apartments = response.data);
             this.filterApartmentsByUserType(this.userType);
         }
     },
@@ -382,6 +405,7 @@ Vue.component("apartments", {
               </div>
               
               
+            <br/>
             <br/>
             <a href="#/new-apartment"><button class="btn btn-outline-primary" v-if="userType==='HOST'">New</button></a>
             <div id="search">

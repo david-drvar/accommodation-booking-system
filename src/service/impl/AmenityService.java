@@ -49,7 +49,7 @@ public class AmenityService implements IAmenityService {
         amenityRepository.delete(entity);
         for (Apartment apartment : apartmentRepository.getAll()) {
             if (apartment.getAmenities().removeIf(amenity -> amenity.getId() == entity.getId()))
-                apartmentRepository.delete(apartment);
+                apartmentRepository.edit(apartment);
         }
     }
 }

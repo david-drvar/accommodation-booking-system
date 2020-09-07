@@ -163,9 +163,14 @@ Vue.component("amenities", {
             document.getElementById('amenityName').style.borderColor = '#ced4da';
         },
         fetchAmenity : function () {
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios.post('http://localhost:8088/amenities/save', {
                 name : this.addAmenityName,
                 isActive : true
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then(response => window.location.reload())
         },
         selectAmenity : function (amenity) {
@@ -188,10 +193,15 @@ Vue.component("amenities", {
             document.getElementById('amenityNameEdit').style.borderColor = '#ced4da';
         },
         fetchAmenityEdit : function () {
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios.post('http://localhost:8088/amenities/edit', {
                 name : this.selectedAmenity.name,
                 isActive : true,
                 id : this.selectedAmenity.id
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then(response => window.location.reload())
         },
         resetSelectedAmenity : function () {
@@ -206,6 +216,7 @@ Vue.component("amenities", {
         },
         deleteAmenity : function () {
             if (this.selectedAmenity.name) {
+                const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
                 let answer = confirm("Are you sure you want to delete amenity " + this.selectedAmenity.name + "?");
                 if (answer)
                     axios.delete('http://localhost:8088/amenities/delete', {
@@ -213,6 +224,9 @@ Vue.component("amenities", {
                             name: this.selectedAmenity.name,
                             isActive: false,
                             id: this.selectedAmenity.id
+                        },
+                        headers : {
+                            'Authorization':'Bearer ' + token
                         }
                     }).then(() => {
                         window.location.reload();

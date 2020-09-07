@@ -25,7 +25,11 @@ Vue.component('view-reservations', {
         this.role = parsed.userType;
 
         await axios
-            .get('/users/getOne/' + parsed.id)
+            .get('/users/getOne/' + parsed.id, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => {
                 this.user = res.data;
             });
@@ -35,7 +39,11 @@ Vue.component('view-reservations', {
             path += '/' + parsed.id;
 
         await axios
-            .get(path)
+            .get(path, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => {
                 this.simpleReservations = res.data;
                 var _runningIndex = 0;
@@ -43,7 +51,11 @@ Vue.component('view-reservations', {
                     let startDate = new Date(r.checkInDate);
                     let endDate = new Date(startDate.getTime() + r.numberOfNights * (24*60*60*1000));
                     axios
-                        .get('/apartment/getOne/' + r.apartment.id)
+                        .get('/apartment/getOne/' + r.apartment.id, {
+                            headers : {
+                                'Authorization':'Bearer ' + token
+                            }
+                        })
                         .then(response => {
                             this.reservations.push({
                                 reservation: r,
@@ -61,10 +73,15 @@ Vue.component('view-reservations', {
       handleReservation : async function (id, status) {
           let apartmentId = this.backup[id].apartment.id;
           let reservationId = this.backup[id].reservation.id;
+          const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
 
           await axios
               .post('reservations/handle', 'reservationId=' + reservationId +
-                  '&apartmentId=' + apartmentId + '&status=' + status);
+                  '&apartmentId=' + apartmentId + '&status=' + status, {
+                  headers : {
+                      'Authorization':'Bearer ' + token
+                  }
+              });
 
           location.reload();
       },
@@ -135,8 +152,13 @@ Vue.component('view-reservations', {
               }
           });
 
+          const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
           axios
-              .post('/apartment/edit', apartment)
+              .post('/apartment/edit', apartment, {
+                  headers : {
+                      'Authorization':'Bearer ' + token
+                  }
+              })
               .then(res => console.log(apartment));
       }
     },

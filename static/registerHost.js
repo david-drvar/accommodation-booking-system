@@ -90,8 +90,14 @@ Vue.component("register-host", {
                 document.getElementById('usernameRegister').style.borderColor = 'red';
             }
             else {
+                const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
                 axios.post(`http://localhost:8088/users/checkUsername`, {
                     username : this.user.username
+                }, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
                 }).then(response => {
                         if (response.data === "ERROR") {
                             this.userErr = "Username already exists.";
@@ -148,6 +154,7 @@ Vue.component("register-host", {
         },
         registerUser : function () {
             this.user.userType = "HOST";
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios.post(`http://localhost:8088/users/save`, {
                 firstName : this.user.firstName,
                 lastName : this.user.lastName,
@@ -158,6 +165,10 @@ Vue.component("register-host", {
                 isActive : true,
                 isBlocked : false,
                 apartments : []
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then (response => {
                 //alert("New host successfully created");
                 this.user = {username: "", firstName: "", lastName: "", sex: ""};

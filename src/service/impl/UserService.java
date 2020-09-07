@@ -123,8 +123,12 @@ public class UserService implements IUserService {
 
 
         for (Apartment apartment : host.getApartments()) {
+            if (apartment == null)
+                continue;
             for (Reservation reservation : apartment.getReservations()) {
                 User user = reservation.getGuest();
+                if (user == null)
+                    continue;
                 user = userRepository.get(user.getId());
                 HostViewOfUsers hostViewOfUsers = new HostViewOfUsers(user.getUsername(), user.getFirstName(),
                         user.getLastName(), user.getSex(), user.getUserType(), apartment.getName(), reservation.getCheckInDate(), reservation.getNumberOfNights());

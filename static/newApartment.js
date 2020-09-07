@@ -73,8 +73,13 @@ Vue.component("new-apartment", {
             .then(res => {
                 this.amenities = res.data;
             });
+
         axios
-            .get('/users/getOne/' + parsed.id)
+            .get('/users/getOne/' + parsed.id, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => this.apartment.host = res.data);
     },
     methods : {
@@ -85,8 +90,14 @@ Vue.component("new-apartment", {
             this.fetchLocation();
             this.parseDate();
             this.uploadImages();
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             axios
-                .post('apartment/save', this.apartment)
+                .post('apartment/save', this.apartment, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
+                })
                 .then(res => {
                     this.$root.$emit('newApartmentMsg', 'success');
                 });
@@ -184,15 +195,17 @@ Vue.component("new-apartment", {
         },
         uploadImages : function() {
             let data = new FormData();
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             for(let file of this.images) {
                 data.append('file', file.image);
                 this.apartment.images.push('./pics/' + file.image.name);
             }
-
             axios
                 .post('/image/upload', data, {
                     header : {
-                        'Content-Type' : 'image/png'
+                        'Content-Type' : 'image/png',
+                        'Authorization':'Bearer ' + token
                     }
                 });
             },

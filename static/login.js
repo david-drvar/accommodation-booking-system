@@ -38,8 +38,13 @@ new Vue(
                 document.getElementById('pass').style.borderColor = '#ced4da';
             },
             fetchUser : function () {
+                const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
                 axios
-                    .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
+                    .post('/login', 'username=' + this.user.username + '&password=' + this.user.password, {
+                        headers : {
+                            'Authorization':'Bearer ' + token
+                        }
+                    })
                     .then(response => {
                         if(this.rememberUser)
                             window.localStorage.setItem('jwt', response.data);

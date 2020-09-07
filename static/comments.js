@@ -17,12 +17,20 @@ Vue.component('comment', {
            path += '/' + parsed.id;
 
        axios
-            .get(path)
+            .get(path, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
            .then(res => {
                for(let oneComment of res.data) {
                    var _runningIndex = 0;
                    axios
-                       .get('/apartment/getOne/' + oneComment.apartment.id)
+                       .get('/apartment/getOne/' + oneComment.apartment.id, {
+                           headers : {
+                               'Authorization':'Bearer ' + token
+                           }
+                       })
                        .then(response => {
                            this.comments.push({
                                comment : oneComment,
@@ -42,9 +50,14 @@ Vue.component('comment', {
 
         editCommentStatus : function (index, status) {
             let comment = this.comments[index].comment;
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             comment.status = status;
             axios
-                .post('/comments/status', comment);
+                .post('/comments/status', comment, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
+                });
         }
    },
 

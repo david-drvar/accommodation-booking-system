@@ -31,8 +31,14 @@ let register = new Vue(
                     document.getElementById('usernameRegister').style.borderColor = 'red';
                 }
                 else {
+                    const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
                     axios.post(`http://localhost:8088/users/checkUsername`, {
                         username : this.user.username
+                    }, {
+                        headers : {
+                            'Authorization':'Bearer ' + token
+                        }
                     }).then(response => {
                             if (response.data === "ERROR") {
                                 this.userErr = "Username already exists.";
@@ -113,6 +119,8 @@ let register = new Vue(
             },
             registerUser : function () {
                 this.user.userType = "GUEST";
+                const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
                 axios.post(`http://localhost:8088/register`, {
                     firstName : this.user.firstName,
                     lastName : this.user.lastName,
@@ -123,6 +131,10 @@ let register = new Vue(
                     isActive : true,
                     isBlocked : false,
                     reservations : []
+                }, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
                 }).then(response => {
                     window.sessionStorage.setItem('jwt', response.data);
                     window.location.href = "/";

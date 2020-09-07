@@ -113,10 +113,22 @@ Vue.component("users", {
                );
         },
         blockUser : function(user) {
-            axios.post('/users/block', user).then(res => this.fetchUsers());
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
+            axios.post('/users/block', user, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(res => this.fetchUsers());
         },
         unblockUser : function(user) {
-            axios.post('/users/unblock', user).then(res => this.fetchUsers());
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
+            axios.post('/users/unblock', user, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(res => this.fetchUsers());
         },
         resetSearch : async function () {
             this.usernameSearch = '';
@@ -125,9 +137,15 @@ Vue.component("users", {
             await this.fetchUsers();
         },
         fetchUsers : async function () {
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             if (this.userType === 'ADMIN') {
                 axios
-                    .get('/users/getAll')
+                    .get('/users/getAll', {
+                        headers : {
+                            'Authorization':'Bearer ' + token
+                        }
+                    })
                     .then(response => {
                         this.users = response.data;
                     });
@@ -136,11 +154,19 @@ Vue.component("users", {
             else if (this.userType === 'HOST') {
                 let host;
                 await axios
-                    .get('/users/getOne/' + this.userId)
+                    .get('/users/getOne/' + this.userId, {
+                        headers : {
+                            'Authorization':'Bearer ' + token
+                        }
+                    })
                     .then(res => host = res.data);
 
                 await axios
-                    .post('/users/get-users-by-host', host)
+                    .post('/users/get-users-by-host', host, {
+                        headers : {
+                            'Authorization':'Bearer ' + token
+                        }
+                    })
                     .then(response => {
                         this.users = response.data;
                     });

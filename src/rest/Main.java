@@ -5,6 +5,7 @@ import beans.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import dto.JwtDTO;
 import dto.ReservationDTO;
 import imageUtil.ImageUpload;
 import io.jsonwebtoken.Claims;
@@ -17,6 +18,7 @@ import repository.impl.*;
 import repository.json.stream.JSONStream;
 import service.*;
 import service.impl.*;
+import spark.Request;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,7 +37,6 @@ public class Main {
     //paths
     private static final String AMENITIES_FILE_PATH = "./static/resources/amenities.json";
     private static final String USERS_FILE_PATH = "./static/resources/users.json";
-    private static final String STATES_FILE_PATH = "./static/resources/states.json";
     private static final String APARTMENTS_FILE_PATH = "./static/resources/apartments.json";
     private static final String HOLIDAYS_FILE_PATH = "./static/resources/holidays.json";
     private static final String IMAGE_UPLOAD_FOLDER_PATH = "./static/pics";
@@ -76,6 +77,7 @@ public class Main {
         });
 
         get("/amenities/getAll", (req, res) -> {
+
 //            String auth = req.headers("Authorization");
 //            System.out.println("Authorization: " + auth);
 //            if ((auth != null) && (auth.contains("Bearer "))) {
@@ -90,7 +92,7 @@ public class Main {
 //            }
 //            res.status(403);
 //            return "No user logged in.";
-
+//            //getUserTypeFromJWT(req);
             return converter.toJson(amenityService.getAll());
         });
 
@@ -101,6 +103,11 @@ public class Main {
         });
 
         post("amenities/edit", (req, res)->{
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             Amenity amenity = converter.fromJson(json, Amenity.class);
             amenityService.edit(amenity);
@@ -108,6 +115,11 @@ public class Main {
         });
 
         delete("amenities/delete", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             Amenity amenity = converter.fromJson(json, Amenity.class);
             amenityService.delete(amenity);
@@ -116,17 +128,32 @@ public class Main {
 
 
         get("/users/getAll", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.GUEST || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             return converter.toJson(userService.getAll());
         });
 
         get("/users/getOne/:id", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(userService.get(id));
         });
 
         post("/users/save", (req, res) -> { //TODO David: Koja je razlika izmedju save i register
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (user.getUserType() == UserType.ADMIN) {
@@ -145,6 +172,11 @@ public class Main {
         });
 
         post("/users/checkUsername", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == null) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (userService.checkUsernameUnique(user.getUsername())) {
@@ -154,6 +186,11 @@ public class Main {
         });
 
         post("/users/block", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             userService.blockUser(user);
@@ -161,6 +198,11 @@ public class Main {
         });
 
         post("/users/unblock", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             userService.unblockUser(user);
@@ -168,6 +210,11 @@ public class Main {
         });
 
         post("users/edit", (req, res)->{
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == null) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (user.getUserType() == UserType.ADMIN) {
@@ -185,18 +232,28 @@ public class Main {
             return "OK";
         });
 
-        delete("users/delete", (req, res) -> {
-            String json = req.body();
-            User user = converter.fromJson(json, User.class);
-            if (user.getUserType() == UserType.ADMIN) {
-                Admin admin = converter.fromJson(json, Admin.class);
-                userService.delete(admin);
-            }
-            //userService.delete(user);
-            return "OK";
-        });
+//        delete("users/delete", (req, res) -> {
+//            UserType userType = getUserTypeFromJWT(req);
+//            if (userType != UserType.ADMIN) {
+//                res.status(403);
+//                return "OK";
+//            }
+//            String json = req.body();
+//            User user = converter.fromJson(json, User.class);
+//            if (user.getUserType() == UserType.ADMIN) {
+//                Admin admin = converter.fromJson(json, Admin.class);
+//                userService.delete(admin);
+//            }
+//            //userService.delete(user);
+//            return "OK";
+//        });
 
         post("/login", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             String username = req.queryParams("username");
             String password = req.queryParams("password");
@@ -214,23 +271,28 @@ public class Main {
         });
 
         post("/register", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (user != null) {
                 if (user.getUserType() == UserType.ADMIN) {
                     Admin admin = converter.fromJson(json, Admin.class);
-                    userService.save(admin);
+                    user = userService.save(admin);
                 }
                 else if (user.getUserType() == UserType.HOST) {
                     Host host = converter.fromJson(json, Host.class);
-                    userService.save(host);
+                    user = userService.save(host);
                 }
                 else if (user.getUserType() == UserType.GUEST) {
                     Guest guest = converter.fromJson(json, Guest.class);
-                    userService.save(guest);
+                    user = userService.save(guest);
                 }
-                String jws = Jwts.builder().setSubject("{ \"id\" : " + user.getId() + ", \"userType\" : \"" + user.getUserType() + "\" }").setExpiration(new Date(new Date().getTime() + 1000*100000L)).setIssuedAt(new Date()).signWith(key).compact();
+                String jws = Jwts.builder().setSubject("{ \"id\" : " + user.getId() + ", \"userType\" : \"" + user.getUserType() + "\" }").setExpiration(new Date(new Date().getTime() + 1000*10000000L)).setIssuedAt(new Date()).signWith(key).compact();
                 res.body(jws);
                 System.out.println("Returned JWT: " + jws);
                 return jws;
@@ -241,29 +303,28 @@ public class Main {
             }
         });
 
-        get("/state/getAll", (req, res) -> {
-            res.type("application/json");
-            return converter.toJson(stateService.getAll());
-        });
-
-        get("/state/getOne/:id", (req, res) -> {
-            res.type("application/json");
-            long id = Long.parseLong(req.params("id"));
-            return converter.toJson(stateService.get(id));
-        });
-
         get("/apartment/getAll", (req, res) -> {
             res.type("application/json");
             return converter.toJson(apartmentService.getAll());
         });
 
         get("/apartment/getOne/:id", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(apartmentService.get(id));
         });
 
         post("/apartment/save", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.HOST) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
             if(!apartment.getRentDates().isEmpty())
@@ -273,6 +334,11 @@ public class Main {
         });
 
         post("/apartment/edit", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.GUEST || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
             res.type("application/json");
@@ -281,6 +347,11 @@ public class Main {
         });
 
         post("/apartment/edit-with-dates", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.GUEST || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
             res.type("application/json");
@@ -289,6 +360,11 @@ public class Main {
         });
 
         delete("/apartment/delete", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.GUEST || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             Apartment apartment = converter.fromJson(payload, Apartment.class);
             res.type("application/json");
@@ -298,6 +374,11 @@ public class Main {
         });
 
         post("/apartment/new-reservation/checkAvailability", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.GUEST) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
             res.type("application/json");
@@ -310,6 +391,11 @@ public class Main {
         });
 
         post("/apartment/new-reservation/save", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.GUEST) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             ReservationDTO reservationDTO = converter.fromJson(payload, ReservationDTO.class);
             res.type("application/json");
@@ -322,6 +408,11 @@ public class Main {
         });
 
         post("/users/get-users-by-host", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.HOST) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             String payload = req.body();
             Host host = (Host) converter.fromJson(payload, Host.class);
@@ -329,6 +420,11 @@ public class Main {
         });
 
         post("/image/upload", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.GUEST || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             try {
                 imageUpload.uploadImage(req);
                 return "OK";
@@ -339,23 +435,43 @@ public class Main {
         });
 
         get("/reservation/guest/:id", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.GUEST) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(reservationService.getGuestReservations(id));
         });
 
         get("/reservation/host/:id", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.HOST) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(reservationService.getHostReservations(id));
         });
 
         get("reservation/admin", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             return converter.toJson(reservationService.getAllReservations());
         });
 
         post("reservations/handle", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == UserType.ADMIN || userType == null) {
+                res.status(403);
+                return "OK";
+            }
             long reservationId = Long.parseLong(req.queryParams("reservationId"));
             long apartmentId = Long.parseLong(req.queryParams("apartmentId"));
             ReservationStatus status = ReservationStatus.valueOf(req.queryParams("status"));
@@ -364,6 +480,11 @@ public class Main {
         });
 
         post("/holidays/save", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);
             holidayService.save(holiday);
@@ -371,6 +492,11 @@ public class Main {
         });
 
         post("/holidays/edit", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);
             holidayService.edit(holiday);
@@ -378,6 +504,11 @@ public class Main {
         });
 
         delete("/holidays/delete", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);
             holidayService.delete(holiday);
@@ -385,28 +516,66 @@ public class Main {
         });
 
         get("/holidays/getAll", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType == null) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             return converter.toJson(holidayService.getAll());
         });
 
         get("/comments/host/:id", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.HOST) {
+                res.status(403);
+                return "OK";
+            }
            res.type("application/json");
            long id = Long.parseLong(req.params("id"));
            return converter.toJson(apartmentCommentService.getCommentsByHostId(id));
         });
 
         get("/comments/admin", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.ADMIN) {
+                res.status(403);
+                return "OK";
+            }
             res.type("application/json");
             return converter.toJson(apartmentCommentService.getAllComments());
         });
 
         post("/comments/status", (req, res) -> {
+            UserType userType = getUserTypeFromJWT(req);
+            if (userType != UserType.HOST) {
+                res.status(403);
+                return "OK";
+            }
             String payload = req.body();
             ApartmentComment comment = converter.fromJson(payload, ApartmentComment.class);
             apartmentCommentService.editCommentStatus(comment);
             return "Ok";
         });
     }
+
+    private static UserType getUserTypeFromJWT(Request req) {
+        String auth = req.headers("Authorization");
+        if ((auth != null) && (auth.contains("Bearer "))) {
+            String jwt = auth.substring(auth.indexOf("Bearer ") + 7);
+            try {
+                Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
+                String subject = claims.getBody().getSubject();
+                //return "User " + claims.getBody().getSubject() + " logged in.";
+                JwtDTO jwtDTO = converter.fromJson(subject, JwtDTO.class);
+                return jwtDTO.getUserType();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return null;
+    }
+
 
     private static void configure() {
         IUserRepository userRepository = new UserRepository(
@@ -416,9 +585,6 @@ public class Main {
                         .registerSubtype(Host.class, "HOST")));
         userService = new UserService(userRepository);
 
-        IStateRepository stateRepository = new StateRepository(
-                new JSONStream<State>(STATES_FILE_PATH, new TypeToken<List<State>>(){}.getType()));
-        stateService = new StateService(stateRepository);
 
         IApartmentRepository apartmentRepository = new ApartmentRepository(
                 new JSONStream<Apartment>(APARTMENTS_FILE_PATH, new TypeToken<List<Apartment>>(){}.getType()));

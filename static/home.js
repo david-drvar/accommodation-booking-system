@@ -38,15 +38,23 @@ Vue.component('home-page', {
         if (this.userType !== 'BROWSE')
             window.location.href = "#/apartments";
 
-
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         this.userType = 'BROWSE';
         axios
-            .get('/amenities/getAll')
+            .get('/amenities/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => {
                 this.amenities = res.data;
             });
 
-        await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+        await axios.get('/apartment/getAll', {
+            headers : {
+                'Authorization':'Bearer ' + token
+            }
+        }).then(response => this.apartments = response.data);
         await this.filterApartmentsByUserType();
     },
     created() {
@@ -204,7 +212,12 @@ Vue.component('home-page', {
             }
         },
         searchApartments : async function () {
-            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+            await axios.get('/apartment/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(response => this.apartments = response.data);
             this.fetchLocation();
             this.apartments = this.apartments.filter((apartment) => {
                     return this.roomFilter(apartment.roomNumber) && this.guestFilter(apartment.guestNumber) && this.priceFilter(apartment.pricePerNight) && this.locationFilter(apartment.location) && this.dateFilter(apartment);
@@ -275,13 +288,20 @@ Vue.component('home-page', {
             this.fromDate = "";
             this.toDate = "";
 
-            await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+            await axios.get('/apartment/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            }).then(response => this.apartments = response.data);
             this.filterApartmentsByUserType(this.userType);
         }
     },
     template: `
         <div>
+            <br/>
             <div id="search">
+                <br/>
                 <div class="p-4 bg-light">
                     <div class="input-group">
                         <input type="date" class="form-control" v-model="fromDate"

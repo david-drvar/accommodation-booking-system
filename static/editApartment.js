@@ -80,10 +80,18 @@ Vue.component("edit-apartment", {
                 this.amenities = res.data;
             });
         await axios
-            .get('/users/getOne/' + parsed.id)
+            .get('/users/getOne/' + parsed.id, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => this.apartment.host = res.data);
 
-        await axios.get('/apartment/getOne/' + this.$route.params.id)
+        await axios.get('/apartment/getOne/' + this.$route.params.id, {
+            headers : {
+                'Authorization':'Bearer ' + token
+            }
+        })
             .then(response => {
                 this.apartment = response.data;
             });
@@ -109,8 +117,13 @@ Vue.component("edit-apartment", {
                 return;
             this.apartment.amenities = this.backUpAmenities;
             this.apartment.rentDates = this.backUpRentDates;
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios
-                .post('apartment/edit-with-dates', this.apartment)
+                .post('apartment/edit-with-dates', this.apartment, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
+                })
                 .then (response => location.hash = '/apartment/' + this.apartment.id);
         },
         preToggleButtons : function (name) {
@@ -231,10 +244,12 @@ Vue.component("edit-apartment", {
                 this.apartment.images.push('./pics/' + file.image.name);
             }
 
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios
                 .post('/image/upload', data, {
                     header : {
-                        'Content-Type' : 'image/png'
+                        'Content-Type' : 'image/png',
+                        'Authorization':'Bearer ' + token
                     }
                 });
         },

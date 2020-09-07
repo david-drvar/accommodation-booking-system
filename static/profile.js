@@ -19,7 +19,11 @@ let profile = new Vue({
         const parsed = JSON.parse(jwt_decode(token).sub);
 
         axios
-            .get('/users/getOne/' + parsed.id)
+            .get('/users/getOne/' + parsed.id, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
             .then(res => {
                 this.user = res.data;
                 this.initializeBackupUser();
@@ -68,8 +72,14 @@ let profile = new Vue({
             else
                 this.user.password = this.backupUser.password;
 
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             axios
-                .post('/users/edit', this.user)
+                .post('/users/edit', this.user, {
+                    headers : {
+                        'Authorization':'Bearer ' + token
+                    }
+                })
                 .then(res => {
                     this.initializeBackupUser();
                     this.cancelEditing();

@@ -34,7 +34,11 @@ Vue.component("selected-apartment", {
                 this.amenities = res.data;
             });
 
-        axios.get('/apartment/getOne/' + this.id)
+        axios.get('/apartment/getOne/' + this.id, {
+            headers : {
+                'Authorization':'Bearer ' + token
+            }
+        })
             .then(response => {
                 this.apartment = response.data;
             });
@@ -52,10 +56,14 @@ Vue.component("selected-apartment", {
         },
         deleteApartment : function() {
             let answer = confirm("Are you sure you want to delete apartment " + this.apartment.name + "?");
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             if (answer)
                 axios.delete('http://localhost:8088/apartment/delete', {
                     data: {
                         id: this.apartment.id
+                    },
+                    headers : {
+                        'Authorization':'Bearer ' + token
                     }
                 }).then(() => {
                     window.location.href = "#/apartments/";
@@ -110,6 +118,8 @@ Vue.component("selected-apartment", {
                 const parsed = JSON.parse(decoded.sub);
                 id = parsed.id;
             }
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             axios.post('/apartment/new-reservation/checkAvailability', {
                 apartmentId : this.apartment.id,
                 checkInDate : this.date,
@@ -117,6 +127,10 @@ Vue.component("selected-apartment", {
                 totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights),
                 note : this.note,
                 guestId : id
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then(response => {
                 this.detailsCardEnabled = true;
                 this.submitEnabled = true;
@@ -161,7 +175,13 @@ Vue.component("selected-apartment", {
         },
         getHolidays : async function () {
             let holidays;
-            await axios.get('/holidays/getAll')
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
+            await axios.get('/holidays/getAll', {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
+            })
                 .then(response => holidays = response.data);
             return holidays;
         },
@@ -173,6 +193,8 @@ Vue.component("selected-apartment", {
                 const parsed = JSON.parse(decoded.sub);
                 id = parsed.id;
             }
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
+
             axios.post('/apartment/new-reservation/save', {
                 apartmentId : this.apartment.id,
                 checkInDate : this.date,
@@ -180,6 +202,10 @@ Vue.component("selected-apartment", {
                 totalPrice : this.apartment.pricePerNight * parseInt(this.numberOfNights) - this.weekendDiscount + this.holidayIncrease,
                 note : this.note,
                 guestId : id
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             })
                 .then(response => location.hash = '/view-reservation')
                 .catch(response => {

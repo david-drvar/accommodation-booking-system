@@ -21,7 +21,11 @@ Vue.component('holidays', {
         if (parsed.userType !== 'ADMIN')
             location.hash = '/forbidden';
 
-        axios.get('/holidays/getAll')
+        axios.get('/holidays/getAll', {
+            headers : {
+                'Authorization':'Bearer ' + token
+            }
+        })
             .then(response => this.holidays = response.data);
 
         this.selectedHoliday = {name : '', id: 0, date : ''}
@@ -30,10 +34,15 @@ Vue.component('holidays', {
     },
     methods: {
         saveHoliday : function () {
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios.post(`/holidays/save`, {
                 name : this.name,
                 date : this.date,
                 isActive : true,
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then(response => {
                 window.location.reload()
             });
@@ -91,11 +100,16 @@ Vue.component('holidays', {
             }
         },
         editHoliday : function () {
+            const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios.post(`/holidays/edit`, {
                 name : this.selectedHoliday.name,
                 date : this.selectedHoliday.date,
                 id : this.selectedHoliday.id,
                 isActive : true,
+            }, {
+                headers : {
+                    'Authorization':'Bearer ' + token
+                }
             }).then(response => {
                 window.location.reload()
             });
@@ -116,6 +130,7 @@ Vue.component('holidays', {
         },
         deleteHoliday : function () {
             if (this.selectedHoliday.name) {
+                const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
                 let answer = confirm("Are you sure you want to delete holiday " + this.selectedHoliday.name + "?");
                 if (answer)
                     axios.delete('/holidays/delete', {
@@ -124,6 +139,9 @@ Vue.component('holidays', {
                             isActive: false,
                             id: this.selectedHoliday.id,
                             date : this.selectedHoliday.date
+                        },
+                        headers : {
+                            'Authorization':'Bearer ' + token
                         }
                     }).then(() => {
                         window.location.reload();
