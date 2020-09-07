@@ -40,7 +40,7 @@ const app = new Vue({
         }
     },
     mounted() {
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt') || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);
@@ -51,6 +51,7 @@ const app = new Vue({
     methods : {
         logout : function() {
             //alert(this.location);
+            localStorage.removeItem('jwt');
             sessionStorage.removeItem('jwt');
             window.location.href = "/";
         },

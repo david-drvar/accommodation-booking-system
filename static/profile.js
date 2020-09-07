@@ -15,7 +15,7 @@ let profile = new Vue({
         passChangeActive : false,
     },
     mounted() {
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         const parsed = JSON.parse(jwt_decode(token).sub);
 
         axios

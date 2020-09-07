@@ -19,7 +19,7 @@ Vue.component("selected-apartment", {
         })
     },
     mounted() {
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';
         const parsed = JSON.parse(jwt_decode(token).sub);
@@ -39,7 +39,7 @@ Vue.component("selected-apartment", {
                 this.apartment = response.data;
             });
 
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);
@@ -103,7 +103,7 @@ Vue.component("selected-apartment", {
         checkAvailability : function () {
             this.weekendDiscount = 0;
             this.holidayIncrease = 0;
-            const jwt = window.sessionStorage.getItem('jwt');
+            const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             let id;
             if (jwt!== null) {
                 const decoded = jwt_decode(jwt);
@@ -166,7 +166,7 @@ Vue.component("selected-apartment", {
             return holidays;
         },
         submitReservation : function () {
-            const jwt = window.sessionStorage.getItem('jwt');
+            const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             let id;
             if (jwt!== null) {
                 const decoded = jwt_decode(jwt);

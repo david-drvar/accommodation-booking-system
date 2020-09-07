@@ -11,7 +11,7 @@ Vue.component("amenities", {
         }
     },
     mounted() {
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt') || localStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';
 
@@ -23,7 +23,7 @@ Vue.component("amenities", {
             })
             .then(response => (this.amenities = response.data))
 
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         const decoded = jwt_decode(jwt);
         const parsed = JSON.parse(decoded.sub);
         this.userType = parsed.userType;

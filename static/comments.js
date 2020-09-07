@@ -7,7 +7,7 @@ Vue.component('comment', {
    },
 
    mounted() {
-       const token = sessionStorage.getItem('jwt');
+       const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
        const parsed = JSON.parse(jwt_decode(token).sub);
 
        this.role = parsed.userType;

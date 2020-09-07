@@ -16,7 +16,7 @@ Vue.component('view-reservations', {
 
     async mounted() {
 
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';
 

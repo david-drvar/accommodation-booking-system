@@ -55,7 +55,7 @@ Vue.component("apartments", {
             location.reload();
         }
 
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';
 
@@ -84,7 +84,7 @@ Vue.component("apartments", {
         });
 
         await axios.get('/apartment/getAll').then(response => this.apartments = response.data);
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);

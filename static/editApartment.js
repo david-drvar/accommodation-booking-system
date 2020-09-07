@@ -63,7 +63,7 @@ Vue.component("edit-apartment", {
             location.reload();
         }
 
-        const token = sessionStorage.getItem('jwt');
+        const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (token === null)
             location.hash = '/forbidden';
         const parsed = JSON.parse(jwt_decode(token).sub);

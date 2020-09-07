@@ -5,7 +5,8 @@ new Vue(
             user : {username : "", password : ""},
             userErr : "",
             passErr : "",
-            loginErr : false
+            loginErr : false,
+            rememberUser : false
         },
         methods: {
             requiredUsername : function(event) {
@@ -40,15 +41,18 @@ new Vue(
                 axios
                     .post('/login', 'username=' + this.user.username + '&password=' + this.user.password)
                     .then(response => {
+                        if(this.rememberUser)
+                            window.localStorage.setItem('jwt', response.data);
+                        else
                             window.sessionStorage.setItem('jwt', response.data);
-                            window.location.href = "/";
+                        window.location.href = "/";
                     })
                     .catch(err => {
                         this.loginErr = true;
                     });
             },
             isLoggedIn : function () {
-                const jwt = window.sessionStorage.getItem('jwt');
+                const jwt = window.sessionStorage.getItem('jwt') || localStorage.getItem('jwt');
                 return jwt !== null;
 
             }

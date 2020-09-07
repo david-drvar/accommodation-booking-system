@@ -10,7 +10,7 @@ Vue.component("forbidden", {
         }
     },
     async mounted() {
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);

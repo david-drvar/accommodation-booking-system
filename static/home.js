@@ -28,7 +28,7 @@ Vue.component('home-page', {
     async mounted() {
         localStorage.removeItem('apartmentsSearchMap');
 
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt!== null) {
             const decoded = jwt_decode(jwt);
             const parsed = JSON.parse(decoded.sub);

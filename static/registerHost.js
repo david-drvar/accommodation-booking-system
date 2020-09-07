@@ -10,7 +10,7 @@ Vue.component("register-host", {
         }
     },
     mounted() {
-        const jwt = window.sessionStorage.getItem('jwt');
+        const jwt = window.sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
         if (jwt === null)
             location.hash = '/forbidden';
 
