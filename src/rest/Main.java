@@ -335,7 +335,7 @@ public class Main {
 
         post("/apartment/edit", (req, res) -> {
             UserType userType = getUserTypeFromJWT(req);
-            if (userType == UserType.GUEST || userType == null) {
+            if (userType == null) {
                 res.status(403);
                 return "OK";
             }
