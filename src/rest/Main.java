@@ -72,27 +72,15 @@ public class Main {
         post("/amenities/save", (req, res) -> {
             String json = req.body();
             Amenity amenity = converter.fromJson(json, Amenity.class);
+            if (!amenityService.checkNameValid(amenity)) {
+                res.status(400);
+                return "OK";
+            }
             amenityService.save(amenity);
             return "OK";
         });
 
         get("/amenities/getAll", (req, res) -> {
-
-//            String auth = req.headers("Authorization");
-//            System.out.println("Authorization: " + auth);
-//            if ((auth != null) && (auth.contains("Bearer "))) {
-//                String jwt = auth.substring(auth.indexOf("Bearer ") + 7);
-//                try {
-//                    Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
-//                    return converter.toJson(amenityService.getAll());
-//                    //return "User " + claims.getBody().getSubject() + " logged in.";
-//                } catch (Exception e) {
-//                    System.out.println(e.getMessage());
-//                }
-//            }
-//            res.status(403);
-//            return "No user logged in.";
-//            //getUserTypeFromJWT(req);
             return converter.toJson(amenityService.getAll());
         });
 
@@ -110,6 +98,10 @@ public class Main {
             }
             String json = req.body();
             Amenity amenity = converter.fromJson(json, Amenity.class);
+            if (!amenityService.checkNameValid(amenity)) {
+                res.status(400);
+                return "OK";
+            }
             amenityService.edit(amenity);
             return "OK";
         });
@@ -487,6 +479,10 @@ public class Main {
             }
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);
+            if (!holidayService.checkNameOrDateValid(holiday)) {
+                res.status(400);
+                return "OK";
+            }
             holidayService.save(holiday);
             return "OK";
         });
@@ -499,6 +495,10 @@ public class Main {
             }
             String json = req.body();
             Holiday holiday = converter.fromJson(json, Holiday.class);
+            if (!holidayService.checkNameOrDateValid(holiday)) {
+                res.status(400);
+                return "OK";
+            }
             holidayService.edit(holiday);
             return "OK";
         });

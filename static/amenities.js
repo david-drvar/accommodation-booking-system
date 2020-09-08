@@ -172,6 +172,7 @@ Vue.component("amenities", {
                     'Authorization':'Bearer ' + token
                 }
             }).then(response => window.location.reload())
+                .catch(err => this.addAmenityNameErr="This amenity already exists.");
         },
         selectAmenity : function (amenity) {
             this.selectedAmenity.name = amenity.name;
@@ -203,6 +204,7 @@ Vue.component("amenities", {
                     'Authorization':'Bearer ' + token
                 }
             }).then(response => window.location.reload())
+                .catch(err => this.selectedAmenityErr = "This amenity already exists.");
         },
         resetSelectedAmenity : function () {
             this.selectedAmenityErr = '';
