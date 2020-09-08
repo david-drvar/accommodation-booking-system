@@ -1,5 +1,6 @@
 package service.impl;
 
+import beans.Amenity;
 import beans.Holiday;
 import repository.IHolidayRepository;
 import service.IHolidayService;
@@ -36,5 +37,18 @@ public class HolidayService implements IHolidayService {
     @Override
     public void delete(Holiday entity) {
         holidayRepository.delete(entity);
+    }
+
+    @Override
+    public Boolean checkNameOrDateValid(Holiday holiday) {
+        if (this.getAll() == null)
+            return true;
+        for (Holiday h : this.getAll()) {
+            if (h.getName().equals(holiday.getName()))
+                return false;
+            else if (h.getDate().compareTo(holiday.getDate())==0)
+                return false;
+        }
+        return true;
     }
 }

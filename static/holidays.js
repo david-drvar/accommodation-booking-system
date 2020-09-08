@@ -45,7 +45,7 @@ Vue.component('holidays', {
                 }
             }).then(response => {
                 window.location.reload()
-            });
+            }).catch(err => this.dateErr = "A holiday with this date or name already exists.");
         },
         resetValidation : function () {
             this.nameErr = '';
@@ -112,7 +112,7 @@ Vue.component('holidays', {
                 }
             }).then(response => {
                 window.location.reload()
-            });
+            }).catch(err => this.selectedDateErr = "A holiday with this date or name already exists.");
         },
         selectHoliday : function (holiday) {
             this.selectedHoliday.name = holiday.name;

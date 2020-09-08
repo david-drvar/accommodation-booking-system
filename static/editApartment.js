@@ -247,7 +247,7 @@ Vue.component("edit-apartment", {
             const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
             axios
                 .post('/image/upload', data, {
-                    header : {
+                    headers : {
                         'Content-Type' : 'image/png',
                         'Authorization':'Bearer ' + token
                     }

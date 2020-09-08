@@ -52,4 +52,15 @@ public class AmenityService implements IAmenityService {
                 apartmentRepository.edit(apartment);
         }
     }
+
+    @Override
+    public Boolean checkNameValid(Amenity amenity) {
+        if (this.getAll() == null)
+            return true;
+        for (Amenity a : this.getAll()) {
+            if (a.getName().equals(amenity.getName()))
+                return false;
+        }
+        return true;
+    }
 }
