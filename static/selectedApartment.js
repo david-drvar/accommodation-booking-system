@@ -334,12 +334,16 @@ Vue.component("selected-apartment", {
                             </div>
                         </div>
                         <br/>
-                        <h3 v-if="apartment.apartmentComments.length != 0">Comments</h3>
-                        <br/>
-                        <div v-for="c in apartment.apartmentComments" class="m-1"
-                        v-if="c.status == 'APPROVED'"
-                        >
+                        
+                        <div class="card" v-if="apartment.apartmentComments.length != 0">
+                            <h5 class="card-header">
+                                Comments
+                            </h5>
+                            <div v-for="c in apartment.apartmentComments" class="card-body"
+                            v-if="c.status == 'APPROVED'"
+                            >
                             <blockquote class="blockquote">
+                                <h4 class="whiteStar" :class="{yellowStar : c.grade >=1 }">★ {{c.grade}}</h4>
                                 <p class="mb-0">
                                     {{c.content}}
                                 </p>
@@ -347,8 +351,8 @@ Vue.component("selected-apartment", {
                                     {{c.guest.firstName + ' ' + c.guest.lastName}}
                                 </footer>
                             </blockquote>
-                            <br/>
-                        </div>
+                            </div>
+                        </div>                  
                     </div>
                     <div class="col-md-4">
                         <br/><br/><br/><br/>

@@ -406,8 +406,10 @@ Vue.component("apartments", {
               
               
             <br/>
+            <a href="#/new-apartment"><button class="btn btn-outline-primary ml-3" v-if="userType==='HOST'">
+            Add new apartment</button></a>
             <br/>
-            <a href="#/new-apartment"><button class="btn btn-outline-primary" v-if="userType==='HOST'">New</button></a>
+            <br/>
             <div id="search">
                 <div class="p-4 bg-light">
                     <div class="input-group">

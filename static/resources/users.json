@@ -102,6 +102,20 @@
           "guestNumber": 0,
           "pricePerNight": 0.0
         }
+      },
+      {
+        "checkInDate": "2020-10-13",
+        "numberOfNights": 3,
+        "totalPrice": 30000.0,
+        "note": "spremi peskire",
+        "status": "APPROVED",
+        "id": 1,
+        "apartment": {
+          "id": 5,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
       }
     ],
     "isBlocked": false,

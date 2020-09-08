@@ -555,10 +555,6 @@
       }
     ],
     "availableDates": [
-      "2020-10-13T00:00:00+0200",
-      "2020-10-14T00:00:00+0200",
-      "2020-10-15T00:00:00+0200",
-      "2020-10-16T00:00:00+0200",
       "2020-10-17T00:00:00+0200",
       "2020-10-18T00:00:00+0200",
       "2020-10-19T00:00:00+0200",
@@ -624,7 +620,77 @@
       "isActive": true,
       "userType": "HOST"
     },
-    "reservations": [],
+    "reservations": [
+      {
+        "checkInDate": "2020-10-13T00:00:00+0200",
+        "numberOfNights": 3,
+        "totalPrice": 30000.0,
+        "note": "spremi peskire",
+        "status": "APPROVED",
+        "id": 1,
+        "guest": {
+          "reservations": [
+            {
+              "checkInDate": "2020-09-01T00:00:00+0200",
+              "numberOfNights": 5,
+              "totalPrice": 13440.0,
+              "note": "first booking",
+              "status": "CREATED",
+              "id": 1,
+              "apartment": {
+                "id": 1,
+                "roomNumber": 0,
+                "guestNumber": 0,
+                "pricePerNight": 0.0
+              }
+            },
+            {
+              "checkInDate": "2020-09-10T00:00:00+0200",
+              "numberOfNights": 4,
+              "totalPrice": 10360.0,
+              "note": "second booking",
+              "status": "REFUSED",
+              "id": 2,
+              "apartment": {
+                "id": 1,
+                "roomNumber": 0,
+                "guestNumber": 0,
+                "pricePerNight": 0.0
+              }
+            },
+            {
+              "checkInDate": "2020-09-03T00:00:00+0200",
+              "numberOfNights": 4,
+              "totalPrice": 14.8,
+              "note": "oaza",
+              "status": "CANCELED",
+              "id": 1,
+              "apartment": {
+                "id": 3,
+                "roomNumber": 0,
+                "guestNumber": 0,
+                "pricePerNight": 0.0
+              }
+            }
+          ],
+          "isBlocked": false,
+          "username": "perke",
+          "password": "perke",
+          "firstName": "Pera",
+          "lastName": "Peric",
+          "sex": "MALE",
+          "id": 5,
+          "isActive": true,
+          "userType": "GUEST"
+        },
+        "apartment": {
+          "id": 5,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      }
+    ],
     "isActive": true
   }
 ]
