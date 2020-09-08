@@ -387,7 +387,7 @@ Vue.component('home-page', {
             <div class="form-row m-2">
                 <div class="col-md-3" v-for="apartment in this.apartments" >
                     <div class="card" style="width: 18rem;" >
-                        <img class="card-img-top" :src="apartment.images[0]" alt="Apartment photo">
+                        <img class="card-img-top" :src="apartment.images[0]" alt="Apartment photo" style="height: 13rem">
                         <div class="card-body text-primary">
                             <h5 class="card-title">{{apartment.name}}</h5>
                             <p class="card-text">

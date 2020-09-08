@@ -540,5 +540,91 @@
       }
     ],
     "isActive": true
+  },
+  {
+    "id": 5,
+    "type": "FULL",
+    "name": "Mira Lux Comfort Plus Silver Penthouse",
+    "description": "puno kosta $_$",
+    "roomNumber": 8,
+    "guestNumber": 10,
+    "rentDates": [
+      {
+        "startDate": "2020-10-13T00:00:00+0200",
+        "endDate": "2020-10-23T00:00:00+0200"
+      }
+    ],
+    "availableDates": [
+      "2020-10-13T00:00:00+0200",
+      "2020-10-14T00:00:00+0200",
+      "2020-10-15T00:00:00+0200",
+      "2020-10-16T00:00:00+0200",
+      "2020-10-17T00:00:00+0200",
+      "2020-10-18T00:00:00+0200",
+      "2020-10-19T00:00:00+0200",
+      "2020-10-20T00:00:00+0200",
+      "2020-10-21T00:00:00+0200",
+      "2020-10-22T00:00:00+0200"
+    ],
+    "images": [
+      "./pics/https___blogs-images.forbes.com_amydobson_files_2018_12_RenzoTerrace-1200x675.jpg",
+      "./pics/small_GURN10030_The-Esplanade_IN26_BLD-A_Penthouse_Bay-View.jpg"
+    ],
+    "pricePerNight": 10000.0,
+    "checkIn": "14:52",
+    "checkOut": "20:52",
+    "status": "ACTIVE",
+    "location": {
+      "longitude": 151.2135546,
+      "latitude": -33.8738516,
+      "address": {
+        "street": "William Street",
+        "number": "5",
+        "state": "Australia",
+        "town": {
+          "name": "Woolloomooloo",
+          "postalNumber": "4865"
+        }
+      }
+    },
+    "apartmentComments": [],
+    "amenities": [
+      {
+        "id": 1,
+        "name": "Toaster",
+        "isActive": true
+      },
+      {
+        "id": 3,
+        "name": "AC",
+        "isActive": true
+      },
+      {
+        "id": 4,
+        "name": "Jacuzzi",
+        "isActive": true
+      }
+    ],
+    "host": {
+      "apartments": [
+        {
+          "id": 3,
+          "roomNumber": 0,
+          "guestNumber": 0,
+          "pricePerNight": 0.0
+        }
+      ],
+      "isBlocked": false,
+      "username": "mira",
+      "password": "mira",
+      "firstName": "Mira",
+      "lastName": "Miric",
+      "sex": "FEMALE",
+      "id": 2,
+      "isActive": true,
+      "userType": "HOST"
+    },
+    "reservations": [],
+    "isActive": true
   }
 ]

@@ -16,6 +16,12 @@
         "roomNumber": 0,
         "guestNumber": 0,
         "pricePerNight": 0.0
+      },
+      {
+        "id": 5,
+        "roomNumber": 0,
+        "guestNumber": 0,
+        "pricePerNight": 0.0
       }
     ],
     "isBlocked": false,

@@ -321,7 +321,7 @@ public class Main {
 
         post("/apartment/save", (req, res) -> {
             UserType userType = getUserTypeFromJWT(req);
-            if (userType == UserType.HOST) {
+            if (userType != UserType.HOST) {
                 res.status(403);
                 return "OK";
             }

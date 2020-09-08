@@ -453,15 +453,16 @@ Vue.component("edit-apartment", {
                     </div>
                     <br/><br/>
                     <div class="card">
-                        <h5 class="card-header">
-                            Photos
-                        </h5>
-                        <div v-for="image in apartment.images" class="card-body">
-                            <img :src="image" alt="Apartment photo" style="height: 300px; width: 300px"/>
-                            <br/><br/>
+                            <h5 class="card-header">
+                                Photos
+                            </h5>
+                            <div class="form-row">
+                                <div v-for="image in apartment.images" class="card-body col-lg-6">
+                                    <img :src="image" alt="Apartment photo" style="height: 200px; width: 300px"/>
+                                </div>
+                                <p v-if="apartment.images.length===0">No photos available!</p> 
+                            </div>
                         </div>
-                        <p v-if="apartment.images.length===0">No photos available!</p>
-                    </div>
                     <br/>
                 </div>
                 <div class="col-md-6" style="height: 500px">

@@ -203,7 +203,7 @@ Vue.component("new-apartment", {
             }
             axios
                 .post('/image/upload', data, {
-                    header : {
+                    headers : {
                         'Content-Type' : 'image/png',
                         'Authorization':'Bearer ' + token
                     }
