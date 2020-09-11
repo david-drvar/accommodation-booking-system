@@ -83,6 +83,7 @@ Vue.component("apartments", {
 			
         //ZA ILIJIN TOAST
         this.$root.$on('newApartmentMsg', msg => {
+            console.log(msg);
             if(msg === 'success')
                 $('#newApartmentSuccess').toast('show');
         });

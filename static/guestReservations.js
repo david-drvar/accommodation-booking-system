@@ -5,7 +5,6 @@ Vue.component('view-reservations', {
            selectedApartment : null,
            role : '',
            reservations : [],
-           simpleReservations : [],
            grade : null,
            content : null,
            hover : true,
@@ -45,7 +44,6 @@ Vue.component('view-reservations', {
                 }
             })
             .then(res => {
-                this.simpleReservations = res.data;
                 var _runningIndex = 0;
                 for (let r of res.data) {
                     let startDate = new Date(r.checkInDate);
@@ -57,12 +55,13 @@ Vue.component('view-reservations', {
                             }
                         })
                         .then(response => {
-                            this.reservations.push({
-                                reservation: r,
-                                apartment: response.data,
-                                id: _runningIndex++,
-                                checkOutDate: endDate
-                            });
+                            if(response.data != null)
+                              this.reservations.push({
+                                  reservation: r,
+                                  apartment: response.data,
+                                  id: _runningIndex++,
+                                  checkOutDate: endDate
+                              });
                         });
                 }
             });
