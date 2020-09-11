@@ -20,9 +20,10 @@ Vue.component("selected-apartment", {
     },
     mounted() {
         const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
-        if (token === null)
-            location.hash = '/forbidden';
-        const parsed = JSON.parse(jwt_decode(token).sub);
+        // if (token === null)
+        //     location.hash = '/forbidden';
+
+        // const parsed = JSON.parse(jwt_decode(token).sub);
 
         axios
             .get('/amenities/getAll', {

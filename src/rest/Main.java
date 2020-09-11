@@ -301,11 +301,11 @@ public class Main {
         });
 
         get("/apartment/getOne/:id", (req, res) -> {
-            UserType userType = getUserTypeFromJWT(req);
-            if (userType == null) {
-                res.status(403);
-                return "OK";
-            }
+//            UserType userType = getUserTypeFromJWT(req);
+//            if (userType == null) {
+//                res.status(403);
+//                return "OK";
+//            }
             res.type("application/json");
             long id = Long.parseLong(req.params("id"));
             return converter.toJson(apartmentService.get(id));

@@ -38,8 +38,10 @@ Vue.component("apartments", {
             },
             moreFilters : false,
             filterAmenities : false,
+            filterType : false,
             selectedAmenities : [],
             apartmentType : 'ALL',
+            apartmentStatus : 'ALL',
             userType : '',
             userId : '',
             location : ''
@@ -236,6 +238,9 @@ Vue.component("apartments", {
         toggleAmenities : function () {
             this.filterAmenities = !this.filterAmenities;
         },
+        toggleTypes : function () {
+            this.filterType = !this.filterType;
+        },
         priceFilter : function (price) {
             const max = parseInt(this.filter.maxPrice);
             const min = parseInt(this.filter.minPrice);
@@ -344,25 +349,56 @@ Vue.component("apartments", {
         filterApartmentsByType : async function (type) {
             this.apartmentType = type;
         },
+        filterApartmentsByStatus : async function (status) {
+            this.apartmentStatus = status;
+        },
         applyFiltersAmenities : async function () {
             await this.searchApartments();
             this.apartments = this.apartments.filter(apartment => {
-                var ret_amenity = false;
-                var ret_type = false;
-                apartment.amenities.forEach(amenity => {
-                    this.selectedAmenities.forEach(selectedAmenity => {
-                        if (selectedAmenity.name===amenity.name)
-                            ret_amenity = true;
-                    });
+                let ret_amenity = true;
+                let ret_type = false;
+                let ret_status = false;
 
+                let ret_amenityList = this.selectedAmenities.map(amenity => false);
+                let i = 0;
+                this.selectedAmenities.forEach(selectedAmenity => {
+                    apartment.amenities.forEach(amenity => {
+                        if (selectedAmenity.name === amenity.name)
+                            ret_amenityList[i] = true;
+                    });
+                    i++;
                 });
-                if (this.selectedAmenities.length === 0)
-                    ret_amenity = true;
+                ret_amenityList.forEach(flag => {
+                    if (flag === false)
+                        ret_amenity = false;
+                });
+
                 if (apartment.type === this.apartmentType || this.apartmentType === 'ALL')
                     ret_type = true;
+                if (apartment.status === this.apartmentStatus || this.apartmentStatus === 'ALL')
+                    ret_status = true;
 
-                return ret_type && ret_amenity;
+                return ret_type && ret_amenity && ret_status;
             });
+        },
+        untoggleButtons : function(name) {
+            const id = '#' + name.replace(/\s/g, '');
+            $(id).click();
+        },
+        resetFilters : async function() {
+            await this.searchApartments();
+
+            let backupList = [];
+            this.selectedAmenities.forEach(amenity => backupList.push(amenity));
+            await backupList.forEach(amenity => {
+                this.untoggleButtons(amenity.name);
+            });
+
+            this.filterAmenities = false;
+            this.filterType = false;
+            this.selectedAmenities = [];
+            this.apartmentStatus='ALL';
+            this.apartmentType = 'ALL';
         },
         resetSearch : async function () {
             this.location = "";
@@ -472,8 +508,10 @@ Vue.component("apartments", {
                 <button type="button" class="btn btn-secondary" v-on:click="filterApartmentsByType('FULL')" style="margin:2px;">Full</button>
                 <button class="btn btn-outline-info"
                         v-bind:class="{active : filterAmenities}" v-on:click="toggleAmenities" style="margin:2px;">Filter Amenities</button>
+                <button class="btn btn-outline-danger"
+                        v-bind:class="{active : filterType}" v-on:click="toggleTypes" style="margin:2px;" v-if="this.userType!== 'GUEST'">Filter type</button>
                 <button type="button" class="btn btn-outline-success" v-on:click="applyFiltersAmenities" style="margin:2px;">Apply</button>
-
+                <button type="button" class="btn btn-outline-primary" v-on:click="resetFilters" style="margin:2px;">Reset</button>
                 <select class="form-control" type="text" v-on:change="sortApartments" v-model="sort" style="width: 200px; margin : 2px">
                     <option value="" disabled selected>sort by</option>
                     <option value="DESCENDING">by price - descending</option>
@@ -483,9 +521,21 @@ Vue.component("apartments", {
             <div v-bind:class="{collapse : !filterAmenities}">
                 <button class="btn btn-outline-secondary col-md-4"
                         data-toggle="button" aria-pressed="false"
-                        v-for="a in amenities"
+                        v-for="a in amenities" :id="a.name.replace(/\\s/g, '')"
                         v-on:click="addAmenity($event, a)">
                     {{a.name}}
+                </button>
+            </div>
+
+            <div v-bind:class="{collapse : !filterType}">
+                <button type="button" class="btn btn-outline-info" style="margin:2px;" v-on:click="filterApartmentsByStatus('ALL')"
+                        >ALL
+                </button>
+                <button type="button" class="btn btn-outline-success" style="margin:2px;" v-on:click="filterApartmentsByStatus('ACTIVE')"
+                >ACTIVE
+                </button>
+                <button type="button" class="btn btn-outline-danger" style="margin:2px;" v-on:click="filterApartmentsByStatus('INACTIVE')"
+                >INACTIVE
                 </button>
             </div>
 
@@ -496,7 +546,13 @@ Vue.component("apartments", {
                     <div class="card" style="width: 18rem;" v-on:click="selectApartment(apartment.id)" >
                         <img class="card-img-top" :src="apartment.images[0]" alt="Apartment photo" style="height: 13rem">
                         <div class="card-body text-primary">
-                            <h5 class="card-title">{{apartment.name}}</h5>
+                            <h5 class="card-title">{{apartment.name}}
+                                <span class="badge badge-pill"
+                                      v-bind:class = "{'badge-success': apartment.status === 'ACTIVE',
+                                           'badge-danger': apartment.status === 'INACTIVE',
+                                           }"
+                                >{{apartment.status}}</span>
+                            </h5>
                             <p class="card-text">
                                 {{"type : " + apartment.type}}
                                 <br/>
