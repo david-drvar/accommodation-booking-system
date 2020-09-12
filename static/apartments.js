@@ -51,6 +51,18 @@ Vue.component("apartments", {
     async mounted() {
         if(localStorage.getItem('apartmentsReloaded')) {
             localStorage.removeItem('apartmentsReloaded');
+            const msg = sessionStorage.getItem('newApartmentMsg');
+            if(msg) {
+                if(msg === 'success') {
+                    sessionStorage.removeItem('newApartmentMsg');
+                    $('#newApartmentSuccess').toast('show');
+                }
+                else {
+                    sessionStorage.removeItem('newApartmentMsg');
+                    $('#newApartmentFailure').toast('show');
+                }
+
+            }
         }
         else {
             localStorage.setItem('apartmentsReloaded', '1');
@@ -82,13 +94,6 @@ Vue.component("apartments", {
             })
             .then(res => this.apartment.host = res.data);
 
-			
-        //ZA ILIJIN TOAST
-        this.$root.$on('newApartmentMsg', msg => {
-            console.log(msg);
-            if(msg === 'success')
-                $('#newApartmentSuccess').toast('show');
-        });
 
         await axios.get('/apartment/getAll', {
             headers : {
@@ -111,9 +116,6 @@ Vue.component("apartments", {
             var autocomplete;
             autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
                 types: ['geocode'],
-                /*componentRestrictions: {
-                 country: "USA"
-                }*/
             });
 
             let placeComponents = {
@@ -150,28 +152,10 @@ Vue.component("apartments", {
                 localStorage.setItem('apartmentsSearchMap', JSON.stringify(placeInfo));
 
                 if (!place.geometry) {
-                    // User entered the name of a Place that was not suggested and
-                    // pressed the Enter key, or the Place Details request failed.
                     window.alert("No details available for input: '" + place.name + "'");
                     return;
                 }
-
-                // If the place has a geometry, then present it on a map.
-                // if (place.geometry.viewport) {
-                //     map.fitBounds(place.geometry.viewport);
-                // } else {
-                //     map.setCenter(place.geometry.location);
-                //     map.setZoom(17); // Why 17? Because it looks good.
-                // }
-                // marker.setPosition(place.geometry.location);
-                // marker.setVisible(true);
             });
-            //
-
-            // google.maps.event.addListener(autocomplete, 'place_changed',function () {
-            //     this.location = autocomplete.getPlace().formatted_address;
-            //     localStorage.setItem('location', this.location);
-            // });
         });
     },
     methods : {
@@ -438,6 +422,20 @@ Vue.component("apartments", {
                 </div>
                 <div class="toast-body text-light">
                   New apartment has been successfully added!
+                </div>
+              </div>
+              
+              <div id="newApartmentFailure"  
+              class="toast bg-danger" 
+              data-delay="5000" style="position: absolute; top: 20px; right: 20px; z-index: 2">
+                <div class="toast-header bg-light text-danger">
+                  <strong class="mr-auto">Error</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body text-light">
+                  New apartment has failed to add. Please, try again.
                 </div>
               </div>
               

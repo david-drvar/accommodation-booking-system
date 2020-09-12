@@ -9,6 +9,8 @@ Vue.component("new-apartment", {
             priceErr : false,
             checkinErr : false,
             checkoutErr : false,
+            datesErr : false,
+            addressErr : false,
             amenities : [],
             images : [],
             apartment : {
@@ -29,11 +31,11 @@ Vue.component("new-apartment", {
                   'longitude' : 0,
                   'latitude' : 0,
                   'address' : {
-                      'street' : '',
-                      'number' : 0,
-                      'state' : '',
+                      'street' : null,
+                      'number' : null,
+                      'state' : null,
                       'town' : {
-                          'name' : '',
+                          'name' : null,
                           'postalNumber' : null
                       }
                   }
@@ -83,7 +85,7 @@ Vue.component("new-apartment", {
             .then(res => this.apartment.host = res.data);
     },
     methods : {
-        saveApartment : function () {
+        saveApartment : async function () {
             //this.apartment.images = document.getElementById('inputGroupFile01').files;
             // for(let el of this.apartment.images)
             //     alert(el);
@@ -92,15 +94,33 @@ Vue.component("new-apartment", {
             this.uploadImages();
             const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
 
-            axios
+            const {street, number, state, town} = this.apartment.location.address;
+            if(street == null || number == null || state == null || town.name == null ||
+            street === '' || number === 0 || state === '' || town.name === '') {
+                this.addressErr = true;
+                return;
+            }
+            else
+                this.addressErr = false;
+
+            if(this.apartment.rentDates[0] == null) {
+                this.datesErr = true;
+                return;
+            }            else
+                this.datesErr = false;
+
+            await axios
                 .post('apartment/save', this.apartment, {
                     headers : {
                         'Authorization':'Bearer ' + token
                     }
                 })
                 .then(res => {
-                    this.$root.$emit('newApartmentMsg', 'success');
-                });
+                    sessionStorage.setItem('newApartmentMsg', 'success');
+                })
+              .catch(e => {
+                  sessionStorage.setItem('newApartmentMsg', 'failure');
+              });
             location.hash = '/apartments';
         },
 
@@ -124,7 +144,6 @@ Vue.component("new-apartment", {
             this.apartment.location.address.street = locationJSON.street;
             this.apartment.location.address.number = locationJSON.number;
             this.apartment.location.address.town.name = locationJSON.town;
-            console.log(this.apartment);
 
         },
 
@@ -257,6 +276,9 @@ Vue.component("new-apartment", {
                     </div>
                   </div>
                   <br/>
+                   <div class="form-row">
+                    <div class="col-md-6"><small class="errorMsg" v-if="addressErr">You need to specify State, Town, Street and Number.</small></div>
+                  </div>
                   <div class="form-row">
                     <div class="col-md-8">
                         <input
@@ -276,7 +298,7 @@ Vue.component("new-apartment", {
                   </div>
                   <br/>
                   <div class="form-row">
-                    <div class="col-md-6"></div>
+                    <div class="col-md-6"><small class="errorMsg" v-if="datesErr">Available dates are required.</small></div>
                     <div class="col-md-6"><small class="errorMsg" v-if="priceErr">Price is positive number.</small></div>
                     </div>
                   <div class="form-row">
@@ -352,7 +374,7 @@ Vue.component("new-apartment", {
                             this.apartment.name == null || this.apartment.type === 'Type' ||
                             this.apartment.roomNumber == null || this.apartment.guestNumber == null ||
                             this.apartment.checkIn == null || this.apartment.checkOut == null ||
-                            this.nameErr || this.roomErr || this.guestErr || this.priceErr
+                            this.nameErr || this.roomErr || this.guestErr || this.priceErr 
                         ">Save</button></div>
                         <div class="col-md-1"><button class="btn btn-secondary"
                         @click="cancel">Cancel</button></div>
