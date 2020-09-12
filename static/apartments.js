@@ -468,7 +468,7 @@ Vue.component("apartments", {
                                 v-bind:class="{invisible : moreFilters}" v-on:click="showMoreFilters">More</button>
                         <button class="btn btn-primary"
                                 v-bind:class="{invisible : moreFilters}" v-on:click="searchApartments">Search</button>
-                        <button class="btn btn-info" v-on:click="resetSearch">Reset</button>
+                        <button class="btn btn-info" v-bind:class="{invisible : moreFilters}" v-on:click="resetSearch">Reset</button>
                     </div>
                     <div class="input-group" v-bind:class="{collapse : !moreFilters}">
                         <div class="input-group-prepend">
@@ -495,6 +495,7 @@ Vue.component("apartments", {
                                 data-toggle="tooltip" title="Show less filters" data-placement="top"
                                 v-on:click="showLessFilters">&nbspLess&nbsp</button>
                         <button class="btn btn-primary" v-on:click="searchApartments">Search</button>
+                        <button class="btn btn-info" v-on:click="resetSearch">Reset</button>
                     </div>
                 </div>
                 <br/>
