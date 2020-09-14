@@ -6,7 +6,7 @@ Vue.component("register-host", {
             userErr : "",
             firstNameErr : "",
             lastNameErr : "",
-            sexErr : "",
+            sexErr : ""
         }
     },
     mounted() {
@@ -59,7 +59,8 @@ Vue.component("register-host", {
               <div>
                 <button type="button" class="btn btn-primary"
                         v-on:click="registerUser"
-                        v-bind:disabled="user.username === '' || user.firstName ==='' || user.lastName === '' || user.sex === '' || userErr!==''">
+                        v-bind:disabled="user.username === '' || user.firstName ==='' || user.lastName === '' 
+                        || user.sex === '' || userErr!=='' || firstNameErr !=='' || lastNameErr!=='' || sexErr!==''">
                   Register
                 </button>
               </div>
@@ -79,13 +80,17 @@ Vue.component("register-host", {
                 this.userErr = "This field is required.";
                 document.getElementById('usernameRegister').style.borderColor = 'red';
             }
+            else if (!/^[a-zA-Z ]+$/.test( this.user.username)) {
+                this.userErr = "Contains only letters";
+                document.getElementById('usernameRegister').style.borderColor = 'red';
+            }
             else {
                 this.userErr = '';
                 document.getElementById('usernameRegister').style.borderColor = '#ced4da';
             }
         },
         checkUniqueUsername : function(event) {
-            if(!this.user.username) {
+            if(!this.user.username  || !/^[a-zA-Z ]+$/.test( this.user.username)) {
                 this.userErr = "This field is required.";
                 document.getElementById('usernameRegister').style.borderColor = 'red';
             }
@@ -116,6 +121,10 @@ Vue.component("register-host", {
                 this.firstNameErr = "This field is required.";
                 document.getElementById('firstName').style.borderColor = 'red';
             }
+            else if (!/^[a-zA-Z ]+$/.test( this.user.firstName)) {
+                this.firstNameErr = "Only contains letters.";
+                document.getElementById('firstName').style.borderColor = 'red';
+            }
             else {
                 this.firstNameErr = '';
                 document.getElementById('firstName').style.borderColor = '#ced4da';
@@ -124,6 +133,10 @@ Vue.component("register-host", {
         requiredLastName : function(event) {
             if(!this.user.lastName) {
                 this.lastNameErr = "This field is required.";
+                document.getElementById('lastName').style.borderColor = 'red';
+            }
+            else if (!/^[a-zA-Z ]+$/.test( this.user.lastName)) {
+                this.lastNameErr = "Only contains letters.";
                 document.getElementById('lastName').style.borderColor = 'red';
             }
             else {

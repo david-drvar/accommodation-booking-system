@@ -258,7 +258,8 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary"
 							v-on:click="registerUser"
-							v-bind:disabled="user.username === '' || user.password === '' || user.firstName ==='' || user.lastName === '' || user.sex === '' || user.repeatPassword!== user.password || userErr!==''">Register</button>
+							v-bind:disabled="user.username === '' || user.password === '' || user.firstName ==='' || user.lastName === ''
+							|| user.sex === '' || user.repeatPassword!== user.password || userErr!=='' || firstNameErr!=='' || lastNameErr!=='' || sexErr!==''">Register</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"
 							v-on:click="resetValidation">Close</button>
 				</div>

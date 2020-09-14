@@ -7,7 +7,8 @@ Vue.component("amenities", {
             addAmenityNameErr : '',
             selectedAmenity : null,
             selectedAmenityErr : '',
-            selected : false
+            selected : false,
+            isAmenityNameOk : false
         }
     },
     mounted() {
@@ -92,7 +93,7 @@ Vue.component("amenities", {
                     <small class="errorMsg">{{addAmenityNameErr}}</small>
                     <input id="amenityName" type="text" class="form-control" placeholder="amenity name"
                            data-toggle="tooltip" title="Enter amenity name" data-placement="right"
-                           v-on:focusout="requiredName" v-on:keydown="requiredName"
+                           v-on:focusout="requiredName" v-on:keyup="requiredName"
                            v-model="addAmenityName"
                     >
                   </div>
@@ -100,7 +101,7 @@ Vue.component("amenities", {
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary"
                           v-on:click="fetchAmenity"
-                          v-bind:disabled="addAmenityName === ''"
+                          v-bind:disabled="isAmenityNameOk === false"
                   >Save
                   </button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel
@@ -151,15 +152,23 @@ Vue.component("amenities", {
             if(!this.addAmenityName) {
                 this.addAmenityNameErr = "This field is required.";
                 document.getElementById('amenityName').style.borderColor = 'red';
+                this.isAmenityNameOk = false;
+            }
+            else if (!/^[a-zA-Z]+$/.test( this.addAmenityName)) {
+                this.addAmenityNameErr = "Only contains letters.";
+                document.getElementById('amenityName').style.borderColor = 'red';
+                this.isAmenityNameOk = false;
             }
             else {
                 this.addAmenityNameErr = '';
                 document.getElementById('amenityName').style.borderColor = '#ced4da';
+                this.isAmenityNameOk = true;
             }
         },
         resetValidation : function () {
             this.addAmenityNameErr = '';
             this.addAmenityName = '';
+            this.isAmenityNameOk = false;
             document.getElementById('amenityName').style.borderColor = '#ced4da';
         },
         fetchAmenity : function () {

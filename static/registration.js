@@ -15,9 +15,13 @@ let register = new Vue(
         },
         methods: {
             requiredUsername : function(event) {
-                this.checkUniqueUsername();  //fixme
+                this.checkUniqueUsername();
                 if(!this.user.username) {
                     this.userErr = "This field is required.";
+                    document.getElementById('usernameRegister').style.borderColor = 'red';
+                }
+                else if (!/^[a-zA-Z ]+$/.test( this.user.username)) {
+                    this.userErr = "Contains only letters.";
                     document.getElementById('usernameRegister').style.borderColor = 'red';
                 }
                 else {
@@ -26,7 +30,7 @@ let register = new Vue(
                 }
             },
             checkUniqueUsername : function(event) {
-                if(!this.user.username) {
+                if(!this.user.username || !/^[a-zA-Z ]+$/.test( this.user.username)) {
                     this.userErr = "This field is required.";
                     document.getElementById('usernameRegister').style.borderColor = 'red';
                 }
@@ -57,6 +61,10 @@ let register = new Vue(
                     this.passErr = "This field is required.";
                     document.getElementById('passwordRegister').style.borderColor = 'red';
                 }
+                else if (!this.user.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+                    this.passErr = "Must contain at least 8 charachters, 1 number, 1 uppercase and 1 lowercase.";
+                    document.getElementById('passwordRegister').style.borderColor = 'red';
+                }
                 else {
                     this.passErr = '';
                     document.getElementById('passwordRegister').style.borderColor = '#ced4da';
@@ -67,6 +75,10 @@ let register = new Vue(
                     this.firstNameErr = "This field is required.";
                     document.getElementById('firstName').style.borderColor = 'red';
                 }
+                else if (!/^[a-zA-Z ]+$/.test( this.user.firstName)) {
+                    this.firstNameErr = "Only contains letters.";
+                    document.getElementById('firstName').style.borderColor = 'red';
+                }
                 else {
                     this.firstNameErr = '';
                     document.getElementById('firstName').style.borderColor = '#ced4da';
@@ -75,6 +87,10 @@ let register = new Vue(
             requiredLastName : function(event) {
                 if(!this.user.lastName) {
                     this.lastNameErr = "This field is required.";
+                    document.getElementById('lastName').style.borderColor = 'red';
+                }
+                else if (!/^[a-zA-Z ]+$/.test( this.user.lastName)) {
+                    this.lastNameErr = "Only contains letters.";
                     document.getElementById('lastName').style.borderColor = 'red';
                 }
                 else {
