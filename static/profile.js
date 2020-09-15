@@ -58,6 +58,9 @@ let profile = new Vue({
             this.repeatPass = null;
             if(this.newPass == null)
                 this.newPassErr = true;
+            else if (!this.newPass.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)) {
+                this.newPassErr = true;
+            }
             else this.newPassErr = this.newPass.trim() === '';
         },
         matchingPasswordCheck : function () {

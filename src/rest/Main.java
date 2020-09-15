@@ -164,11 +164,6 @@ public class Main {
         });
 
         post("/users/checkUsername", (req, res) -> {
-//            UserType userType = getUserTypeFromJWT(req);
-//            if (userType == null) {
-//                res.status(403);
-//                return "OK";
-//            }
             String json = req.body();
             User user = converter.fromJson(json, User.class);
             if (userService.checkUsernameUnique(user.getUsername())) {

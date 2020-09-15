@@ -123,7 +123,7 @@ Vue.component("amenities", {
                     <small class="errorMsg">{{selectedAmenityErr}}</small>
                     <input id="amenityNameEdit" type="text" class="form-control" value="{{this.selectedAmenity.name}}" placeholder="selected amenity name"
                            data-toggle="tooltip" title="Enter amenity name" data-placement="right"
-                           v-on:focusout="requiredNameEdit" v-on:keydown="requiredNameEdit"
+                           v-on:focusout="requiredNameEdit" v-on:keyup="requiredNameEdit"
                            v-model="selectedAmenity.name"
                     >
                   </div>
@@ -131,7 +131,7 @@ Vue.component("amenities", {
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary"
                           v-on:click="fetchAmenityEdit"
-                          v-bind:disabled="selectedAmenity.name === '' || selected === false"
+                          v-bind:disabled="selectedAmenity.name === '' || selected === false || selectedAmenityErr !== ''"
                   >Save
                   </button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetSelectedAmenity">Cancel
@@ -190,6 +190,10 @@ Vue.component("amenities", {
         requiredNameEdit : function (event) {
             if(!this.selectedAmenity.name) {
                 this.selectedAmenityErr = "Please select amenity first.";
+                document.getElementById('amenityNameEdit').style.borderColor = 'red';
+            }
+            else if (!/^[a-zA-Z]+$/.test( this.selectedAmenity.name)) {
+                this.selectedAmenityErr = "Only contains letters.";
                 document.getElementById('amenityNameEdit').style.borderColor = 'red';
             }
             else {
