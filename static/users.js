@@ -6,7 +6,8 @@ Vue.component("users", {
             sexSearch : '',
             userTypeSearch : '',
             userType : '',
-            userId : ''
+            userId : '',
+            backup : []
         }
     },
     async mounted() {
@@ -93,24 +94,25 @@ Vue.component("users", {
     `,
     methods : {
         searchUser : function () {
-            if (this.usernameSearch || this.sexSearch || this.userTypeSearch)
-                this.users = this.users.filter(user => {
-                    if (this.userTypeSearch && this.usernameSearch && this.sexSearch)
-                        return user.sex === this.sexSearch && user.userType === this.userTypeSearch && user.username === this.usernameSearch;
-                    else if (this.usernameSearch && this.userTypeSearch)
-                        return user.userType === this.userTypeSearch && user.username === this.usernameSearch;
-                    else if (this.usernameSearch && this.sexSearch)
-                        return user.sex === this.sexSearch && user.username === this.usernameSearch;
-                    else if (this.sexSearch && this.userTypeSearch)
-                        return user.sex === this.sexSearch && user.userType === this.userTypeSearch;
-                    else if (this.sexSearch)
-                        return user.sex === this.sexSearch;
-                    else if (this.userTypeSearch)
-                        return user.userType === this.userTypeSearch;
-                    else if (this.usernameSearch)
-                        return user.username === this.usernameSearch;
-                }
-               );
+            if (this.usernameSearch || this.sexSearch || this.userTypeSearch) {
+                this.users = this.backup.filter(user => {
+                        if (this.userTypeSearch && this.usernameSearch && this.sexSearch)
+                            return user.sex === this.sexSearch && user.userType === this.userTypeSearch && user.username === this.usernameSearch;
+                        else if (this.usernameSearch && this.userTypeSearch)
+                            return user.userType === this.userTypeSearch && user.username === this.usernameSearch;
+                        else if (this.usernameSearch && this.sexSearch)
+                            return user.sex === this.sexSearch && user.username === this.usernameSearch;
+                        else if (this.sexSearch && this.userTypeSearch)
+                            return user.sex === this.sexSearch && user.userType === this.userTypeSearch;
+                        else if (this.sexSearch)
+                            return user.sex === this.sexSearch;
+                        else if (this.userTypeSearch)
+                            return user.userType === this.userTypeSearch;
+                        else if (this.usernameSearch)
+                            return user.username === this.usernameSearch;
+                    }
+                );
+            }
         },
         blockUser : function(user) {
             const token = sessionStorage.getItem('jwt')  || localStorage.getItem('jwt');
@@ -148,6 +150,7 @@ Vue.component("users", {
                     })
                     .then(response => {
                         this.users = response.data;
+                        this.backup = this.users;
                     });
             }
 
@@ -169,6 +172,7 @@ Vue.component("users", {
                     })
                     .then(response => {
                         this.users = response.data;
+                        this.backup = this.users;
                     });
             }
         }
